@@ -71,9 +71,10 @@ public enum ActionTag
 };//动作标签
 public enum KnockType
 {
-    aim,    //向伤害来源的朝向方向击退
-    spread,  //向伤害来源的反方向击退
-    velocity    //向飞行道具的动能方向击退
+    aim,        //向伤害来源的朝向方向击退
+    spread,     //向伤害来源的反方向击退
+    velocity,   //向飞行道具的动能方向击退
+    recoil      //按照原来方向击退
 };//击退方式
 public enum FaceState
 {

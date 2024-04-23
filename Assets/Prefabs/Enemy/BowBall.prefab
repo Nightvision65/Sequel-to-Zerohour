@@ -806,7 +806,7 @@ MonoBehaviour:
   attackCDMax: 3
   arrowPrefab: {fileID: 2876545375656109472, guid: 9f96cd580b2c22a4aab6a8a426c3b296, type: 3}
   arrowTransform: {fileID: 5499301782078386845}
-  arrowForce: 1350
+  arrowForce: 2000
 --- !u!114 &1515573346087447521
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -831,7 +831,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 522b89b3085020f44be3c6a28ddd14e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  transNextState: 0
 --- !u!95 &507525362934722838
 Animator:
   serializedVersion: 5

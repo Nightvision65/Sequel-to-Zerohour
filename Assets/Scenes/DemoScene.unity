@@ -1765,7 +1765,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 12
-      Data: 6
+      Data: 7
     - Name: 
       Entry: 7
       Data: 
@@ -2289,6 +2289,89 @@ MonoBehaviour:
       Entry: 8
       Data: 
     - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 1
+      Data: Deflect
+    - Name: $v
+      Entry: 7
+      Data: 25|ActionData, Assembly-CSharp
+    - Name: tags
+      Entry: 7
+      Data: 26|System.Collections.Generic.List`1[[ActionTag, Assembly-CSharp]], mscorlib
+    - Name: 
+      Entry: 12
+      Data: 1
+    - Name: 
+      Entry: 3
+      Data: 2
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: motion
+      Entry: 4
+      Data: 0
+    - Name: impact
+      Entry: 4
+      Data: 400
+    - Name: knockback
+      Entry: 4
+      Data: 3000
+    - Name: knocktype
+      Entry: 3
+      Data: 3
+    - Name: moveForce
+      Entry: 4
+      Data: 0
+    - Name: hitFreezeTime
+      Entry: 4
+      Data: 0
+    - Name: hitCameraShake
+      Entry: 7
+      Data: CameraShakeData, Assembly-CSharp
+    - Name: intensity
+      Entry: 4
+      Data: 0
+    - Name: duration
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: damageScript
+      Entry: 10
+      Data: 0
+    - Name: extra
+      Entry: 7
+      Data: 27|System.Collections.Generic.Dictionary`2[[System.String, mscorlib],[ActionExtra,
+        Assembly-CSharp]], mscorlib
+    - Name: comparer
+      Entry: 7
+      Data: 28|System.Collections.Generic.GenericEqualityComparer`1[[System.String,
+        mscorlib]], mscorlib
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
       Entry: 13
       Data: 
     - Name: 
@@ -2296,11 +2379,11 @@ MonoBehaviour:
       Data: 
     - Name: chData
       Entry: 7
-      Data: 25|System.Collections.Generic.Dictionary`2[[System.String, mscorlib],[System.Single,
+      Data: 29|System.Collections.Generic.Dictionary`2[[System.String, mscorlib],[System.Single,
         mscorlib]], mscorlib
     - Name: comparer
       Entry: 7
-      Data: 26|System.Collections.Generic.GenericEqualityComparer`1[[System.String,
+      Data: 30|System.Collections.Generic.GenericEqualityComparer`1[[System.String,
         mscorlib]], mscorlib
     - Name: 
       Entry: 8
@@ -2340,7 +2423,7 @@ MonoBehaviour:
       Data: maxHealth
     - Name: $v
       Entry: 4
-      Data: 10000
+      Data: 1000
     - Name: 
       Entry: 8
       Data: 
@@ -2376,11 +2459,11 @@ MonoBehaviour:
       Data: 
     - Name: chModifiersAdd
       Entry: 7
-      Data: 27|System.Collections.Generic.Dictionary`2[[Modifier, Assembly-CSharp],[System.Collections.Generic.Dictionary`2[[System.String,
+      Data: 31|System.Collections.Generic.Dictionary`2[[Modifier, Assembly-CSharp],[System.Collections.Generic.Dictionary`2[[System.String,
         mscorlib],[System.Single, mscorlib]], mscorlib]], mscorlib
     - Name: comparer
       Entry: 7
-      Data: 28|System.Collections.Generic.EnumEqualityComparer`1[[Modifier, Assembly-CSharp]],
+      Data: 32|System.Collections.Generic.EnumEqualityComparer`1[[Modifier, Assembly-CSharp]],
         mscorlib
     - Name: 
       Entry: 12
@@ -2402,11 +2485,11 @@ MonoBehaviour:
       Data: 
     - Name: chModifiersMul
       Entry: 7
-      Data: 29|System.Collections.Generic.Dictionary`2[[Modifier, Assembly-CSharp],[System.Collections.Generic.Dictionary`2[[System.String,
+      Data: 33|System.Collections.Generic.Dictionary`2[[Modifier, Assembly-CSharp],[System.Collections.Generic.Dictionary`2[[System.String,
         mscorlib],[System.Single, mscorlib]], mscorlib]], mscorlib
     - Name: comparer
       Entry: 9
-      Data: 28
+      Data: 32
     - Name: 
       Entry: 12
       Data: 0
@@ -2418,17 +2501,17 @@ MonoBehaviour:
       Data: 
     - Name: DemonExtra
       Entry: 7
-      Data: 30|ActionExtra, Assembly-CSharp
+      Data: 34|ActionExtra, Assembly-CSharp
     - Name: type
       Entry: 3
       Data: 1
     - Name: parameters
       Entry: 7
-      Data: 31|System.Collections.Generic.Dictionary`2[[System.String, mscorlib],[System.Object,
+      Data: 35|System.Collections.Generic.Dictionary`2[[System.String, mscorlib],[System.Object,
         mscorlib]], mscorlib
     - Name: comparer
       Entry: 7
-      Data: 32|System.Collections.Generic.GenericEqualityComparer`1[[System.String,
+      Data: 36|System.Collections.Generic.GenericEqualityComparer`1[[System.String,
         mscorlib]], mscorlib
     - Name: 
       Entry: 8
@@ -2444,7 +2527,7 @@ MonoBehaviour:
       Data: value
     - Name: $v
       Entry: 7
-      Data: 33|System.Single, mscorlib
+      Data: 37|System.Single, mscorlib
     - Name: 
       Entry: 4
       Data: 0.3
@@ -2471,6 +2554,7 @@ MonoBehaviour:
   dodgeSpeed: 25
   dodgeCD: 0.7
   tempAttackSpeed: 1
+  meleeDScript: {fileID: 1482460774}
   weaponTrail: {fileID: 149140995}
   arrowNum: 2
   arrowForce: 4000
@@ -5521,6 +5605,19 @@ PrefabInstance:
       propertyPath: serializationData.Prefab
       value: 
       objectReference: {fileID: 2306255108274663352, guid: 1707630fc006b704ea0ddce2e0de5bce, type: 3}
+    - target: {fileID: 2306255108274663352, guid: 1707630fc006b704ea0ddce2e0de5bce, type: 3}
+      propertyPath: serializationData.PrefabModifications.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2306255108274663352, guid: 1707630fc006b704ea0ddce2e0de5bce, type: 3}
+      propertyPath: serializationData.PrefabModifications.Array.data[0]
+      value: '"path":"actionData.{\"Arrow\"}.knockback","value":{"$id":0,"$type":"System.Single,
+        mscorlib",2}'
+      objectReference: {fileID: 0}
+    - target: {fileID: 2306255108274663352, guid: 1707630fc006b704ea0ddce2e0de5bce, type: 3}
+      propertyPath: serializationData.PrefabModificationsReferencedUnityObjects.Array.size
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3021212544299926676, guid: 1707630fc006b704ea0ddce2e0de5bce, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -5571,7 +5668,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5370459506623036903, guid: 1707630fc006b704ea0ddce2e0de5bce, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5596262032934359064, guid: 1707630fc006b704ea0ddce2e0de5bce, type: 3}
       propertyPath: transNextState

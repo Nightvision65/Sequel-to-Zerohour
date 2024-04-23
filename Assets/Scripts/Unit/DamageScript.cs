@@ -86,12 +86,12 @@ public class DamageScript : SerializedMonoBehaviour
     }
 
     //获取单位朝向
-    private Vector2 GetOwnerFaceDirection()
+    private Vector2 GetFaceDirection(MonoBehaviour unit)
     {
-        if (owner is CharacterScript)
-            return (owner as CharacterScript).ball.faceDirection.normalized;
-        if (owner is EnemyScript)
-            return (owner as EnemyScript).faceDirection.normalized;
+        if (unit is CharacterScript)
+            return (unit as CharacterScript).ball.faceDirection.normalized;
+        if (unit is EnemyScript)
+            return (unit as EnemyScript).faceDirection.normalized;
         return Vector2.zero;
     }
 
@@ -116,82 +116,95 @@ public class DamageScript : SerializedMonoBehaviour
         return false;
     }
 
+    //攻击目标单位
+    public void HitTargetUnit(IHitable hitTarget)
+    {
+        Transform target = (hitTarget as MonoBehaviour)?.transform;
+        TeamScript teamScript = target.GetComponentInParent<TeamScript>();
+        if (!ownerTeam.IsSameTeam(teamScript))
+        {
+            teamScript.SetAggro(ownerTeam.team, true);
+            ActionData damageData = GetOwnerActionData();
+            switch (damageData.knocktype)
+            {
+                case KnockType.aim:
+                    knockDirection = GetFaceDirection(owner as MonoBehaviour);
+                    break;
+                case KnockType.velocity:
+                    knockDirection = damageRbody.velocity.normalized;
+                    break;
+                case KnockType.recoil:
+                    knockDirection = -GetFaceDirection(hitTarget as MonoBehaviour);
+                    break;
+            }
+            float damage = damageData.motion * GetOwnerBaseDamage();
+            #region [功能]处理额外动作附件
+            float critchance = 0;
+            foreach (ActionExtra actionExtra in damageData.extra.Values)
+            {
+                switch (actionExtra.type)
+                {
+                    case ActionExtraType.critical:
+                        float extra;
+                        if (actionExtra.TryGetValue("value", out extra))
+                        {
+                            critchance += extra;
+                        }
+                        break;
+                }
+            }
+            bool critical = (critchance > Random.value);
+            if (critical)
+            {
+                Debug.Log("暴击！");
+                damage *= 2f;
+            }
+            #endregion
+            //造成伤害（使用接口，无需转换类型)
+            HitData hit = new HitData(damage, damageData.impact, damageData.knockback * knockDirection);
+            hitTarget.GetHit(hit, owner);
+            //触发命中事件
+            hitEvent.SetArgs(owner, hitTarget, this, damageData, hit);
+            EventManager.instance.Publish(hitEvent);
+            #region [功能]玩家角色命中特效
+            if (owner is CharacterScript && !isHitEffect)
+            {
+                isHitEffect = true;
+                //命中自己顿帧
+                if (damageData.hitFreezeTime > 0)
+                {
+                    (owner as CharacterScript).HitFreeze(damageData.hitFreezeTime);
+                }
+                //命中相机震动
+                if (damageData.hitCameraShake.intensity > 0)
+                {
+                    CameraManager.instance.CameraShake(damageData.hitCameraShake, Global.P_CS_DealHit);
+                }
+            }
+            #endregion
+            //命中对象为敌人类型
+            if (hitTarget is EnemyScript)
+            {
+                //命中敌人顿帧
+                if (damageData.hitFreezeTime > 0)
+                {
+                    (hitTarget as EnemyScript).HitFreeze(damageData.knockback * knockDirection, damageData.hitFreezeTime);
+                }
+            }
+        }
+    }
 
     //伤害判定
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.tag == "BattleUnit")
+        IHitable hit = collision.GetComponentInParent<IHitable>();
+        if (hit != null)
         {
             TeamScript teamScript = collision.GetComponentInParent<TeamScript>();
             if (!ownerTeam.IsSameTeam(teamScript) && !unitIsHit(teamScript))
             {
                 hitUnits.Add(teamScript);
-                teamScript.SetAggro(ownerTeam.team, true);
-                ActionData damageData = GetOwnerActionData();
-                switch (damageData.knocktype)
-                {
-                    case KnockType.aim:
-                        knockDirection = GetOwnerFaceDirection();
-                        break;
-                    case KnockType.velocity:
-                        knockDirection = damageRbody.velocity.normalized;
-                        break;
-                }
-                float damage = damageData.motion * GetOwnerBaseDamage();
-                #region [功能]处理额外动作附件
-                float critchance = 0;
-                foreach (ActionExtra actionExtra in damageData.extra.Values)
-                {
-                    switch (actionExtra.type)
-                    {
-                        case ActionExtraType.critical:
-                            float extra;
-                            if (actionExtra.TryGetValue("value", out extra))
-                            {
-                                critchance += extra;
-                            }
-                            break;
-                    }
-                }
-                bool critical = (critchance > Random.value);
-                if (critical)
-                {
-                    Debug.Log("暴击！");
-                    damage *= 2f;
-                }
-                #endregion
-                //造成伤害（使用接口，无需转换类型)
-                HitData hit = new HitData(damage, damageData.impact, damageData.knockback * knockDirection);
-                IHitable hitTarget = collision.GetComponentInParent<IHitable>();
-                hitTarget.GetHit(hit, owner);
-                //触发命中事件
-                hitEvent.SetArgs(owner, hitTarget, this, damageData, hit);
-                EventManager.instance.Publish(hitEvent);
-                #region [功能]玩家角色命中特效
-                if (owner is CharacterScript && !isHitEffect)
-                {
-                    isHitEffect = true;
-                    //命中自己顿帧
-                    if (damageData.hitFreezeTime > 0)
-                    {
-                        (owner as CharacterScript).HitFreeze(damageData.hitFreezeTime);
-                    }
-                    //命中相机震动
-                    if (damageData.hitCameraShake.intensity > 0)
-                    {
-                        CameraManager.instance.CameraShake(damageData.hitCameraShake, Global.P_CS_DealHit);
-                    }
-                }
-                #endregion
-                //命中对象为敌人类型
-                if (hitTarget is EnemyScript)
-                {
-                    //命中敌人顿帧
-                    if (damageData.hitFreezeTime > 0)
-                    {
-                        (hitTarget as EnemyScript).HitFreeze(damageData.knockback * knockDirection, damageData.hitFreezeTime);
-                    }
-                }
+                HitTargetUnit(hit);
             }
         }
     }

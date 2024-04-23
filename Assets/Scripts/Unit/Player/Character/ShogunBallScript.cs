@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using static UnityEngine.Rendering.DebugUI.Table;
 /*
  * ShogunBallScript
@@ -16,6 +17,7 @@ using static UnityEngine.Rendering.DebugUI.Table;
 [Serializable]
 public class ShogunBallScript : CharacterScript
 {
+    [SerializeField] private DamageScript meleeDScript;
     [SerializeField] private AraTrail weaponTrail;
     [SerializeField] private int arrowNum;
     [SerializeField] private float arrowForce;
@@ -262,6 +264,12 @@ public class ShogunBallScript : CharacterScript
                     pScript.IgnoreNextHit();
                     hit.script.SetOwner(this);
                     hit.script.transform.rotation *= Quaternion.Euler(0, 0, 180);
+                }
+                //对近战削韧并上暴击标记
+                if (hit.actionData.hasTag(ActionTag.melee))
+                {
+                    AttackSet("Deflect");
+                    meleeDScript.HitTargetUnit((IHitable)hit.agent);
                 }
             }
         }

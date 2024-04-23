@@ -182,7 +182,7 @@ public class EnemyScript : SerializedMonoBehaviour, IHitable, IAttackable
     //敌人受击
     public void GetHit(HitData hit, IAttackable attacker = null)
     {
-        //Debug.Log(mTransform.name + ": 受到" + hit.damage + "伤害, " + hit.impact + "韧性伤害。");
+        Debug.Log(mTransform.name + ": 受到" + hit.damage + "伤害, " + hit.impact + "韧性伤害。");
         knockDir = Vector2.zero;
         nowHealth -= hit.damage;
         nowPoise -= hit.impact;

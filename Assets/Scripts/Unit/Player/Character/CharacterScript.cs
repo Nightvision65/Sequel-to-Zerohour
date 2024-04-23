@@ -323,17 +323,17 @@ public class CharacterScript : SerializedMonoBehaviour, IHitable, IAttackable
         float hitchance = (1 - chData["dodge"]) * finalModifier[Modifier.dodge];
         if (hitchance > UnityEngine.Random.value)
         {
-            mRbody.AddForce(hit.knockback);
             float finalDamage = Mathf.Ceil(damage * (1 - chData["defense"]) * finalModifier[Modifier.defense]);
             if (finalDamage <= 0)
             {
                 finalDamage = 0;
                 hitMessage = "blocked";
+                hit.knockback /= 2;
                 CameraManager.instance.CameraShake(Global.instance.cameraShakeData["blocked"], Global.P_CS_GetHit);
             }
             else
             {
-                Debug.Log("playerhit");
+                //Debug.Log("playerhit");
                 mFlashEffect.SetFlash("playerHit");
                 nowHealth -= finalDamage;
                 float damageRatio = finalDamage / chData["maxHealth"];
@@ -342,6 +342,7 @@ public class CharacterScript : SerializedMonoBehaviour, IHitable, IAttackable
                 else CameraManager.instance.CameraShake(Global.instance.cameraShakeData["slightHit"], Global.P_CS_GetHit);
                 hitMessage = finalDamage.ToString();
             }
+            mRbody.AddForce(hit.knockback);
             if (nowHealth <= 0)
             {
                     //ËÀÍö
