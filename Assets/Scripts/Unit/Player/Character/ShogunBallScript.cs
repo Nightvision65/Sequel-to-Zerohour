@@ -46,19 +46,19 @@ public class ShogunBallScript : CharacterScript
     }
     protected override void OnAnimStateChange(int exitState, int enterState)
     {
-        if (mSMM.Equals("Iaido Out", enterState))
+        if (_stateMachine.Equals("Iaido Out", enterState))
         {
             faceState = FaceState.lockedDir;
             FaceTarget(true);
-            RemoveModifier(Modifier.move, "action", true);
+            _modifier.RemoveModifier("move", "action", true);
         }
-        if (mSMM.Equals("Guarding", enterState))
+        if (_stateMachine.Equals("Guarding", enterState))
         {
             faceState = FaceState.targetDir;
         }
-        if (mSMM.Equals("Guard Parry Left", enterState) || mSMM.Equals("Guard Parry Right", enterState))
+        if (_stateMachine.Equals("Guard Parry Left", enterState) || _stateMachine.Equals("Guard Parry Right", enterState))
         {
-            mAnim.SetBool("Deflect", false);
+            _animator.SetBool("Deflect", false);
             if (deflectRunning)
             {
                 StopCoroutine(deflect);
@@ -70,59 +70,59 @@ public class ShogunBallScript : CharacterScript
     {
         //Debug.Log(exitTag.ToString() +" "+ enterTag.ToString());
         //先触发退出事件
-        if (mSMM.Equals("Dodge", exitTag))
+        if (_stateMachine.Equals("Dodge", exitTag))
         {
             DodgeEnd();
         }
-        if (mSMM.Equals("Attack", exitTag))
+        if (_stateMachine.Equals("Attack", exitTag))
         {
-            RemoveModifier(Modifier.move, "action", true);
+            _modifier.RemoveModifier("move", "action", true);
         }
-        if (mSMM.Equals("Skill1", exitTag))
+        if (_stateMachine.Equals("Skill1", exitTag))
         {
-            RemoveModifier(Modifier.move, "action", true);
+            _modifier.RemoveModifier("move", "action", true);
         }
-        if (mSMM.Equals("Skill2", exitTag))
+        if (_stateMachine.Equals("Skill2", exitTag))
         {
-            RemoveModifier(Modifier.move, "action", true);
+            _modifier.RemoveModifier("move", "action", true);
             WeaponSetIn(0);
         }
-        if (mSMM.Equals("Skill3", exitTag))
+        if (_stateMachine.Equals("Skill3", exitTag))
         {
-            RemoveModifier(Modifier.move, "action", true);
+            _modifier.RemoveModifier("move", "action", true);
         }
         //再触发进入事件
-        if (mSMM.Equals("Dodge", enterTag))
+        if (_stateMachine.Equals("Dodge", enterTag))
         {
             DodgeStart();
         }
-        if (mSMM.Equals("Idle", enterTag))
+        if (_stateMachine.Equals("Idle", enterTag))
         {
             faceState = FaceState.moveDir;
         }
-        if (mSMM.Equals("Attack", enterTag))
+        if (_stateMachine.Equals("Attack", enterTag))
         {
             faceState = FaceState.lockedDir;
-            SetModifier(Modifier.move, "action", 0.5f, true);
+            _modifier.SetModifier("move", "action", 0.5f, true);
             FaceTarget(false);
         }
-        if (mSMM.Equals("Skill1", enterTag))
+        if (_stateMachine.Equals("Skill1", enterTag))
         {
             faceState = FaceState.targetDir;
-            SetModifier(Modifier.move, "action", 0.3f, true);
+            _modifier.SetModifier("move", "action", 0.3f, true);
             FaceTarget(false);
         }
-        if (mSMM.Equals("Skill2", enterTag))
+        if (_stateMachine.Equals("Skill2", enterTag))
         {
             faceState = FaceState.targetDir;
-            SetModifier(Modifier.move, "action", 0.5f, true);
+            _modifier.SetModifier("move", "action", 0.5f, true);
         }
-        if (mSMM.Equals("Skill3", enterTag))
+        if (_stateMachine.Equals("Skill3", enterTag))
         {
             faceState = FaceState.targetDir;
-            SetModifier(Modifier.move, "action", 0.5f, true);
+            _modifier.SetModifier("move", "action", 0.5f, true);
             FaceTarget(false);
-            mAnim.SetInteger("Arrow", arrowNum);
+            _animator.SetInteger("Arrow", arrowNum);
         }
         //最后触发混合事件
     }
@@ -130,37 +130,37 @@ public class ShogunBallScript : CharacterScript
     protected override void ResetStatus()
     {
         weaponTrail.emit = false;
-        mAnim.speed = 1f;
+        _animator.speed = 1f;
         faceState = FaceState.moveDir;
-        RemoveModifier(Modifier.move, "action", true);
-        RemoveModifier(Modifier.defense, "skill1", true);
+        _modifier.RemoveModifier("move", "action", true);
+        _modifier.RemoveModifier("defense", "skill1", true);
         WeaponSetIn(0);
     }
     private void FaceTarget(bool now)
     {
-        attackDirection = (targetPosition - (Vector2)mTransform.position).normalized;
-        ball.CharacterFace(attackDirection, now);
+        attackDirection = (targetPosition - (Vector2)_transform.position).normalized;
+        _ball.CharacterFace(attackDirection, now);
     }
 
     //攻击判定开始
     public void MeleeAttackDeal(string key)
     {
-        ball.BallSpriteProcess(true);
-        SetModifier(Modifier.move, "action", 0f, true);
-        mRbody.AddForce(attackDirection * chActionData[key].moveForce);
+        _ball.BallSpriteProcess(true);
+        _modifier.SetModifier("move", "action", 0f, true);
+        _rigidbody.AddForce(attackDirection * chActionData[key].moveForce);
         activeRbody.AddForce(attackDirection * chActionData[key].moveForce);
         AttackSet(key);
         TrailFix();
         weaponTrail.emit = true;
-        animSpeed = mAnim.speed;
-        mAnim.speed = 1f;
+        animSpeed = _animator.speed;
+        _animator.speed = 1f;
     }
 
     //攻击判定结束
     public void MeleeAttackDealEnd()
     {
         weaponTrail.emit = false;
-        mAnim.speed = animSpeed;
+        _animator.speed = animSpeed;
     }
 
 
@@ -169,7 +169,7 @@ public class ShogunBallScript : CharacterScript
     {
         deflectRunning = true;
         yield return new WaitForSeconds(time);
-        mAnim.SetBool("Deflect", false);
+        _animator.SetBool("Deflect", false);
         deflectRunning = false;
     }
 
@@ -179,11 +179,11 @@ public class ShogunBallScript : CharacterScript
         weaponWithin = Convert.ToBoolean(within);
         if (weaponWithin)
         {
-            ball.SetWeaponSort(Ternary.negative);
+            _ball.SetWeaponSort(Ternary.negative);
         }
         else
         {
-            ball.SetWeaponSort(Ternary.zero);
+            _ball.SetWeaponSort(Ternary.zero);
         }
     }
 
@@ -191,7 +191,7 @@ public class ShogunBallScript : CharacterScript
     public void ArrowShot()
     {
         FaceTarget(true);
-        mAnim.SetInteger("Arrow", mAnim.GetInteger("Arrow") - 1);
+        _animator.SetInteger("Arrow", _animator.GetInteger("Arrow") - 1);
         GameObject arrow = ObjectPoolManager.instance.Get(arrowPrefab);
         ProjectileScript arrowScript = arrow.GetComponent<ProjectileScript>();
         arrowScript.SetTransform(arrowTransform);
@@ -202,7 +202,7 @@ public class ShogunBallScript : CharacterScript
     //修复武器拖尾绘制
     public void TrailFix()
     {
-        if (ball.chWeapon[0].main.localScale.y == 1)
+        if (_ball.chWeapon[0].main.localScale.y == 1)
         {
             weaponTrail.sorting = AraTrail.TrailSorting.OlderOnTop;
         }
@@ -217,34 +217,34 @@ public class ShogunBallScript : CharacterScript
         //幕玉的Skill1长按触发
         if (actionName == "Skill1" && inputState == KeyState.held)
         {
-            mAnim.SetBool("Skill1", true);
+            _animator.SetBool("Skill1", true);
         }
         //幕玉按下格挡的瞬间可以弹反，但是不能抖刀术哦
         if (actionName == "Skill1" && inputState == KeyState.pressed && !deflectRunning)
         {
-            mAnim.SetBool("Deflect", true);
+            _animator.SetBool("Deflect", true);
             deflect = StartCoroutine(GuardDeflectEnd(deflectTime));
         }
     }
 
-    public override void OnHitEnter(HitData hit)
+    public override void OnHitEnter(UnitHitEvent hit)
     {
         //[Skill1]格挡判定
         //在格挡状态且同时按下了格挡按键才算在格挡
-        if (mSMM.IsTag("Skill1") && mAnim.GetBool("Skill1"))
+        if (_stateMachine.IsTag("Skill1") && _animator.GetBool("Skill1"))
         {
             Debug.Log("幕玉挡住了伤害！");
             faceState = FaceState.lockedDir;
-            ball.CharacterFace(-hit.knockback, true);
-            mAnim.SetTrigger("Guarded");
-            SetModifier(Modifier.defense, "skill1", 0f, true);
+            _ball.CharacterFace(-hit.hitData.knockback, true);
+            _animator.SetTrigger("Guarded");
+            _modifier.SetModifier("defense", "skill1", 0f, true);
         }
     }
-    public override void OnHitExit(HitData hit)
+    public override void OnHitExit(UnitHitEvent hit)
     {
-        if (GetModifier(Modifier.defense, "skill1", true) != float.MinValue)
+        if (_modifier.GetModifier("defense", "skill1", true) != float.MinValue)
         {
-            RemoveModifier(Modifier.defense, "skill1", true);
+            _modifier.RemoveModifier("defense", "skill1", true);
         }
     }
     //命中事件委托
@@ -254,7 +254,7 @@ public class ShogunBallScript : CharacterScript
         if(hit.patient == (IHitable)this)
         {
             //弹反时，施加额外效果
-            if (mSMM.IsTag("Skill1") && mAnim.GetBool("Skill1") && mAnim.GetBool("Deflect"))
+            if (_stateMachine.IsTag("Skill1") && _animator.GetBool("Skill1") && _animator.GetBool("Deflect"))
             {
                 //反弹飞行物
                 if (hit.actionData.hasTag(ActionTag.projectile))

@@ -44,12 +44,12 @@ public class SwordBallScript : EnemyBallScript
     protected override void OnAnimStateChange(int exitState, int enterState)
     {
         //攻击和破韧结束后，重置攻击计时器
-        if (mSMM.Equals("Attack", exitState) || mSMM.Equals("Stagger", exitState))
+        if (_stateMachine.Equals("Attack", exitState) || _stateMachine.Equals("Stagger", exitState))
         {
             attackCDTimer = Random.Range(attackCDMin, attackCDMax);
         }
         //进入破韧时触发
-        if (mSMM.Equals("Stagger", enterState) || mSMM.Equals("Death", enterState))
+        if (_stateMachine.Equals("Stagger", enterState) || _stateMachine.Equals("Death", enterState))
         {
             ball.CharacterFace(-knockDir, true);
             faceState = FaceState.lockedDir;
@@ -57,14 +57,14 @@ public class SwordBallScript : EnemyBallScript
             target = null;  //丢失目标
         }
         //攻击时，锁定视角
-        if (mSMM.Equals("Attack", enterState)){
+        if (_stateMachine.Equals("Attack", enterState)){
             faceState = FaceState.lockedDir;
         }
     }
     // Update is called once per frame
     void SwordBallAI()
     {
-        if (mSMM.IsState("Idle"))
+        if (_stateMachine.IsState("Idle"))
         {
             if (!target)
             {
@@ -106,11 +106,11 @@ public class SwordBallScript : EnemyBallScript
             }
         }
         /*
-        if (mSMM.IsState("Attack"))
+        if (_stateMachine.IsState("Attack"))
         {
             faceState = FaceState.lockedDir;
         }
-        if (mSMM.IsState("Stagger"))
+        if (_stateMachine.IsState("Stagger"))
         {
             ball.CharacterFace(ball.faceDirection, false);
             faceState = FaceState.lockedDir;
@@ -121,7 +121,7 @@ public class SwordBallScript : EnemyBallScript
     //攻击前冲
     void MeleeForward()
     {
-        mRbody.AddForce(faceDirection * actionData["Slash"].moveForce);
+        _rigidbody.AddForce(faceDirection * actionData["Slash"].moveForce);
     }
 
 }

@@ -748,6 +748,9 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
+    - Name: damage
+      Entry: 4
+      Data: 50
     - Name: motion
       Entry: 4
       Data: 1
@@ -850,7 +853,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 522b89b3085020f44be3c6a28ddd14e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  transNextState: 0
 --- !u!95 &4961576601547929415
 Animator:
   serializedVersion: 5

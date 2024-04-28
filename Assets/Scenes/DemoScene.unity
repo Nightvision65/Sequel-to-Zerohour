@@ -1796,6 +1796,9 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
+    - Name: damage
+      Entry: 4
+      Data: 40
     - Name: motion
       Entry: 4
       Data: 0.8
@@ -1885,6 +1888,9 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
+    - Name: damage
+      Entry: 4
+      Data: 40
     - Name: motion
       Entry: 4
       Data: 0.8
@@ -1970,6 +1976,9 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
+    - Name: damage
+      Entry: 4
+      Data: 60
     - Name: motion
       Entry: 4
       Data: 1.2
@@ -2055,6 +2064,9 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
+    - Name: damage
+      Entry: 4
+      Data: 70
     - Name: motion
       Entry: 4
       Data: 1.4
@@ -2144,6 +2156,9 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
+    - Name: damage
+      Entry: 4
+      Data: 70
     - Name: motion
       Entry: 4
       Data: 1.4
@@ -2229,6 +2244,9 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
+    - Name: damage
+      Entry: 4
+      Data: 50
     - Name: motion
       Entry: 4
       Data: 1
@@ -2312,6 +2330,9 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
+    - Name: damage
+      Entry: 4
+      Data: 0
     - Name: motion
       Entry: 4
       Data: 0

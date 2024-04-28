@@ -89,20 +89,10 @@ public class DamageScript : SerializedMonoBehaviour
     private Vector2 GetFaceDirection(MonoBehaviour unit)
     {
         if (unit is CharacterScript)
-            return (unit as CharacterScript).ball.faceDirection.normalized;
+            return (unit as CharacterScript)._ball.faceDirection.normalized;
         if (unit is EnemyScript)
             return (unit as EnemyScript).faceDirection.normalized;
         return Vector2.zero;
-    }
-
-    //获取基础伤害
-    private float GetOwnerBaseDamage()
-    {
-        if (owner is CharacterScript)
-            return (owner as CharacterScript).chData["baseDamage"];
-        if (owner is EnemyScript)
-            return (owner as EnemyScript).damage;
-        return 0;
     }
 
     //判断敌人在本次判定中是否已经被击中过
@@ -137,7 +127,7 @@ public class DamageScript : SerializedMonoBehaviour
                     knockDirection = -GetFaceDirection(hitTarget as MonoBehaviour);
                     break;
             }
-            float damage = damageData.motion * GetOwnerBaseDamage();
+            float damage = damageData.damage;
             #region [功能]处理额外动作附件
             float critchance = 0;
             foreach (ActionExtra actionExtra in damageData.extra.Values)
@@ -162,9 +152,9 @@ public class DamageScript : SerializedMonoBehaviour
             #endregion
             //造成伤害（使用接口，无需转换类型)
             HitData hit = new HitData(damage, damageData.impact, damageData.knockback * knockDirection);
-            hitTarget.GetHit(hit, owner);
-            //触发命中事件
             hitEvent.SetArgs(owner, hitTarget, this, damageData, hit);
+            hitTarget.GetHit(hitEvent);
+            //触发命中事件
             EventManager.instance.Publish(hitEvent);
             #region [功能]玩家角色命中特效
             if (owner is CharacterScript && !isHitEffect)

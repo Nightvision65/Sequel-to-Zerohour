@@ -18,7 +18,6 @@ public class EnemyScript : SerializedMonoBehaviour, IHitable, IAttackable
     [SerializeField] protected float maxPoise;  //韧性值
     protected float nowHealth;
     protected float nowPoise;
-    public float damage;
     [SerializeField] protected float speed;
     public Dictionary<string, ActionData> actionData;    //保存关于角色的动作数据(比如攻击动作值、削韧等)
     public Transform target;  //敌人目标
@@ -30,12 +29,12 @@ public class EnemyScript : SerializedMonoBehaviour, IHitable, IAttackable
     protected Vector2 knockDir;   //存放上次被击退时的方向
     protected Vector2 moveDirection;    //移动方向
     protected List<SpriteRenderer> mSprites;
-    protected Transform mTransform;
-    protected Rigidbody2D mRbody;
-    protected Animator mAnim;
-    protected TeamScript mTeam;
-    protected FlashEffectScript mFlashEffect;
-    protected StateMachineManager mSMM;
+    protected Transform _transform;
+    protected Rigidbody2D _rigidbody;
+    protected Animator _animator;
+    protected TeamScript _team;
+    protected FlashEffectScript _flashEffect;
+    protected StateMachineManager _stateMachine;
     private float vanishTimer;
     private Vector2 freezedVelocity;
     private float freezedAngularVelocity;
@@ -43,14 +42,14 @@ public class EnemyScript : SerializedMonoBehaviour, IHitable, IAttackable
     protected void Start()
     {
         mSprites = GetComponentsInChildren<SpriteRenderer>(true).ToList();
-        mRbody = GetComponent<Rigidbody2D>();
-        mAnim = GetComponent<Animator>();
-        mTransform = transform;
-        mTeam = GetComponent<TeamScript>();
-        mFlashEffect = GetComponent<FlashEffectScript>();
-        mSMM = GetComponent<StateMachineManager>();
-        mSMM.StateTransition += OnAnimStateChange;
-        mSMM.TagTransition += OnAnimTagChange;
+        _rigidbody = GetComponent<Rigidbody2D>();
+        _animator = GetComponent<Animator>();
+        _transform = transform;
+        _team = GetComponent<TeamScript>();
+        _flashEffect = GetComponent<FlashEffectScript>();
+        _stateMachine = GetComponent<StateMachineManager>();
+        _stateMachine.StateTransition += OnAnimStateChange;
+        _stateMachine.TagTransition += OnAnimTagChange;
         nowHealth = maxHealth;
         nowPoise = maxPoise;
     }
@@ -59,15 +58,15 @@ public class EnemyScript : SerializedMonoBehaviour, IHitable, IAttackable
         if (isHitFreezing != null)
         {
             //冻结状态下不会进行物理判定，但是会积攒这期间受到的动量
-            if(mRbody.velocity != Vector2.zero)
+            if(_rigidbody.velocity != Vector2.zero)
             {
-                freezedVelocity += mRbody.velocity;
-                mRbody.velocity = Vector3.zero;
+                freezedVelocity += _rigidbody.velocity;
+                _rigidbody.velocity = Vector3.zero;
             }
-            if (mRbody.angularVelocity != 0)
+            if (_rigidbody.angularVelocity != 0)
             {
-                freezedAngularVelocity += mRbody.angularVelocity;
-                mRbody.angularVelocity = 0;
+                freezedAngularVelocity += _rigidbody.angularVelocity;
+                _rigidbody.angularVelocity = 0;
             }
         }
         if (isDead)
@@ -91,14 +90,14 @@ public class EnemyScript : SerializedMonoBehaviour, IHitable, IAttackable
     //AI：追逐
     protected void AI_Chase(Transform tar)
     {
-        moveDirection = (tar.position - mTransform.position).normalized;
-        mRbody.AddForce(moveDirection * speed);
+        moveDirection = (tar.position - _transform.position).normalized;
+        _rigidbody.AddForce(moveDirection * speed);
     }
     //AI：对峙（绕着单位旋转）
     //direction: 对峙时移动方向，zero往后，positive往左，negative往右
     protected void AI_Standoff(Transform tar, float speedModifier, Ternary direction)
     {
-        Vector2 tdir = (tar.position - mTransform.position).normalized;
+        Vector2 tdir = (tar.position - _transform.position).normalized;
         switch (direction)
         {
             case Ternary.zero:
@@ -111,7 +110,7 @@ public class EnemyScript : SerializedMonoBehaviour, IHitable, IAttackable
                 moveDirection = new Vector2(tdir.y, -tdir.x);
                 break;
         }
-        mRbody.AddForce(moveDirection * speed * speedModifier);
+        _rigidbody.AddForce(moveDirection * speed * speedModifier);
     }
 
 
@@ -120,7 +119,7 @@ public class EnemyScript : SerializedMonoBehaviour, IHitable, IAttackable
     protected void AI_Attack()
     {
         //Debug.Log("Triggered");
-        mAnim.SetTrigger("Attack");
+        _animator.SetTrigger("Attack");
     }
 
 
@@ -129,13 +128,13 @@ public class EnemyScript : SerializedMonoBehaviour, IHitable, IAttackable
     //tar: 目标
     protected float AI_Get_Target_Distance(Transform tar)
     {
-        return Vector2.Distance(tar.position, mTransform.position);
+        return Vector2.Distance(tar.position, _transform.position);
     }
     //AI：找到最近敌对单位
     //range: 最大距离
     protected Transform AI_Find_Target_Closest(float range)
     {
-        Collider2D[] colliders = Physics2D.OverlapCircleAll(mTransform.position, range);
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(_transform.position, range);
         Transform closestTarget = null;
         float closestDistance = Mathf.Infinity;
         foreach (Collider2D collider in colliders)
@@ -143,9 +142,9 @@ public class EnemyScript : SerializedMonoBehaviour, IHitable, IAttackable
             if (collider.attachedRigidbody.tag == "BattleUnit")
             {
                 TeamScript colliderTeam = collider.GetComponentInParent<TeamScript>();
-                if (mTeam.IsEnemy(colliderTeam))
+                if (_team.IsEnemy(colliderTeam))
                 {
-                    float distance = Vector2.Distance(mTransform.position, collider.transform.position);
+                    float distance = Vector2.Distance(_transform.position, collider.transform.position);
                     if (distance < closestDistance)
                     {
                         closestTarget = collider.transform;
@@ -180,28 +179,28 @@ public class EnemyScript : SerializedMonoBehaviour, IHitable, IAttackable
     }
 
     //敌人受击
-    public void GetHit(HitData hit, IAttackable attacker = null)
+    public void GetHit(UnitHitEvent hit)
     {
-        Debug.Log(mTransform.name + ": 受到" + hit.damage + "伤害, " + hit.impact + "韧性伤害。");
+        Debug.Log(_transform.name + ": 受到" + hit.hitData.damage + "伤害, " + hit.hitData.impact + "韧性伤害。");
         knockDir = Vector2.zero;
-        nowHealth -= hit.damage;
-        nowPoise -= hit.impact;
-        Knockback(hit.knockback);
-        mFlashEffect.SetFlash("enemyHit");
+        nowHealth -= hit.hitData.damage;
+        nowPoise -= hit.hitData.impact;
+        Knockback(hit.hitData.knockback);
+        _flashEffect.SetFlash("enemyHit");
         //血量归零
         if (nowHealth <= 0)
         {
-            mAnim.Play("Death", 0, 0f);
+            _animator.Play("Death", 0, 0f);
             enableAI = false;
             isDead = true;
             //消除单位的物理和逻辑碰撞判定
             List<Collider2D> colliders = new List<Collider2D>();
-            mRbody.GetAttachedColliders(colliders);
+            _rigidbody.GetAttachedColliders(colliders);
             foreach (Collider2D collider in colliders)
             {
                 collider.enabled = false;
             }
-            //mRbody.Sleep();
+            //_rigidbody.Sleep();
             vanishTimer = vanishTime;
             foreach (SpriteRenderer sprite in mSprites)
             {
@@ -212,7 +211,7 @@ public class EnemyScript : SerializedMonoBehaviour, IHitable, IAttackable
         //韧性归零
         if (nowPoise <= 0)
         {
-            mAnim.Play("Stagger", 0, 0f);
+            _animator.Play("Stagger", 0, 0f);
             //enableAI = false;
             nowPoise = maxPoise;
         }
@@ -221,7 +220,7 @@ public class EnemyScript : SerializedMonoBehaviour, IHitable, IAttackable
     //敌人击退
     protected void Knockback(Vector2 knockback)
     {
-        mRbody.AddForce(knockback);
+        _rigidbody.AddForce(knockback);
         knockDir = knockback.normalized;
     }
 
@@ -236,9 +235,9 @@ public class EnemyScript : SerializedMonoBehaviour, IHitable, IAttackable
         }
         else
         {
-            mFlashEffect.SetFlashStatic("enemyHit");
-            savedAnimSpeed = mAnim.speed;
-            mAnim.speed = 0;
+            _flashEffect.SetFlashStatic("enemyHit");
+            savedAnimSpeed = _animator.speed;
+            _animator.speed = 0;
         }
         isHitFreezing = StartCoroutine(HitFreezeDisable(knockback, time));
     }
@@ -247,12 +246,12 @@ public class EnemyScript : SerializedMonoBehaviour, IHitable, IAttackable
     private IEnumerator HitFreezeDisable(Vector2 knockback, float time)
     {
         yield return new WaitForSeconds(time);
-        mAnim.speed = savedAnimSpeed;
+        _animator.speed = savedAnimSpeed;
         isHitFreezing = null;
-        mFlashEffect.SetFlash("enemyHit");
+        _flashEffect.SetFlash("enemyHit");
         //恢复动能
-        mRbody.velocity = freezedVelocity;
-        mRbody.angularVelocity = freezedAngularVelocity;
+        _rigidbody.velocity = freezedVelocity;
+        _rigidbody.angularVelocity = freezedAngularVelocity;
         freezedVelocity = Vector2.zero;
         freezedAngularVelocity = 0;
     }

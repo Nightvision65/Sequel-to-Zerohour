@@ -25,7 +25,7 @@ public class EnemyBallScript : EnemyScript
                 break;
             case FaceState.targetDir:
                 if (target)
-                    ball.CharacterFace((Vector2)target.position - (Vector2)mTransform.position, false);
+                    ball.CharacterFace((Vector2)target.position - (Vector2)_transform.position, false);
                 break;
         }
     }

@@ -17,7 +17,7 @@ using UnityEngine.UIElements;
 #region 接口
 public interface IHitable
 {
-    void GetHit(HitData hit, IAttackable attacker = null);
+    void GetHit(UnitHitEvent hit);
 }//可被DamageScript攻击
 public interface IAttackable {
 }//可使用DamageScript进行攻击
@@ -54,16 +54,10 @@ public enum Attribute
     perception,     //感知：影响玩家的闪避率
     speed          //速度：影响玩家的移动速度
 };//角色属性
-public enum Modifier
-{
-    dodge,  //闪避，实际上是玩家受击概率
-    move,   //移动速度
-    defense,    //防御，实际上是玩家受击倍率
-};//角色修正值
 public enum ActionTag
 {
     direct, //直接来源于单位
-    basic,
+    basic, 
     skill,
     melee,
     projectile,
@@ -106,7 +100,7 @@ public enum KeyState
 public class ActionData
 {
     public List<ActionTag> tags;    //动作标签
-    public float motion;    //动作值，伤害乘数
+    public float damage;    //伤害值
     public float impact;    //削韧值
     public float knockback; //击退值
     public KnockType knocktype; //击退类型

@@ -45,12 +45,12 @@ public class BowBallScript : EnemyBallScript
     protected override void OnAnimStateChange(int exitState, int enterState)
     {
         //攻击和破韧结束后，重置攻击计时器
-        if (mSMM.Equals("AttackEnd", exitState) || mSMM.Equals("Stagger", exitState))
+        if (_stateMachine.Equals("AttackEnd", exitState) || _stateMachine.Equals("Stagger", exitState))
         {
             attackCDTimer = Random.Range(attackCDMin, attackCDMax);
         }
         //进入破韧时触发
-        if (mSMM.Equals("Stagger", enterState) || mSMM.Equals("Death", enterState))
+        if (_stateMachine.Equals("Stagger", enterState) || _stateMachine.Equals("Death", enterState))
         {
             ball.CharacterFace(-knockDir, true);
             faceState = FaceState.lockedDir;
@@ -62,7 +62,7 @@ public class BowBallScript : EnemyBallScript
     void BowBallAI()
     {
         //直接使用动画状态作为状态机
-        if (mSMM.IsState("Idle"))
+        if (_stateMachine.IsState("Idle"))
         {
             if (!target)
             {

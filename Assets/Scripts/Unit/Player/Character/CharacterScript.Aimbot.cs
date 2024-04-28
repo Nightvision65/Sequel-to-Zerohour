@@ -34,11 +34,11 @@ public partial class CharacterScript : SerializedMonoBehaviour, IHitable, IAttac
             {
                 if (deviceLockInput == Vector2.zero)
                 {
-                    targetPosition = (Vector2)mTransform.position + moveDirection.normalized;
+                    targetPosition = (Vector2)_transform.position + moveDirection.normalized;
                 }
                 else
                 {
-                    targetPosition = (Vector2)mTransform.position + deviceLockInput.normalized;
+                    targetPosition = (Vector2)_transform.position + deviceLockInput.normalized;
                 }
             }
         }
@@ -53,9 +53,9 @@ public partial class CharacterScript : SerializedMonoBehaviour, IHitable, IAttac
         foreach (GameObject unit in units)
         {
             TeamScript unitTeam = unit.GetComponentInParent<TeamScript>();
-            if (!mTeam.IsSameTeam(unitTeam))
+            if (!_team.IsSameTeam(unitTeam))
             {
-                float distance = Vector2.Distance(mTransform.position, unit.transform.position);
+                float distance = Vector2.Distance(_transform.position, unit.transform.position);
                 if (distance < closestDistance)
                 {
                     closestTarget = unit.transform;
@@ -82,7 +82,7 @@ public partial class CharacterScript : SerializedMonoBehaviour, IHitable, IAttac
             foreach (GameObject unit in units)
             {
                 TeamScript unitTeam = unit.GetComponentInParent<TeamScript>();
-                if (!mTeam.IsSameTeam(unitTeam))
+                if (!_team.IsSameTeam(unitTeam))
                 {
                     float distance = Vector2.Distance(deviceLockInput, unit.transform.position);
                     if (distance < closestDistance)
@@ -109,9 +109,9 @@ public partial class CharacterScript : SerializedMonoBehaviour, IHitable, IAttac
                 foreach (GameObject unit in units)
                 {
                     TeamScript unitTeam = unit.GetComponentInParent<TeamScript>();
-                    if (!mTeam.IsSameTeam(unitTeam))
+                    if (!_team.IsSameTeam(unitTeam))
                     {
-                        float angle = Vector2.Angle(deviceLockInput, unit.transform.position - mTransform.position);
+                        float angle = Vector2.Angle(deviceLockInput, unit.transform.position - _transform.position);
                         if (angle < closestAngle)
                         {
                             closestTarget = unit.transform;

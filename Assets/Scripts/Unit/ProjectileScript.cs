@@ -18,23 +18,23 @@ public class ProjectileScript : MonoBehaviour, IPoolObject
     [SerializeField] private float vanishTime;  //失效后过多久后消失
     public GameObject prefab { set; get; }
     private SpriteRenderer mSRenderer;
-    private Rigidbody2D mRbody;
-    private Collider2D[] mColliders = new Collider2D[] { };
-    private TrailRenderer[] mTrails;
+    private Rigidbody2D _rigidbody;
+    private Collider2D[] _colliders = new Collider2D[] { };
+    private TrailRenderer[] _trailRenderers;
     private DamageScript mDscript;
     private bool isDestroyed;
-    private Transform mTransform;
+    private Transform _transform;
     private int peneCount;
     private float lifeTimer;
     private bool ignoreHit;
     void Awake()
     {
-        mTransform = transform;
+        _transform = transform;
         mSRenderer = GetComponent<SpriteRenderer>();
-        mRbody = GetComponent<Rigidbody2D>();
+        _rigidbody = GetComponent<Rigidbody2D>();
         mDscript = GetComponent<DamageScript>();
-        mRbody.GetAttachedColliders(mColliders);
-        mTrails = GetComponentsInChildren<TrailRenderer>();
+        _rigidbody.GetAttachedColliders(_colliders);
+        _trailRenderers = GetComponentsInChildren<TrailRenderer>();
         lifeTimer = lifeDuration;
         peneCount = penetration;
     }
@@ -60,12 +60,12 @@ public class ProjectileScript : MonoBehaviour, IPoolObject
     {
         StopAllCoroutines();
         isDestroyed = false;
-        foreach (Collider2D collider in mColliders)
+        foreach (Collider2D collider in _colliders)
         {
             collider.enabled = true;
         }
         mSRenderer.enabled = true;
-        mRbody.velocity = Vector2.zero;
+        _rigidbody.velocity = Vector2.zero;
         lifeTimer = lifeDuration;
         peneCount = penetration;
         mDscript.ResetState();
@@ -83,15 +83,15 @@ public class ProjectileScript : MonoBehaviour, IPoolObject
     public void SetTransform(Transform parent)
     {
         //关闭所有特效
-        foreach (TrailRenderer trail in mTrails)
+        foreach (TrailRenderer trail in _trailRenderers)
         {
             trail.enabled = false;
             trail.emitting = false;
         }
-        mTransform.position = parent.position;
-        mTransform.rotation = parent.rotation;
+        _transform.position = parent.position;
+        _transform.rotation = parent.rotation;
         //开启所有特效
-        foreach (TrailRenderer trail in mTrails)
+        foreach (TrailRenderer trail in _trailRenderers)
         {
             trail.enabled = true;
             trail.emitting = true;
@@ -103,13 +103,13 @@ public class ProjectileScript : MonoBehaviour, IPoolObject
     public void LaunchForward(float force)
     {
         if (isDestroyed) return;
-        mRbody.AddForce(mTransform.rotation * Vector3.right * force);
+        _rigidbody.AddForce(_transform.rotation * Vector3.right * force);
     }
     //反转方向
     public void ReverseDir()
     {
         if (isDestroyed) return;
-        mRbody.velocity = -mRbody.velocity;
+        _rigidbody.velocity = -_rigidbody.velocity;
     }
     #endregion
 
@@ -142,14 +142,14 @@ public class ProjectileScript : MonoBehaviour, IPoolObject
     private IEnumerator DestroySelf(float freezeDelay, float vanishDelay)
     {
         isDestroyed = true;
-        foreach (Collider2D collider in mColliders)
+        foreach (Collider2D collider in _colliders)
         {
             collider.enabled = false;
         }
         mSRenderer.enabled = false;
         yield return new WaitForSeconds(freezeDelay);
-        mRbody.velocity = Vector2.zero;
-        foreach (TrailRenderer trail in mTrails)
+        _rigidbody.velocity = Vector2.zero;
+        foreach (TrailRenderer trail in _trailRenderers)
         {
             trail.emitting = false;
         }

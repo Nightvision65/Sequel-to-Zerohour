@@ -726,6 +726,9 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
+    - Name: damage
+      Entry: 4
+      Data: 50
     - Name: motion
       Entry: 4
       Data: 1

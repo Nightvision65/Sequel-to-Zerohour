@@ -9,10 +9,10 @@ using UnityEngine;
 
 public class SpriteAnimFixer : MonoBehaviour
 {
-    Transform mTransform;
+    Transform _transform;
     void Start()
     {
-        mTransform = transform;
+        _transform = transform;
     }
     void LateUpdate()
     {
@@ -22,11 +22,11 @@ public class SpriteAnimFixer : MonoBehaviour
     //修正动画过渡导致的纸片绕3D轴旋转问题
     private void ScaleFix()
     {
-        //Debug.Log(mTransform.localScale.x);
-        if (Mathf.Abs(mTransform.localScale.x) != 1)
+        //Debug.Log(_transform.localScale.x);
+        if (Mathf.Abs(_transform.localScale.x) != 1)
         {
-            float xScale = (mTransform.localScale.x >= 0) ? 1 : -1;
-            mTransform.localScale = new Vector3(xScale, mTransform.localScale.y, mTransform.localScale.z);
+            float xScale = (_transform.localScale.x >= 0) ? 1 : -1;
+            _transform.localScale = new Vector3(xScale, _transform.localScale.y, _transform.localScale.z);
         }
     }
 }
