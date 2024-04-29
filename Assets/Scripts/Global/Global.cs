@@ -28,6 +28,7 @@ public interface IPoolObject
     //返回到对象池时重置自身状态
     void OnRelease();
 }//进入到对象池中
+
 #endregion
 #region 枚举
 public enum Ternary

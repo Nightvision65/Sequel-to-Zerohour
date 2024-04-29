@@ -28,7 +28,7 @@ public class EnemyScript : SerializedMonoBehaviour, IHitable, IAttackable
     protected float savedAnimSpeed; //临时存放的动画速度，用来顿帧
     protected Vector2 knockDir;   //存放上次被击退时的方向
     protected Vector2 moveDirection;    //移动方向
-    protected List<SpriteRenderer> mSprites;
+    protected List<SpriteRenderer> _sprites;
     protected Transform _transform;
     protected Rigidbody2D _rigidbody;
     protected Animator _animator;
@@ -41,7 +41,7 @@ public class EnemyScript : SerializedMonoBehaviour, IHitable, IAttackable
     private bool isDead = false;
     protected void Start()
     {
-        mSprites = GetComponentsInChildren<SpriteRenderer>(true).ToList();
+        _sprites = GetComponentsInChildren<SpriteRenderer>(true).ToList();
         _rigidbody = GetComponent<Rigidbody2D>();
         _animator = GetComponent<Animator>();
         _transform = transform;
@@ -172,7 +172,7 @@ public class EnemyScript : SerializedMonoBehaviour, IHitable, IAttackable
             Destroy(gameObject);
             return;
         }
-        foreach (SpriteRenderer sprite in mSprites)
+        foreach (SpriteRenderer sprite in _sprites)
         {
             sprite.color = new Color(sprite.color.r, sprite.color.g, sprite.color.b, alpha);
         }
@@ -202,7 +202,7 @@ public class EnemyScript : SerializedMonoBehaviour, IHitable, IAttackable
             }
             //_rigidbody.Sleep();
             vanishTimer = vanishTime;
-            foreach (SpriteRenderer sprite in mSprites)
+            foreach (SpriteRenderer sprite in _sprites)
             {
                 sprite.sortingOrder -= 3;
             }
@@ -225,25 +225,27 @@ public class EnemyScript : SerializedMonoBehaviour, IHitable, IAttackable
     }
 
     //命中顿帧
-    //knockback: 击退向量（顿帧结束后再计算击退）
     //time: 顿帧时长
-    public void HitFreeze(Vector2 knockback, float time)
+    public void HitFreeze(float time)
     {
-        if (isHitFreezing != null)
+        if (time > 0)
         {
-            StopCoroutine(isHitFreezing);
+            if (isHitFreezing != null)
+            {
+                StopCoroutine(isHitFreezing);
+            }
+            else
+            {
+                _flashEffect.SetFlashStatic("enemyHit");
+                savedAnimSpeed = _animator.speed;
+                _animator.speed = 0;
+            }
+            isHitFreezing = StartCoroutine(HitFreezeDisable(time));
         }
-        else
-        {
-            _flashEffect.SetFlashStatic("enemyHit");
-            savedAnimSpeed = _animator.speed;
-            _animator.speed = 0;
-        }
-        isHitFreezing = StartCoroutine(HitFreezeDisable(knockback, time));
     }
 
     //命中顿帧结束
-    private IEnumerator HitFreezeDisable(Vector2 knockback, float time)
+    private IEnumerator HitFreezeDisable(float time)
     {
         yield return new WaitForSeconds(time);
         _animator.speed = savedAnimSpeed;

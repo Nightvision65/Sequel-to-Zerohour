@@ -20,7 +20,6 @@ using UnityEngine.Rendering;
 
 public class CharacterScript : SerializedMonoBehaviour, IHitable, IAttackable
 {
-    public BallScript _ball;
     [SerializeField] protected Rigidbody2D activeRbody; //用于记录主动位移产生动量的Rigidbody，以此将主动和被动位移产生的动量区分开
     TrailRenderer _trailRenderer;
     protected FaceState faceState = FaceState.moveDir;    //朝向状态
@@ -39,6 +38,7 @@ public class CharacterScript : SerializedMonoBehaviour, IHitable, IAttackable
     protected Coroutine isHitFreezing;  //角色正在顿帧（存放顿帧的协程）
     protected float savedAnimSpeed; //临时存放的动画速度，用来顿帧
     protected Transform _transform;
+    public BallScript _ball;
     protected Rigidbody2D _rigidbody;
     protected Collider2D _collider;
     protected Animator _animator;
@@ -49,12 +49,12 @@ public class CharacterScript : SerializedMonoBehaviour, IHitable, IAttackable
     public float tempAttackSpeed;
     protected void Start()
     {
+        _transform = transform;
+        _ball = GetComponent<BallScript>();
         _rigidbody = GetComponent<Rigidbody2D>();
         _collider = GetComponent<Collider2D>();
         _animator = GetComponent<Animator>();
         _trailRenderer = GetComponent<TrailRenderer>();
-        _transform = transform;
-        _ball = GetComponent<BallScript>();
         _flashEffect = GetComponent<FlashEffectScript>();
         _stateMachine = GetComponent<StateMachineManager>();
         _stateMachine.StateTransition += OnAnimStateChange;
@@ -273,16 +273,19 @@ public class CharacterScript : SerializedMonoBehaviour, IHitable, IAttackable
     //命中顿帧
     public void HitFreeze(float time)
     {
-        if (isHitFreezing != null)
+        if (time > 0)
         {
-            StopCoroutine(isHitFreezing);
+            if (isHitFreezing != null)
+            {
+                StopCoroutine(isHitFreezing);
+            }
+            else
+            {
+                savedAnimSpeed = _animator.speed;
+                _animator.speed = 0.1f;
+            }
+            isHitFreezing = StartCoroutine(HitFreezeDisable(time));
         }
-        else
-        {
-            savedAnimSpeed = _animator.speed;
-            _animator.speed = 0.1f;
-        }
-        isHitFreezing = StartCoroutine(HitFreezeDisable(time));
     }
 
     //命中顿帧结束

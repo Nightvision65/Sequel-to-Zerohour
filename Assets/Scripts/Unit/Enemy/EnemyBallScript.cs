@@ -11,9 +11,13 @@ using UnityEngine;
 
 public class EnemyBallScript : EnemyScript
 {
-    public BallScript _ball;
+    protected BallScript _ball;
     protected FaceState faceState = FaceState.moveDir;    //朝向状态
-
+    protected new void Start()
+    {
+        base.Start();
+        _ball = GetComponent<BallScript>();
+    }
     protected new void Update()
     {
         base.Update();

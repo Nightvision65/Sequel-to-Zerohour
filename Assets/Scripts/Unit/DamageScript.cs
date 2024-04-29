@@ -85,6 +85,7 @@ public class DamageScript : SerializedMonoBehaviour
         return null;
     }
 
+    //类似这种需要耦合的方法后面要全部改掉
     //获取单位朝向
     private Vector2 GetFaceDirection(MonoBehaviour unit)
     {
@@ -178,7 +179,7 @@ public class DamageScript : SerializedMonoBehaviour
                 //命中敌人顿帧
                 if (damageData.hitFreezeTime > 0)
                 {
-                    (hitTarget as EnemyScript).HitFreeze(damageData.knockback * knockDirection, damageData.hitFreezeTime);
+                    (hitTarget as EnemyScript).HitFreeze(damageData.hitFreezeTime);
                 }
             }
         }
