@@ -29,6 +29,7 @@ public class CharacterScript : SerializedMonoBehaviour, IHitable, IAttackable
     public Dictionary<Attribute, int> chAttribute;    //保存角色的属性
     public Dictionary<string, ActionData> chActionData;    //保存关于角色的动作数据(比如技能动作值、削韧等)
     public Dictionary<string, float> chData;//保存关于角色的顶层数据(每次基础数据被修改时更新)
+    public List<DamageScript> dScripts; //保存直接相关的DamageScript
     protected float nowHealth;    //现在生命值
     protected bool isMoving;    //角色正在移动
     [SerializeField] protected float dodgeSpeed;    //闪避速度(乘数)
@@ -59,7 +60,7 @@ public class CharacterScript : SerializedMonoBehaviour, IHitable, IAttackable
         _stateMachine = GetComponent<StateMachineManager>();
         _stateMachine.StateTransition += OnAnimStateChange;
         _stateMachine.TagTransition += OnAnimTagChange;
-        string[] modifiers = new string[] { "move", "defense", "dodge" };
+        string[] modifiers = new string[] { "move", "defense", "dodge" ,"animSpeed"};
         _modifier = new ModifierManager(modifiers);
         _team = GetComponent<TeamScript>();
         /*
@@ -222,21 +223,22 @@ public class CharacterScript : SerializedMonoBehaviour, IHitable, IAttackable
     }
 
     //写入伤害判定类型（传递给伤害脚本）
-    public void AttackSet(string action)
+    public void AttackSet(string action, int index)
     {
-        chActionData[action].damageScript.SetAction(action);
+        dScripts[index].SetAction(chActionData[action]);
     }
 
     //角色受伤
-    public void GetHit(UnitHitEvent hit)
+    public void GetHit(ref UnitHitEvent hit)
     {
         OnHitEnter(hit);
         float damage = hit.hitData.damage;
+        float finalDamage = damage;
         string hitMessage;
         float hitchance = (1 - chData["dodge"]) * _modifier.GetModifier("dodge");
         if (hitchance > UnityEngine.Random.value)
         {
-            float finalDamage = Mathf.Ceil(damage * (1 - chData["defense"]) * _modifier.GetModifier("defense"));
+            finalDamage = Mathf.Ceil(damage * (1 - chData["defense"]) * _modifier.GetModifier("defense"));
             if (finalDamage <= 0)
             {
                 finalDamage = 0;
@@ -260,14 +262,30 @@ public class CharacterScript : SerializedMonoBehaviour, IHitable, IAttackable
             {
                     //死亡
             }
-
         }
         else
         {
+            finalDamage = -1;
             hitMessage = "miss";
         }
         //Debug.Log("角色伤害信息：" + hitMessage);
         OnHitExit(hit);
+        //调整HitData的伤害为最终实际伤害
+        hit.hitData.damage = finalDamage;
+    }
+
+    public void LandHit(UnitHitEvent hit)
+    {
+        //命中自己顿帧
+        if (hit.actionData.baseData.hitFreezeTime > 0 && hit.actionData.hasTag(ActionTag.melee))
+        {
+            HitFreeze(hit.actionData.baseData.hitFreezeTime);
+        }
+        //命中相机震动
+        if (hit.actionData.baseData.hitCameraShake.intensity > 0)
+        {
+            CameraManager.instance.CameraShake(hit.actionData.baseData.hitCameraShake, Global.P_CS_DealHit);
+        }
     }
 
     //命中顿帧

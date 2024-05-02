@@ -208,11 +208,6 @@ PolygonCollider2D:
       - {x: 1.2269579, y: -0.58245736}
       - {x: 1.3363603, y: 0.16662219}
   m_UseDelaunayMesh: 0
---- !u!210 &61065914 stripped
-SortingGroup:
-  m_CorrespondingSourceObject: {fileID: 692723744138020592, guid: 1707630fc006b704ea0ddce2e0de5bce, type: 3}
-  m_PrefabInstance: {fileID: 1292301902}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &69903881 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 224566840223190261, guid: 1707630fc006b704ea0ddce2e0de5bce, type: 3}
@@ -230,26 +225,6 @@ PrefabInstance:
       propertyPath: serializationData.Prefab
       value: 
       objectReference: {fileID: 4961576601547929400, guid: f3190f8d16a480c4eae07f285d1037d4, type: 3}
-    - target: {fileID: 4961576601547929400, guid: f3190f8d16a480c4eae07f285d1037d4, type: 3}
-      propertyPath: serializationData.PrefabModifications.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4961576601547929400, guid: f3190f8d16a480c4eae07f285d1037d4, type: 3}
-      propertyPath: serializationData.PrefabModifications.Array.data[0]
-      value: '"path":"actionData.{\"Slash\"}.damageScript","value":$eref:0'
-      objectReference: {fileID: 0}
-    - target: {fileID: 4961576601547929400, guid: f3190f8d16a480c4eae07f285d1037d4, type: 3}
-      propertyPath: serializationData.PrefabModificationsReferencedUnityObjects.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4961576601547929400, guid: f3190f8d16a480c4eae07f285d1037d4, type: 3}
-      propertyPath: serializationData.PrefabModificationsReferencedUnityObjects.Array.data[0]
-      value: 
-      objectReference: {fileID: 80166281}
-    - target: {fileID: 4961576601547929401, guid: f3190f8d16a480c4eae07f285d1037d4, type: 3}
-      propertyPath: m_RootOrder
-      value: 10
-      objectReference: {fileID: 0}
     - target: {fileID: 4961576601547929401, guid: f3190f8d16a480c4eae07f285d1037d4, type: 3}
       propertyPath: m_LocalPosition.x
       value: -6.37
@@ -294,112 +269,23 @@ PrefabInstance:
       propertyPath: serializationData.Prefab
       value: 
       objectReference: {fileID: 4961576601547929403, guid: f3190f8d16a480c4eae07f285d1037d4, type: 3}
-    - target: {fileID: 4961576601547929403, guid: f3190f8d16a480c4eae07f285d1037d4, type: 3}
-      propertyPath: serializationData.PrefabModifications.Array.size
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 4961576601547929403, guid: f3190f8d16a480c4eae07f285d1037d4, type: 3}
-      propertyPath: serializationData.PrefabModifications.Array.data[0]
-      value: '"path":"chWeapon.[0]","value":{"$id":0,"$type":"WeaponSpriteData, Assembly-CSharp","main":$eref:0,"sub":$eref:1,"sort":$eref:2,"offsetDis":0.36,"offsetDir":0}'
-      objectReference: {fileID: 0}
-    - target: {fileID: 4961576601547929403, guid: f3190f8d16a480c4eae07f285d1037d4, type: 3}
-      propertyPath: serializationData.PrefabModifications.Array.data[1]
-      value: '"path":"chWeapon.[0].main","value":$eref:0'
-      objectReference: {fileID: 0}
-    - target: {fileID: 4961576601547929403, guid: f3190f8d16a480c4eae07f285d1037d4, type: 3}
-      propertyPath: serializationData.PrefabModifications.Array.data[2]
-      value: '"path":"chWeapon.[0].sort","value":$eref:2'
-      objectReference: {fileID: 0}
-    - target: {fileID: 4961576601547929403, guid: f3190f8d16a480c4eae07f285d1037d4, type: 3}
-      propertyPath: serializationData.PrefabModifications.Array.data[3]
-      value: '"path":"chWeapon.[0].sub","value":$eref:1'
-      objectReference: {fileID: 0}
-    - target: {fileID: 4961576601547929403, guid: f3190f8d16a480c4eae07f285d1037d4, type: 3}
-      propertyPath: serializationData.PrefabModificationsReferencedUnityObjects.Array.size
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 4961576601547929403, guid: f3190f8d16a480c4eae07f285d1037d4, type: 3}
-      propertyPath: serializationData.PrefabModificationsReferencedUnityObjects.Array.data[0]
-      value: 
-      objectReference: {fileID: 80166283}
-    - target: {fileID: 4961576601547929403, guid: f3190f8d16a480c4eae07f285d1037d4, type: 3}
-      propertyPath: serializationData.PrefabModificationsReferencedUnityObjects.Array.data[1]
-      value: 
-      objectReference: {fileID: 80166282}
-    - target: {fileID: 4961576601547929403, guid: f3190f8d16a480c4eae07f285d1037d4, type: 3}
-      propertyPath: serializationData.PrefabModificationsReferencedUnityObjects.Array.data[2]
-      value: 
-      objectReference: {fileID: 80166284}
     - target: {fileID: 4961576601547929411, guid: f3190f8d16a480c4eae07f285d1037d4, type: 3}
       propertyPath: m_Name
       value: SwordBall (2)
       objectReference: {fileID: 0}
     - target: {fileID: 4961576601547929411, guid: f3190f8d16a480c4eae07f285d1037d4, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4961576602236092262, guid: f3190f8d16a480c4eae07f285d1037d4, type: 3}
       propertyPath: serializationData.Prefab
       value: 
       objectReference: {fileID: 4961576602236092262, guid: f3190f8d16a480c4eae07f285d1037d4, type: 3}
-    - target: {fileID: 4961576602236092262, guid: f3190f8d16a480c4eae07f285d1037d4, type: 3}
-      propertyPath: serializationData.PrefabModifications.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4961576602236092262, guid: f3190f8d16a480c4eae07f285d1037d4, type: 3}
-      propertyPath: serializationData.PrefabModifications.Array.data[0]
-      value: '"path":"owner","value":$eref:0'
-      objectReference: {fileID: 0}
-    - target: {fileID: 4961576602236092262, guid: f3190f8d16a480c4eae07f285d1037d4, type: 3}
-      propertyPath: serializationData.PrefabModificationsReferencedUnityObjects.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4961576602236092262, guid: f3190f8d16a480c4eae07f285d1037d4, type: 3}
-      propertyPath: serializationData.PrefabModificationsReferencedUnityObjects.Array.data[0]
-      value: 
-      objectReference: {fileID: 80166280}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f3190f8d16a480c4eae07f285d1037d4, type: 3}
---- !u!114 &80166280 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4961576601547929400, guid: f3190f8d16a480c4eae07f285d1037d4, type: 3}
-  m_PrefabInstance: {fileID: 80166279}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2fd35a8d19a427641988a1a470af1390, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &80166281 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4961576602236092262, guid: f3190f8d16a480c4eae07f285d1037d4, type: 3}
-  m_PrefabInstance: {fileID: 80166279}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 84d7c5bbcfd10074bbd9e17397225d66, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!4 &80166282 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 4961576602280656563, guid: f3190f8d16a480c4eae07f285d1037d4, type: 3}
-  m_PrefabInstance: {fileID: 80166279}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &80166283 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 4961576601288332909, guid: f3190f8d16a480c4eae07f285d1037d4, type: 3}
-  m_PrefabInstance: {fileID: 80166279}
-  m_PrefabAsset: {fileID: 0}
---- !u!210 &80166284 stripped
-SortingGroup:
-  m_CorrespondingSourceObject: {fileID: 8049834062000447148, guid: f3190f8d16a480c4eae07f285d1037d4, type: 3}
-  m_PrefabInstance: {fileID: 80166279}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &149140993
 GameObject:
   m_ObjectHideFlags: 0
@@ -1354,11 +1240,6 @@ PolygonCollider2D:
       - {x: 0.5172108, y: -1.50553}
       - {x: 1.1863694, y: -0.7705903}
   m_UseDelaunayMesh: 0
---- !u!4 &688294676 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 4961576601288332909, guid: f3190f8d16a480c4eae07f285d1037d4, type: 3}
-  m_PrefabInstance: {fileID: 4961576601673850233}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &763637538
 GameObject:
   m_ObjectHideFlags: 0
@@ -1600,7 +1481,13 @@ MonoBehaviour:
     SerializedFormat: 2
     SerializedBytes: 
     ReferencedUnityObjects:
-    - {fileID: 1482460774}
+    - {fileID: 11400000, guid: c2e79fe1999c4d141b02eb8ef23ba652, type: 2}
+    - {fileID: 11400000, guid: dd5b7fac583976e44911a8cf1085019d, type: 2}
+    - {fileID: 11400000, guid: dce1ec03bd89dbf458f904e2771e0289, type: 2}
+    - {fileID: 11400000, guid: 4416e1c4d16aaa047b778df23e3a7b12, type: 2}
+    - {fileID: 11400000, guid: f52bc01ad4f057840967fd71bd7cdd04, type: 2}
+    - {fileID: 11400000, guid: 0d05960f4bc4c214692b564e34993730, type: 2}
+    - {fileID: 11400000, guid: 899f0475a0ffc1849a54a8a080ae84fa, type: 2}
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
@@ -1775,70 +1662,16 @@ MonoBehaviour:
     - Name: $v
       Entry: 7
       Data: 4|ActionData, Assembly-CSharp
-    - Name: tags
-      Entry: 7
-      Data: 5|System.Collections.Generic.List`1[[ActionTag, Assembly-CSharp]], mscorlib
-    - Name: 
-      Entry: 12
-      Data: 3
-    - Name: 
-      Entry: 3
-      Data: 0
-    - Name: 
-      Entry: 3
-      Data: 1
-    - Name: 
-      Entry: 3
-      Data: 3
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: damage
-      Entry: 4
-      Data: 40
-    - Name: motion
-      Entry: 4
-      Data: 0.8
-    - Name: impact
-      Entry: 4
-      Data: 120
-    - Name: knockback
-      Entry: 4
-      Data: 2500
-    - Name: knocktype
-      Entry: 3
-      Data: 0
-    - Name: moveForce
-      Entry: 4
-      Data: 2000
-    - Name: hitFreezeTime
-      Entry: 4
-      Data: 0.06
-    - Name: hitCameraShake
-      Entry: 7
-      Data: CameraShakeData, Assembly-CSharp
-    - Name: intensity
-      Entry: 4
-      Data: 0.8
-    - Name: duration
-      Entry: 4
-      Data: 0.15
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: damageScript
+    - Name: baseData
       Entry: 10
       Data: 0
-    - Name: extra
+    - Name: extraData
       Entry: 7
-      Data: 6|System.Collections.Generic.Dictionary`2[[System.String, mscorlib],[ActionExtra,
+      Data: 5|System.Collections.Generic.Dictionary`2[[System.String, mscorlib],[ActionExtra,
         Assembly-CSharp]], mscorlib
     - Name: comparer
       Entry: 7
-      Data: 7|System.Collections.Generic.GenericEqualityComparer`1[[System.String,
+      Data: 6|System.Collections.Generic.GenericEqualityComparer`1[[System.String,
         mscorlib]], mscorlib
     - Name: 
       Entry: 8
@@ -1866,71 +1699,17 @@ MonoBehaviour:
       Data: Slash 2
     - Name: $v
       Entry: 7
-      Data: 8|ActionData, Assembly-CSharp
-    - Name: tags
-      Entry: 7
-      Data: 9|System.Collections.Generic.List`1[[ActionTag, Assembly-CSharp]], mscorlib
-    - Name: 
-      Entry: 12
-      Data: 3
-    - Name: 
-      Entry: 3
-      Data: 0
-    - Name: 
-      Entry: 3
-      Data: 1
-    - Name: 
-      Entry: 3
-      Data: 3
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: damage
-      Entry: 4
-      Data: 40
-    - Name: motion
-      Entry: 4
-      Data: 0.8
-    - Name: impact
-      Entry: 4
-      Data: 120
-    - Name: knockback
-      Entry: 4
-      Data: 2500
-    - Name: knocktype
-      Entry: 3
-      Data: 0
-    - Name: moveForce
-      Entry: 4
-      Data: 2000
-    - Name: hitFreezeTime
-      Entry: 4
-      Data: 0.06
-    - Name: hitCameraShake
-      Entry: 7
-      Data: CameraShakeData, Assembly-CSharp
-    - Name: intensity
-      Entry: 4
-      Data: 0.8
-    - Name: duration
-      Entry: 4
-      Data: 0.15
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: damageScript
+      Data: 7|ActionData, Assembly-CSharp
+    - Name: baseData
       Entry: 10
-      Data: 0
-    - Name: extra
+      Data: 1
+    - Name: extraData
       Entry: 7
-      Data: 10|System.Collections.Generic.Dictionary`2[[System.String, mscorlib],[ActionExtra,
+      Data: 8|System.Collections.Generic.Dictionary`2[[System.String, mscorlib],[ActionExtra,
         Assembly-CSharp]], mscorlib
     - Name: comparer
       Entry: 9
-      Data: 7
+      Data: 6
     - Name: 
       Entry: 12
       Data: 0
@@ -1954,71 +1733,17 @@ MonoBehaviour:
       Data: Slash 3
     - Name: $v
       Entry: 7
-      Data: 11|ActionData, Assembly-CSharp
-    - Name: tags
-      Entry: 7
-      Data: 12|System.Collections.Generic.List`1[[ActionTag, Assembly-CSharp]], mscorlib
-    - Name: 
-      Entry: 12
-      Data: 3
-    - Name: 
-      Entry: 3
-      Data: 0
-    - Name: 
-      Entry: 3
-      Data: 1
-    - Name: 
-      Entry: 3
-      Data: 3
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: damage
-      Entry: 4
-      Data: 60
-    - Name: motion
-      Entry: 4
-      Data: 1.2
-    - Name: impact
-      Entry: 4
-      Data: 200
-    - Name: knockback
-      Entry: 4
-      Data: 4500
-    - Name: knocktype
-      Entry: 3
-      Data: 0
-    - Name: moveForce
-      Entry: 4
-      Data: 3000
-    - Name: hitFreezeTime
-      Entry: 4
-      Data: 0.09
-    - Name: hitCameraShake
-      Entry: 7
-      Data: CameraShakeData, Assembly-CSharp
-    - Name: intensity
-      Entry: 4
-      Data: 1.2
-    - Name: duration
-      Entry: 4
-      Data: 0.2
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: damageScript
+      Data: 9|ActionData, Assembly-CSharp
+    - Name: baseData
       Entry: 10
-      Data: 0
-    - Name: extra
+      Data: 2
+    - Name: extraData
       Entry: 7
-      Data: 13|System.Collections.Generic.Dictionary`2[[System.String, mscorlib],[ActionExtra,
+      Data: 10|System.Collections.Generic.Dictionary`2[[System.String, mscorlib],[ActionExtra,
         Assembly-CSharp]], mscorlib
     - Name: comparer
       Entry: 9
-      Data: 7
+      Data: 6
     - Name: 
       Entry: 12
       Data: 0
@@ -2042,75 +1767,17 @@ MonoBehaviour:
       Data: Iaido 1
     - Name: $v
       Entry: 7
-      Data: 14|ActionData, Assembly-CSharp
-    - Name: tags
-      Entry: 7
-      Data: 15|System.Collections.Generic.List`1[[ActionTag, Assembly-CSharp]], mscorlib
-    - Name: 
-      Entry: 12
-      Data: 3
-    - Name: 
-      Entry: 3
-      Data: 0
-    - Name: 
-      Entry: 3
-      Data: 2
-    - Name: 
-      Entry: 3
-      Data: 3
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: damage
-      Entry: 4
-      Data: 70
-    - Name: motion
-      Entry: 4
-      Data: 1.4
-    - Name: impact
-      Entry: 4
-      Data: 250
-    - Name: knockback
-      Entry: 4
-      Data: 4000
-    - Name: knocktype
-      Entry: 3
-      Data: 0
-    - Name: moveForce
-      Entry: 4
-      Data: 6000
-    - Name: hitFreezeTime
-      Entry: 4
-      Data: 0.04
-    - Name: hitCameraShake
-      Entry: 7
-      Data: CameraShakeData, Assembly-CSharp
-    - Name: intensity
-      Entry: 4
-      Data: 1.2
-    - Name: duration
-      Entry: 4
-      Data: 0.15
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: damageScript
+      Data: 11|ActionData, Assembly-CSharp
+    - Name: baseData
       Entry: 10
-      Data: 0
-    - Name: extra
+      Data: 3
+    - Name: extraData
       Entry: 7
-      Data: 16|System.Collections.Generic.Dictionary`2[[System.String, mscorlib],[ActionExtra,
+      Data: 12|System.Collections.Generic.Dictionary`2[[System.String, mscorlib],[ActionExtra,
         Assembly-CSharp]], mscorlib
     - Name: comparer
-      Entry: 7
-      Data: 17|System.Collections.Generic.GenericEqualityComparer`1[[System.String,
-        mscorlib]], mscorlib
-    - Name: 
-      Entry: 8
-      Data: 
+      Entry: 9
+      Data: 6
     - Name: 
       Entry: 12
       Data: 0
@@ -2134,71 +1801,17 @@ MonoBehaviour:
       Data: Iaido 2
     - Name: $v
       Entry: 7
-      Data: 18|ActionData, Assembly-CSharp
-    - Name: tags
-      Entry: 7
-      Data: 19|System.Collections.Generic.List`1[[ActionTag, Assembly-CSharp]], mscorlib
-    - Name: 
-      Entry: 12
-      Data: 3
-    - Name: 
-      Entry: 3
-      Data: 0
-    - Name: 
-      Entry: 3
-      Data: 2
-    - Name: 
-      Entry: 3
-      Data: 3
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: damage
-      Entry: 4
-      Data: 70
-    - Name: motion
-      Entry: 4
-      Data: 1.4
-    - Name: impact
-      Entry: 4
-      Data: 250
-    - Name: knockback
-      Entry: 4
-      Data: 5000
-    - Name: knocktype
-      Entry: 3
-      Data: 0
-    - Name: moveForce
-      Entry: 4
-      Data: 4000
-    - Name: hitFreezeTime
-      Entry: 4
-      Data: 0.1
-    - Name: hitCameraShake
-      Entry: 7
-      Data: CameraShakeData, Assembly-CSharp
-    - Name: intensity
-      Entry: 4
-      Data: 1.2
-    - Name: duration
-      Entry: 4
-      Data: 0.2
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: damageScript
+      Data: 13|ActionData, Assembly-CSharp
+    - Name: baseData
       Entry: 10
-      Data: 0
-    - Name: extra
+      Data: 4
+    - Name: extraData
       Entry: 7
-      Data: 20|System.Collections.Generic.Dictionary`2[[System.String, mscorlib],[ActionExtra,
+      Data: 14|System.Collections.Generic.Dictionary`2[[System.String, mscorlib],[ActionExtra,
         Assembly-CSharp]], mscorlib
     - Name: comparer
       Entry: 9
-      Data: 7
+      Data: 6
     - Name: 
       Entry: 12
       Data: 0
@@ -2222,75 +1835,17 @@ MonoBehaviour:
       Data: Arrow
     - Name: $v
       Entry: 7
-      Data: 21|ActionData, Assembly-CSharp
-    - Name: tags
+      Data: 15|ActionData, Assembly-CSharp
+    - Name: baseData
+      Entry: 10
+      Data: 5
+    - Name: extraData
       Entry: 7
-      Data: 22|System.Collections.Generic.List`1[[ActionTag, Assembly-CSharp]], mscorlib
-    - Name: 
-      Entry: 12
-      Data: 3
-    - Name: 
-      Entry: 3
-      Data: 0
-    - Name: 
-      Entry: 3
-      Data: 2
-    - Name: 
-      Entry: 3
-      Data: 4
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: damage
-      Entry: 4
-      Data: 50
-    - Name: motion
-      Entry: 4
-      Data: 1
-    - Name: impact
-      Entry: 4
-      Data: 200
-    - Name: knockback
-      Entry: 4
-      Data: 4000
-    - Name: knocktype
-      Entry: 3
-      Data: 2
-    - Name: moveForce
-      Entry: 4
-      Data: 0
-    - Name: hitFreezeTime
-      Entry: 4
-      Data: 0.06
-    - Name: hitCameraShake
-      Entry: 7
-      Data: CameraShakeData, Assembly-CSharp
-    - Name: intensity
-      Entry: 4
-      Data: 0.8
-    - Name: duration
-      Entry: 4
-      Data: 0.15
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: damageScript
-      Entry: 6
-      Data: 
-    - Name: extra
-      Entry: 7
-      Data: 23|System.Collections.Generic.Dictionary`2[[System.String, mscorlib],[ActionExtra,
+      Data: 16|System.Collections.Generic.Dictionary`2[[System.String, mscorlib],[ActionExtra,
         Assembly-CSharp]], mscorlib
     - Name: comparer
-      Entry: 7
-      Data: 24|System.Collections.Generic.GenericEqualityComparer`1[[System.String,
-        mscorlib]], mscorlib
-    - Name: 
-      Entry: 8
-      Data: 
+      Entry: 9
+      Data: 6
     - Name: 
       Entry: 12
       Data: 0
@@ -2314,69 +1869,17 @@ MonoBehaviour:
       Data: Deflect
     - Name: $v
       Entry: 7
-      Data: 25|ActionData, Assembly-CSharp
-    - Name: tags
-      Entry: 7
-      Data: 26|System.Collections.Generic.List`1[[ActionTag, Assembly-CSharp]], mscorlib
-    - Name: 
-      Entry: 12
-      Data: 1
-    - Name: 
-      Entry: 3
-      Data: 2
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: damage
-      Entry: 4
-      Data: 0
-    - Name: motion
-      Entry: 4
-      Data: 0
-    - Name: impact
-      Entry: 4
-      Data: 400
-    - Name: knockback
-      Entry: 4
-      Data: 3000
-    - Name: knocktype
-      Entry: 3
-      Data: 3
-    - Name: moveForce
-      Entry: 4
-      Data: 0
-    - Name: hitFreezeTime
-      Entry: 4
-      Data: 0
-    - Name: hitCameraShake
-      Entry: 7
-      Data: CameraShakeData, Assembly-CSharp
-    - Name: intensity
-      Entry: 4
-      Data: 0
-    - Name: duration
-      Entry: 4
-      Data: 0
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: damageScript
+      Data: 17|ActionData, Assembly-CSharp
+    - Name: baseData
       Entry: 10
-      Data: 0
-    - Name: extra
+      Data: 6
+    - Name: extraData
       Entry: 7
-      Data: 27|System.Collections.Generic.Dictionary`2[[System.String, mscorlib],[ActionExtra,
+      Data: 18|System.Collections.Generic.Dictionary`2[[System.String, mscorlib],[ActionExtra,
         Assembly-CSharp]], mscorlib
     - Name: comparer
-      Entry: 7
-      Data: 28|System.Collections.Generic.GenericEqualityComparer`1[[System.String,
-        mscorlib]], mscorlib
-    - Name: 
-      Entry: 8
-      Data: 
+      Entry: 9
+      Data: 6
     - Name: 
       Entry: 12
       Data: 0
@@ -2400,11 +1903,11 @@ MonoBehaviour:
       Data: 
     - Name: chData
       Entry: 7
-      Data: 29|System.Collections.Generic.Dictionary`2[[System.String, mscorlib],[System.Single,
+      Data: 19|System.Collections.Generic.Dictionary`2[[System.String, mscorlib],[System.Single,
         mscorlib]], mscorlib
     - Name: comparer
       Entry: 7
-      Data: 30|System.Collections.Generic.GenericEqualityComparer`1[[System.String,
+      Data: 20|System.Collections.Generic.GenericEqualityComparer`1[[System.String,
         mscorlib]], mscorlib
     - Name: 
       Entry: 8
@@ -2478,61 +1981,19 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-    - Name: chModifiersAdd
-      Entry: 7
-      Data: 31|System.Collections.Generic.Dictionary`2[[Modifier, Assembly-CSharp],[System.Collections.Generic.Dictionary`2[[System.String,
-        mscorlib],[System.Single, mscorlib]], mscorlib]], mscorlib
-    - Name: comparer
-      Entry: 7
-      Data: 32|System.Collections.Generic.EnumEqualityComparer`1[[Modifier, Assembly-CSharp]],
-        mscorlib
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: chModifiersMul
-      Entry: 7
-      Data: 33|System.Collections.Generic.Dictionary`2[[Modifier, Assembly-CSharp],[System.Collections.Generic.Dictionary`2[[System.String,
-        mscorlib],[System.Single, mscorlib]], mscorlib]], mscorlib
-    - Name: comparer
-      Entry: 9
-      Data: 32
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
     - Name: DemonExtra
       Entry: 7
-      Data: 34|ActionExtra, Assembly-CSharp
+      Data: 21|ActionExtra, Assembly-CSharp
     - Name: type
       Entry: 3
       Data: 1
     - Name: parameters
       Entry: 7
-      Data: 35|System.Collections.Generic.Dictionary`2[[System.String, mscorlib],[System.Object,
+      Data: 22|System.Collections.Generic.Dictionary`2[[System.String, mscorlib],[System.Object,
         mscorlib]], mscorlib
     - Name: comparer
       Entry: 7
-      Data: 36|System.Collections.Generic.GenericEqualityComparer`1[[System.String,
+      Data: 23|System.Collections.Generic.GenericEqualityComparer`1[[System.String,
         mscorlib]], mscorlib
     - Name: 
       Entry: 8
@@ -2548,7 +2009,7 @@ MonoBehaviour:
       Data: value
     - Name: $v
       Entry: 7
-      Data: 37|System.Single, mscorlib
+      Data: 24|System.Single, mscorlib
     - Name: 
       Entry: 4
       Data: 0.3
@@ -2567,13 +2028,15 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-  ball: {fileID: 848804670}
   activeRbody: {fileID: 1006090439}
   moveDirection: {x: 0, y: 0}
   targetPosition: {x: 0, y: 0}
   deviceLockInput: {x: 0, y: 0}
+  dScripts:
+  - {fileID: 1482460774}
   dodgeSpeed: 25
   dodgeCD: 0.7
+  _ball: {fileID: 0}
   tempAttackSpeed: 1
   meleeDScript: {fileID: 1482460774}
   weaponTrail: {fileID: 149140995}
@@ -3512,11 +2975,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 1
---- !u!4 &1060397481 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 224566840223190261, guid: 1707630fc006b704ea0ddce2e0de5bce, type: 3}
-  m_PrefabInstance: {fileID: 1292301902}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1092167562
 GameObject:
   m_ObjectHideFlags: 0
@@ -3701,10 +3159,6 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2306255108274663352, guid: 1707630fc006b704ea0ddce2e0de5bce, type: 3}
     - target: {fileID: 3021212544299926676, guid: 1707630fc006b704ea0ddce2e0de5bce, type: 3}
-      propertyPath: m_RootOrder
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 3021212544299926676, guid: 1707630fc006b704ea0ddce2e0de5bce, type: 3}
       propertyPath: m_LocalPosition.x
       value: -3.777
       objectReference: {fileID: 0}
@@ -3750,7 +3204,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5370459506623036903, guid: 1707630fc006b704ea0ddce2e0de5bce, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5670656595729896007, guid: 1707630fc006b704ea0ddce2e0de5bce, type: 3}
       propertyPath: serializationData.Prefab
@@ -3920,10 +3374,6 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2306255108274663352, guid: 1707630fc006b704ea0ddce2e0de5bce, type: 3}
     - target: {fileID: 3021212544299926676, guid: 1707630fc006b704ea0ddce2e0de5bce, type: 3}
-      propertyPath: m_RootOrder
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 3021212544299926676, guid: 1707630fc006b704ea0ddce2e0de5bce, type: 3}
       propertyPath: m_LocalPosition.x
       value: -5.29
       objectReference: {fileID: 0}
@@ -3969,48 +3419,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5370459506623036903, guid: 1707630fc006b704ea0ddce2e0de5bce, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5670656595729896007, guid: 1707630fc006b704ea0ddce2e0de5bce, type: 3}
       propertyPath: serializationData.Prefab
       value: 
       objectReference: {fileID: 5670656595729896007, guid: 1707630fc006b704ea0ddce2e0de5bce, type: 3}
-    - target: {fileID: 5670656595729896007, guid: 1707630fc006b704ea0ddce2e0de5bce, type: 3}
-      propertyPath: serializationData.PrefabModifications.Array.size
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 5670656595729896007, guid: 1707630fc006b704ea0ddce2e0de5bce, type: 3}
-      propertyPath: serializationData.PrefabModifications.Array.data[0]
-      value: '"path":"chWeapon.[0]","value":{"$id":0,"$type":"WeaponSpriteData, Assembly-CSharp","main":$eref:0,"sub":$eref:1,"sort":$eref:2,"offsetDis":0.36,"offsetDir":0}'
-      objectReference: {fileID: 0}
-    - target: {fileID: 5670656595729896007, guid: 1707630fc006b704ea0ddce2e0de5bce, type: 3}
-      propertyPath: serializationData.PrefabModifications.Array.data[1]
-      value: '"path":"chWeapon.[0].main","value":$eref:0'
-      objectReference: {fileID: 0}
-    - target: {fileID: 5670656595729896007, guid: 1707630fc006b704ea0ddce2e0de5bce, type: 3}
-      propertyPath: serializationData.PrefabModifications.Array.data[2]
-      value: '"path":"chWeapon.[0].sort","value":$eref:2'
-      objectReference: {fileID: 0}
-    - target: {fileID: 5670656595729896007, guid: 1707630fc006b704ea0ddce2e0de5bce, type: 3}
-      propertyPath: serializationData.PrefabModifications.Array.data[3]
-      value: '"path":"chWeapon.[0].sub","value":$eref:1'
-      objectReference: {fileID: 0}
-    - target: {fileID: 5670656595729896007, guid: 1707630fc006b704ea0ddce2e0de5bce, type: 3}
-      propertyPath: serializationData.PrefabModificationsReferencedUnityObjects.Array.size
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 5670656595729896007, guid: 1707630fc006b704ea0ddce2e0de5bce, type: 3}
-      propertyPath: serializationData.PrefabModificationsReferencedUnityObjects.Array.data[0]
-      value: 
-      objectReference: {fileID: 1987018750}
-    - target: {fileID: 5670656595729896007, guid: 1707630fc006b704ea0ddce2e0de5bce, type: 3}
-      propertyPath: serializationData.PrefabModificationsReferencedUnityObjects.Array.data[1]
-      value: 
-      objectReference: {fileID: 1060397481}
-    - target: {fileID: 5670656595729896007, guid: 1707630fc006b704ea0ddce2e0de5bce, type: 3}
-      propertyPath: serializationData.PrefabModificationsReferencedUnityObjects.Array.data[2]
-      value: 
-      objectReference: {fileID: 61065914}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -4152,11 +3566,6 @@ TrailRenderer:
   m_Autodestruct: 0
   m_Emitting: 1
   m_ApplyActiveColorSpace: 0
---- !u!210 &1391378583 stripped
-SortingGroup:
-  m_CorrespondingSourceObject: {fileID: 8049834062000447148, guid: f3190f8d16a480c4eae07f285d1037d4, type: 3}
-  m_PrefabInstance: {fileID: 4961576601673850233}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1482460772
 GameObject:
   m_ObjectHideFlags: 0
@@ -4216,10 +3625,23 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes:
-    - Name: owner
+    - Name: agents
+      Entry: 7
+      Data: 0|System.Collections.Generic.List`1[[IAttackable, Assembly-CSharp]],
+        mscorlib
+    - Name: 
+      Entry: 12
+      Data: 1
+    - Name: 
       Entry: 10
       Data: 0
-  ownerTeam: {fileID: 848804671}
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+  agentTeam: {fileID: 848804671}
 --- !u!50 &1482460775
 Rigidbody2D:
   serializedVersion: 4
@@ -4247,17 +3669,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &1652761119 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4961576602236092262, guid: f3190f8d16a480c4eae07f285d1037d4, type: 3}
-  m_PrefabInstance: {fileID: 4961576601673850233}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 84d7c5bbcfd10074bbd9e17397225d66, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &1663074107 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4157060157459365497, guid: 1707630fc006b704ea0ddce2e0de5bce, type: 3}
@@ -4758,11 +4169,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!4 &1820009418 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 4961576602280656563, guid: f3190f8d16a480c4eae07f285d1037d4, type: 3}
-  m_PrefabInstance: {fileID: 4961576601673850233}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1849428643
 GameObject:
   m_ObjectHideFlags: 0
@@ -5125,11 +4531,6 @@ MonoBehaviour:
       Entry: 8
       Data: 
   maxCapacity: 1000
---- !u!4 &1987018750 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 4157060157459365497, guid: 1707630fc006b704ea0ddce2e0de5bce, type: 3}
-  m_PrefabInstance: {fileID: 1292301902}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2008760398
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5142,26 +4543,6 @@ PrefabInstance:
       propertyPath: serializationData.Prefab
       value: 
       objectReference: {fileID: 4961576601547929400, guid: f3190f8d16a480c4eae07f285d1037d4, type: 3}
-    - target: {fileID: 4961576601547929400, guid: f3190f8d16a480c4eae07f285d1037d4, type: 3}
-      propertyPath: serializationData.PrefabModifications.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4961576601547929400, guid: f3190f8d16a480c4eae07f285d1037d4, type: 3}
-      propertyPath: serializationData.PrefabModifications.Array.data[0]
-      value: '"path":"actionData.{\"Slash\"}.damageScript","value":$eref:0'
-      objectReference: {fileID: 0}
-    - target: {fileID: 4961576601547929400, guid: f3190f8d16a480c4eae07f285d1037d4, type: 3}
-      propertyPath: serializationData.PrefabModificationsReferencedUnityObjects.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4961576601547929400, guid: f3190f8d16a480c4eae07f285d1037d4, type: 3}
-      propertyPath: serializationData.PrefabModificationsReferencedUnityObjects.Array.data[0]
-      value: 
-      objectReference: {fileID: 2008760400}
-    - target: {fileID: 4961576601547929401, guid: f3190f8d16a480c4eae07f285d1037d4, type: 3}
-      propertyPath: m_RootOrder
-      value: 9
-      objectReference: {fileID: 0}
     - target: {fileID: 4961576601547929401, guid: f3190f8d16a480c4eae07f285d1037d4, type: 3}
       propertyPath: m_LocalPosition.x
       value: -7.27
@@ -5206,123 +4587,23 @@ PrefabInstance:
       propertyPath: serializationData.Prefab
       value: 
       objectReference: {fileID: 4961576601547929403, guid: f3190f8d16a480c4eae07f285d1037d4, type: 3}
-    - target: {fileID: 4961576601547929403, guid: f3190f8d16a480c4eae07f285d1037d4, type: 3}
-      propertyPath: serializationData.PrefabModifications.Array.size
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 4961576601547929403, guid: f3190f8d16a480c4eae07f285d1037d4, type: 3}
-      propertyPath: serializationData.PrefabModifications.Array.data[0]
-      value: '"path":"chWeapon.[0]","value":{"$id":0,"$type":"WeaponSpriteData, Assembly-CSharp","main":$eref:0,"sub":$eref:1,"sort":$eref:2,"offsetDis":0.36,"offsetDir":0}'
-      objectReference: {fileID: 0}
-    - target: {fileID: 4961576601547929403, guid: f3190f8d16a480c4eae07f285d1037d4, type: 3}
-      propertyPath: serializationData.PrefabModifications.Array.data[1]
-      value: '"path":"chWeapon.[0].main","value":$eref:0'
-      objectReference: {fileID: 0}
-    - target: {fileID: 4961576601547929403, guid: f3190f8d16a480c4eae07f285d1037d4, type: 3}
-      propertyPath: serializationData.PrefabModifications.Array.data[2]
-      value: '"path":"chWeapon.[0].sort","value":$eref:2'
-      objectReference: {fileID: 0}
-    - target: {fileID: 4961576601547929403, guid: f3190f8d16a480c4eae07f285d1037d4, type: 3}
-      propertyPath: serializationData.PrefabModifications.Array.data[3]
-      value: '"path":"chWeapon.[0].sub","value":$eref:1'
-      objectReference: {fileID: 0}
-    - target: {fileID: 4961576601547929403, guid: f3190f8d16a480c4eae07f285d1037d4, type: 3}
-      propertyPath: serializationData.PrefabModificationsReferencedUnityObjects.Array.size
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 4961576601547929403, guid: f3190f8d16a480c4eae07f285d1037d4, type: 3}
-      propertyPath: serializationData.PrefabModificationsReferencedUnityObjects.Array.data[0]
-      value: 
-      objectReference: {fileID: 2008760402}
-    - target: {fileID: 4961576601547929403, guid: f3190f8d16a480c4eae07f285d1037d4, type: 3}
-      propertyPath: serializationData.PrefabModificationsReferencedUnityObjects.Array.data[1]
-      value: 
-      objectReference: {fileID: 2008760401}
-    - target: {fileID: 4961576601547929403, guid: f3190f8d16a480c4eae07f285d1037d4, type: 3}
-      propertyPath: serializationData.PrefabModificationsReferencedUnityObjects.Array.data[2]
-      value: 
-      objectReference: {fileID: 2008760403}
     - target: {fileID: 4961576601547929411, guid: f3190f8d16a480c4eae07f285d1037d4, type: 3}
       propertyPath: m_Name
       value: SwordBall (1)
       objectReference: {fileID: 0}
     - target: {fileID: 4961576601547929411, guid: f3190f8d16a480c4eae07f285d1037d4, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4961576602236092262, guid: f3190f8d16a480c4eae07f285d1037d4, type: 3}
       propertyPath: serializationData.Prefab
       value: 
       objectReference: {fileID: 4961576602236092262, guid: f3190f8d16a480c4eae07f285d1037d4, type: 3}
-    - target: {fileID: 4961576602236092262, guid: f3190f8d16a480c4eae07f285d1037d4, type: 3}
-      propertyPath: serializationData.PrefabModifications.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4961576602236092262, guid: f3190f8d16a480c4eae07f285d1037d4, type: 3}
-      propertyPath: serializationData.PrefabModifications.Array.data[0]
-      value: '"path":"owner","value":$eref:0'
-      objectReference: {fileID: 0}
-    - target: {fileID: 4961576602236092262, guid: f3190f8d16a480c4eae07f285d1037d4, type: 3}
-      propertyPath: serializationData.PrefabModificationsReferencedUnityObjects.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4961576602236092262, guid: f3190f8d16a480c4eae07f285d1037d4, type: 3}
-      propertyPath: serializationData.PrefabModificationsReferencedUnityObjects.Array.data[0]
-      value: 
-      objectReference: {fileID: 2008760399}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f3190f8d16a480c4eae07f285d1037d4, type: 3}
---- !u!114 &2008760399 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4961576601547929400, guid: f3190f8d16a480c4eae07f285d1037d4, type: 3}
-  m_PrefabInstance: {fileID: 2008760398}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2fd35a8d19a427641988a1a470af1390, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &2008760400 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4961576602236092262, guid: f3190f8d16a480c4eae07f285d1037d4, type: 3}
-  m_PrefabInstance: {fileID: 2008760398}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 84d7c5bbcfd10074bbd9e17397225d66, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!4 &2008760401 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 4961576602280656563, guid: f3190f8d16a480c4eae07f285d1037d4, type: 3}
-  m_PrefabInstance: {fileID: 2008760398}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &2008760402 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 4961576601288332909, guid: f3190f8d16a480c4eae07f285d1037d4, type: 3}
-  m_PrefabInstance: {fileID: 2008760398}
-  m_PrefabAsset: {fileID: 0}
---- !u!210 &2008760403 stripped
-SortingGroup:
-  m_CorrespondingSourceObject: {fileID: 8049834062000447148, guid: f3190f8d16a480c4eae07f285d1037d4, type: 3}
-  m_PrefabInstance: {fileID: 2008760398}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &2028778825 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4961576601547929400, guid: f3190f8d16a480c4eae07f285d1037d4, type: 3}
-  m_PrefabInstance: {fileID: 4961576601673850233}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2fd35a8d19a427641988a1a470af1390, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &2034233867
 GameObject:
   m_ObjectHideFlags: 0
@@ -5472,26 +4753,6 @@ PrefabInstance:
       propertyPath: serializationData.Prefab
       value: 
       objectReference: {fileID: 4961576601547929400, guid: f3190f8d16a480c4eae07f285d1037d4, type: 3}
-    - target: {fileID: 4961576601547929400, guid: f3190f8d16a480c4eae07f285d1037d4, type: 3}
-      propertyPath: serializationData.PrefabModifications.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4961576601547929400, guid: f3190f8d16a480c4eae07f285d1037d4, type: 3}
-      propertyPath: serializationData.PrefabModifications.Array.data[0]
-      value: '"path":"actionData.{\"Slash\"}.damageScript","value":$eref:0'
-      objectReference: {fileID: 0}
-    - target: {fileID: 4961576601547929400, guid: f3190f8d16a480c4eae07f285d1037d4, type: 3}
-      propertyPath: serializationData.PrefabModificationsReferencedUnityObjects.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4961576601547929400, guid: f3190f8d16a480c4eae07f285d1037d4, type: 3}
-      propertyPath: serializationData.PrefabModificationsReferencedUnityObjects.Array.data[0]
-      value: 
-      objectReference: {fileID: 1652761119}
-    - target: {fileID: 4961576601547929401, guid: f3190f8d16a480c4eae07f285d1037d4, type: 3}
-      propertyPath: m_RootOrder
-      value: 8
-      objectReference: {fileID: 0}
     - target: {fileID: 4961576601547929401, guid: f3190f8d16a480c4eae07f285d1037d4, type: 3}
       propertyPath: m_LocalPosition.x
       value: -4
@@ -5536,74 +4797,14 @@ PrefabInstance:
       propertyPath: serializationData.Prefab
       value: 
       objectReference: {fileID: 4961576601547929403, guid: f3190f8d16a480c4eae07f285d1037d4, type: 3}
-    - target: {fileID: 4961576601547929403, guid: f3190f8d16a480c4eae07f285d1037d4, type: 3}
-      propertyPath: serializationData.PrefabModifications.Array.size
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 4961576601547929403, guid: f3190f8d16a480c4eae07f285d1037d4, type: 3}
-      propertyPath: serializationData.PrefabModifications.Array.data[0]
-      value: '"path":"chWeapon.[0]","value":{"$id":0,"$type":"WeaponSpriteData, Assembly-CSharp","main":$eref:0,"sub":$eref:1,"sort":$eref:2,"offsetDis":0.36,"offsetDir":0}'
-      objectReference: {fileID: 0}
-    - target: {fileID: 4961576601547929403, guid: f3190f8d16a480c4eae07f285d1037d4, type: 3}
-      propertyPath: serializationData.PrefabModifications.Array.data[1]
-      value: '"path":"chWeapon.[0].main","value":$eref:0'
-      objectReference: {fileID: 0}
-    - target: {fileID: 4961576601547929403, guid: f3190f8d16a480c4eae07f285d1037d4, type: 3}
-      propertyPath: serializationData.PrefabModifications.Array.data[2]
-      value: '"path":"chWeapon.[0].sort","value":$eref:2'
-      objectReference: {fileID: 0}
-    - target: {fileID: 4961576601547929403, guid: f3190f8d16a480c4eae07f285d1037d4, type: 3}
-      propertyPath: serializationData.PrefabModifications.Array.data[3]
-      value: '"path":"chWeapon.[0].sub","value":$eref:1'
-      objectReference: {fileID: 0}
-    - target: {fileID: 4961576601547929403, guid: f3190f8d16a480c4eae07f285d1037d4, type: 3}
-      propertyPath: serializationData.PrefabModificationsReferencedUnityObjects.Array.size
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 4961576601547929403, guid: f3190f8d16a480c4eae07f285d1037d4, type: 3}
-      propertyPath: serializationData.PrefabModificationsReferencedUnityObjects.Array.data[0]
-      value: 
-      objectReference: {fileID: 688294676}
-    - target: {fileID: 4961576601547929403, guid: f3190f8d16a480c4eae07f285d1037d4, type: 3}
-      propertyPath: serializationData.PrefabModificationsReferencedUnityObjects.Array.data[1]
-      value: 
-      objectReference: {fileID: 1820009418}
-    - target: {fileID: 4961576601547929403, guid: f3190f8d16a480c4eae07f285d1037d4, type: 3}
-      propertyPath: serializationData.PrefabModificationsReferencedUnityObjects.Array.data[2]
-      value: 
-      objectReference: {fileID: 1391378583}
     - target: {fileID: 4961576601547929411, guid: f3190f8d16a480c4eae07f285d1037d4, type: 3}
       propertyPath: m_Name
       value: SwordBall
-      objectReference: {fileID: 0}
-    - target: {fileID: 4961576601547929411, guid: f3190f8d16a480c4eae07f285d1037d4, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4961576602236092262, guid: f3190f8d16a480c4eae07f285d1037d4, type: 3}
       propertyPath: serializationData.Prefab
       value: 
       objectReference: {fileID: 4961576602236092262, guid: f3190f8d16a480c4eae07f285d1037d4, type: 3}
-    - target: {fileID: 4961576602236092262, guid: f3190f8d16a480c4eae07f285d1037d4, type: 3}
-      propertyPath: serializationData.PrefabModifications.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4961576602236092262, guid: f3190f8d16a480c4eae07f285d1037d4, type: 3}
-      propertyPath: serializationData.PrefabModifications.Array.data[0]
-      value: '"path":"owner","value":$eref:0'
-      objectReference: {fileID: 0}
-    - target: {fileID: 4961576602236092262, guid: f3190f8d16a480c4eae07f285d1037d4, type: 3}
-      propertyPath: serializationData.PrefabModificationsReferencedUnityObjects.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4961576602236092262, guid: f3190f8d16a480c4eae07f285d1037d4, type: 3}
-      propertyPath: serializationData.PrefabModificationsReferencedUnityObjects.Array.data[0]
-      value: 
-      objectReference: {fileID: 2028778825}
-    - target: {fileID: 7504443440155002424, guid: f3190f8d16a480c4eae07f285d1037d4, type: 3}
-      propertyPath: transNextState
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -5626,23 +4827,6 @@ PrefabInstance:
       propertyPath: serializationData.Prefab
       value: 
       objectReference: {fileID: 2306255108274663352, guid: 1707630fc006b704ea0ddce2e0de5bce, type: 3}
-    - target: {fileID: 2306255108274663352, guid: 1707630fc006b704ea0ddce2e0de5bce, type: 3}
-      propertyPath: serializationData.PrefabModifications.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2306255108274663352, guid: 1707630fc006b704ea0ddce2e0de5bce, type: 3}
-      propertyPath: serializationData.PrefabModifications.Array.data[0]
-      value: '"path":"actionData.{\"Arrow\"}.knockback","value":{"$id":0,"$type":"System.Single,
-        mscorlib",2}'
-      objectReference: {fileID: 0}
-    - target: {fileID: 2306255108274663352, guid: 1707630fc006b704ea0ddce2e0de5bce, type: 3}
-      propertyPath: serializationData.PrefabModificationsReferencedUnityObjects.Array.size
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3021212544299926676, guid: 1707630fc006b704ea0ddce2e0de5bce, type: 3}
-      propertyPath: m_RootOrder
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 3021212544299926676, guid: 1707630fc006b704ea0ddce2e0de5bce, type: 3}
       propertyPath: m_LocalPosition.x
       value: -5.491
@@ -5686,14 +4870,6 @@ PrefabInstance:
     - target: {fileID: 5370459506623036903, guid: 1707630fc006b704ea0ddce2e0de5bce, type: 3}
       propertyPath: m_Name
       value: BowBall
-      objectReference: {fileID: 0}
-    - target: {fileID: 5370459506623036903, guid: 1707630fc006b704ea0ddce2e0de5bce, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5596262032934359064, guid: 1707630fc006b704ea0ddce2e0de5bce, type: 3}
-      propertyPath: transNextState
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5670656595729896007, guid: 1707630fc006b704ea0ddce2e0de5bce, type: 3}
       propertyPath: serializationData.Prefab

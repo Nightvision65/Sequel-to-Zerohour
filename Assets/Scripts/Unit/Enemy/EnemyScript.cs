@@ -20,6 +20,7 @@ public class EnemyScript : SerializedMonoBehaviour, IHitable, IAttackable
     protected float nowPoise;
     [SerializeField] protected float speed;
     public Dictionary<string, ActionData> actionData;    //保存关于角色的动作数据(比如攻击动作值、削韧等)
+    public List<DamageScript> dScripts; //保存直接相关的DamageScript
     public Transform target;  //敌人目标
     public Vector2 faceDirection;    //朝向
     [SerializeField] protected float vanishTime;  //死后多久消失
@@ -76,9 +77,9 @@ public class EnemyScript : SerializedMonoBehaviour, IHitable, IAttackable
     }
 
     //写入伤害判定类型（传递给伤害脚本）
-    public void AttackSet(string action)
+    public void AttackSet(string action, int index)
     {
-        actionData[action].damageScript.SetAction(action);
+        dScripts[index].SetAction(actionData[action]);
     }
     #region [函数组]AI行为
     //移动行为
@@ -179,14 +180,21 @@ public class EnemyScript : SerializedMonoBehaviour, IHitable, IAttackable
     }
 
     //敌人受击
-    public void GetHit(UnitHitEvent hit)
+    public void GetHit(ref UnitHitEvent hit)
     {
         Debug.Log(_transform.name + ": 受到" + hit.hitData.damage + "伤害, " + hit.hitData.impact + "韧性伤害。");
         knockDir = Vector2.zero;
         nowHealth -= hit.hitData.damage;
         nowPoise -= hit.hitData.impact;
-        Knockback(hit.hitData.knockback);
-        _flashEffect.SetFlash("enemyHit");
+        Knockback(hit.hitData.knockback);//命中敌人顿帧
+        if (hit.actionData.baseData.hitFreezeTime > 0)
+        {
+            HitFreeze(hit.actionData.baseData.hitFreezeTime);
+        }
+        else
+        {
+            _flashEffect.SetFlash("enemyHit");
+        }
         //血量归零
         if (nowHealth <= 0)
         {
@@ -216,9 +224,13 @@ public class EnemyScript : SerializedMonoBehaviour, IHitable, IAttackable
             nowPoise = maxPoise;
         }
     }
+    public void LandHit(UnitHitEvent hit)
+    {
+    }
 
-    //敌人击退
-    protected void Knockback(Vector2 knockback)
+
+        //敌人击退
+        protected void Knockback(Vector2 knockback)
     {
         _rigidbody.AddForce(knockback);
         knockDir = knockback.normalized;

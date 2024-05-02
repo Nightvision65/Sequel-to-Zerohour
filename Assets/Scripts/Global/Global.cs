@@ -17,9 +17,10 @@ using UnityEngine.UIElements;
 #region 接口
 public interface IHitable
 {
-    void GetHit(UnitHitEvent hit);
+    void GetHit(ref UnitHitEvent hit);
 }//可被DamageScript攻击
 public interface IAttackable {
+    void LandHit(UnitHitEvent hit);
 }//可使用DamageScript进行攻击
 public interface IPoolObject
 {
@@ -100,19 +101,11 @@ public enum KeyState
 //角色某个动作携带的数据（包括临时的额外数据）
 public class ActionData
 {
-    public List<ActionTag> tags;    //动作标签
-    public float damage;    //伤害值
-    public float impact;    //削韧值
-    public float knockback; //击退值
-    public KnockType knocktype; //击退类型
-    public float moveForce; //动作导致角色位移的力
-    public float hitFreezeTime; //命中后顿帧时间
-    public CameraShakeData hitCameraShake;
-    public DamageScript damageScript;   //动作挂载的伤害脚本
-    public Dictionary<string, ActionExtra> extra;  //额外动作附件
+    public ActionBaseSO baseData;   //基础动作数据
+    public Dictionary<string, ActionExtra> extraData;  //额外动作附件
     public bool hasTag(ActionTag tag)
     {
-        return tags.Contains(tag);
+        return baseData.tags.Contains(tag);
     }
 };
 

@@ -10,7 +10,7 @@ using UnityEngine;
  */
 public class FlashEffectScript : MonoBehaviour
 {
-    private List<SpriteRenderer> mSRenderers;
+    private List<SpriteRenderer> _spriteRenderers;
     private List<Material> mMaterials;
     private float flashAlpha;
     private bool isFlashing;
@@ -20,9 +20,9 @@ public class FlashEffectScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        mSRenderers = GetComponentsInChildren<SpriteRenderer>().ToList();
+        _spriteRenderers = GetComponentsInChildren<SpriteRenderer>().ToList();
         mMaterials = new List<Material>();
-        foreach (SpriteRenderer renderer in mSRenderers)
+        foreach (SpriteRenderer renderer in _spriteRenderers)
         {
             mMaterials.Add(renderer.material);
         }

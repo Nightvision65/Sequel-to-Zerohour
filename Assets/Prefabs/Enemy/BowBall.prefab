@@ -676,7 +676,8 @@ MonoBehaviour:
   serializationData:
     SerializedFormat: 2
     SerializedBytes: 
-    ReferencedUnityObjects: []
+    ReferencedUnityObjects:
+    - {fileID: 11400000, guid: 491163aeca7e905489e65174503bf7f1, type: 2}
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
@@ -705,70 +706,16 @@ MonoBehaviour:
     - Name: $v
       Entry: 7
       Data: 2|ActionData, Assembly-CSharp
-    - Name: tags
+    - Name: baseData
+      Entry: 10
+      Data: 0
+    - Name: extraData
       Entry: 7
-      Data: 3|System.Collections.Generic.List`1[[ActionTag, Assembly-CSharp]], mscorlib
-    - Name: 
-      Entry: 12
-      Data: 3
-    - Name: 
-      Entry: 3
-      Data: 0
-    - Name: 
-      Entry: 3
-      Data: 1
-    - Name: 
-      Entry: 3
-      Data: 4
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: damage
-      Entry: 4
-      Data: 50
-    - Name: motion
-      Entry: 4
-      Data: 1
-    - Name: impact
-      Entry: 4
-      Data: 150
-    - Name: knockback
-      Entry: 4
-      Data: 2000
-    - Name: knocktype
-      Entry: 3
-      Data: 2
-    - Name: moveForce
-      Entry: 4
-      Data: 0
-    - Name: hitFreezeTime
-      Entry: 4
-      Data: 0
-    - Name: hitCameraShake
-      Entry: 7
-      Data: CameraShakeData, Assembly-CSharp
-    - Name: intensity
-      Entry: 4
-      Data: 0
-    - Name: duration
-      Entry: 4
-      Data: 0
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: damageScript
-      Entry: 6
-      Data: 
-    - Name: extra
-      Entry: 7
-      Data: 4|System.Collections.Generic.Dictionary`2[[System.String, mscorlib],[ActionExtra,
+      Data: 3|System.Collections.Generic.Dictionary`2[[System.String, mscorlib],[ActionExtra,
         Assembly-CSharp]], mscorlib
     - Name: comparer
       Entry: 7
-      Data: 5|System.Collections.Generic.GenericEqualityComparer`1[[System.String,
+      Data: 4|System.Collections.Generic.GenericEqualityComparer`1[[System.String,
         mscorlib]], mscorlib
     - Name: 
       Entry: 8
@@ -796,12 +743,11 @@ MonoBehaviour:
       Data: 
   maxHealth: 150
   maxPoise: 100
-  damage: 50
   speed: 250
+  dScripts: []
   target: {fileID: 0}
   faceDirection: {x: 0, y: 0}
   vanishTime: 1
-  ball: {fileID: 5670656595729896007}
   detectRange: 20
   attackRange: 5
   closeRange: 2

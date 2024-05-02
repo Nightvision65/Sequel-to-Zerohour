@@ -698,7 +698,7 @@ MonoBehaviour:
     SerializedFormat: 2
     SerializedBytes: 
     ReferencedUnityObjects:
-    - {fileID: 4961576602236092262}
+    - {fileID: 11400000, guid: 24d97282409f7454e88470d24145efc5, type: 2}
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
@@ -727,70 +727,16 @@ MonoBehaviour:
     - Name: $v
       Entry: 7
       Data: 2|ActionData, Assembly-CSharp
-    - Name: tags
-      Entry: 7
-      Data: 3|System.Collections.Generic.List`1[[ActionTag, Assembly-CSharp]], mscorlib
-    - Name: 
-      Entry: 12
-      Data: 3
-    - Name: 
-      Entry: 3
-      Data: 0
-    - Name: 
-      Entry: 3
-      Data: 1
-    - Name: 
-      Entry: 3
-      Data: 3
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: damage
-      Entry: 4
-      Data: 50
-    - Name: motion
-      Entry: 4
-      Data: 1
-    - Name: impact
-      Entry: 4
-      Data: 100
-    - Name: knockback
-      Entry: 4
-      Data: 2500
-    - Name: knocktype
-      Entry: 3
-      Data: 0
-    - Name: moveForce
-      Entry: 4
-      Data: 2000
-    - Name: hitFreezeTime
-      Entry: 4
-      Data: 0
-    - Name: hitCameraShake
-      Entry: 7
-      Data: CameraShakeData, Assembly-CSharp
-    - Name: intensity
-      Entry: 4
-      Data: 0
-    - Name: duration
-      Entry: 4
-      Data: 0
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: damageScript
+    - Name: baseData
       Entry: 10
       Data: 0
-    - Name: extra
+    - Name: extraData
       Entry: 7
-      Data: 4|System.Collections.Generic.Dictionary`2[[System.String, mscorlib],[ActionExtra,
+      Data: 3|System.Collections.Generic.Dictionary`2[[System.String, mscorlib],[ActionExtra,
         Assembly-CSharp]], mscorlib
     - Name: comparer
       Entry: 7
-      Data: 5|System.Collections.Generic.GenericEqualityComparer`1[[System.String,
+      Data: 4|System.Collections.Generic.GenericEqualityComparer`1[[System.String,
         mscorlib]], mscorlib
     - Name: 
       Entry: 8
@@ -818,12 +764,12 @@ MonoBehaviour:
       Data: 
   maxHealth: 200
   maxPoise: 200
-  damage: 50
   speed: 220
+  dScripts:
+  - {fileID: 4961576602236092262}
   target: {fileID: 0}
   faceDirection: {x: 0, y: 0}
   vanishTime: 1
-  ball: {fileID: 4961576601547929403}
   detectRange: 20
   attackRange: 1.5
   closeRange: 1
@@ -1076,10 +1022,23 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes:
-    - Name: owner
+    - Name: agents
+      Entry: 7
+      Data: 0|System.Collections.Generic.List`1[[IAttackable, Assembly-CSharp]],
+        mscorlib
+    - Name: 
+      Entry: 12
+      Data: 1
+    - Name: 
       Entry: 10
       Data: 0
-  ownerTeam: {fileID: 4961576601547929402}
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+  agentTeam: {fileID: 4961576601547929402}
 --- !u!50 &4961576602236092263
 Rigidbody2D:
   serializedVersion: 4

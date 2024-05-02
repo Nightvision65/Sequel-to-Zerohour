@@ -137,16 +137,30 @@ MonoBehaviour:
   serializationData:
     SerializedFormat: 2
     SerializedBytes: 
-    ReferencedUnityObjects: []
+    ReferencedUnityObjects:
+    - {fileID: 1675602452472727503}
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes:
-    - Name: owner
-      Entry: 6
+    - Name: agents
+      Entry: 7
+      Data: 0|System.Collections.Generic.List`1[[IAttackable, Assembly-CSharp]],
+        mscorlib
+    - Name: 
+      Entry: 12
+      Data: 1
+    - Name: 
+      Entry: 10
+      Data: 0
+    - Name: 
+      Entry: 13
       Data: 
-  ownerTeam: {fileID: 0}
+    - Name: 
+      Entry: 8
+      Data: 
+  agentTeam: {fileID: 0}
 --- !u!212 &2876545375656109479
 SpriteRenderer:
   m_ObjectHideFlags: 0

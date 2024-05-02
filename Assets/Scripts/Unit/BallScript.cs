@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using static UnityEngine.Rendering.DebugUI.Table;
 /*
  * BallScript
  * 玉脚本

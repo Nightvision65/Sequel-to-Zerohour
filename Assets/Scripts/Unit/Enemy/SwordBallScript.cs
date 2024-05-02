@@ -21,7 +21,7 @@ public class SwordBallScript : EnemyBallScript
     new void Start()
     {
         base.Start();
-        AttackSet("Slash");
+        AttackSet("Slash", 0);
         attackCDTimer = Random.Range(attackCDMin, attackCDMax);
     }
     new void Update()
@@ -121,7 +121,7 @@ public class SwordBallScript : EnemyBallScript
     //攻击前冲
     void MeleeForward()
     {
-        _rigidbody.AddForce(faceDirection * actionData["Slash"].moveForce);
+        _rigidbody.AddForce(faceDirection * actionData["Slash"].baseData.moveForce);
     }
 
 }

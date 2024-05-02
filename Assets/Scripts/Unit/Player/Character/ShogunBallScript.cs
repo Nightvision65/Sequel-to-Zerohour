@@ -34,16 +34,7 @@ public class ShogunBallScript : CharacterScript
     {
         base.Update();
     }
-    //订阅命中事件
-    void OnEnable()
-    {
-        EventManager.instance.Subscribe<UnitHitEvent>(OnUnitHit, Global.P_E_Hit_ShogunDeflect);
-    }
 
-    void OnDisable()
-    {
-        EventManager.instance.Unsubscribe<UnitHitEvent>(OnUnitHit, Global.P_E_Hit_ShogunDeflect);
-    }
     protected override void OnAnimStateChange(int exitState, int enterState)
     {
         if (_stateMachine.Equals("Iaido Out", enterState))
@@ -147,9 +138,9 @@ public class ShogunBallScript : CharacterScript
     {
         _ball.BallSpriteProcess(true);
         _modifier.SetModifier("move", "action", 0f, true);
-        _rigidbody.AddForce(attackDirection * chActionData[key].moveForce);
-        activeRbody.AddForce(attackDirection * chActionData[key].moveForce);
-        AttackSet(key);
+        _rigidbody.AddForce(attackDirection * chActionData[key].baseData.moveForce);
+        activeRbody.AddForce(attackDirection * chActionData[key].baseData.moveForce);
+        AttackSet(key, 0);
         TrailFix();
         weaponTrail.emit = true;
         animSpeed = _animator.speed;
@@ -195,7 +186,7 @@ public class ShogunBallScript : CharacterScript
         GameObject arrow = ObjectPoolManager.instance.Get(arrowPrefab);
         ProjectileScript arrowScript = arrow.GetComponent<ProjectileScript>();
         arrowScript.SetTransform(arrowTransform);
-        arrowScript.SetDScriptData(this, "Arrow");
+        arrowScript.SetDScriptData(this, chActionData["Arrow"]);
         arrowScript.LaunchForward(arrowForce);
     }
 
@@ -245,16 +236,8 @@ public class ShogunBallScript : CharacterScript
         if (_modifier.GetModifier("defense", "skill1", true) != float.MinValue)
         {
             _modifier.RemoveModifier("defense", "skill1", true);
-        }
-    }
-    //命中事件委托
-    private void OnUnitHit(UnitHitEvent hit)
-    {
-        //自身受击时
-        if(hit.patient == (IHitable)this)
-        {
             //弹反时，施加额外效果
-            if (_stateMachine.IsTag("Skill1") && _animator.GetBool("Skill1") && _animator.GetBool("Deflect"))
+            if (_animator.GetBool("Deflect"))
             {
                 //反弹飞行物
                 if (hit.actionData.hasTag(ActionTag.projectile))
@@ -262,13 +245,13 @@ public class ShogunBallScript : CharacterScript
                     ProjectileScript pScript = hit.script.GetComponentInParent<ProjectileScript>();
                     pScript.ReverseDir();
                     pScript.IgnoreNextHit();
-                    hit.script.SetOwner(this);
+                    hit.script.SetHeadAgent(this);
                     hit.script.transform.rotation *= Quaternion.Euler(0, 0, 180);
                 }
                 //对近战削韧并上暴击标记
                 if (hit.actionData.hasTag(ActionTag.melee))
                 {
-                    AttackSet("Deflect");
+                    AttackSet("Deflect", 0);
                     meleeDScript.HitTargetUnit((IHitable)hit.agent);
                 }
             }

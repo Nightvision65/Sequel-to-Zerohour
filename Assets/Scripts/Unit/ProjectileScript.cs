@@ -10,48 +10,55 @@ using static UnityEngine.ParticleSystem;
  * 用于操控飞行道具行为
  */
 
-public class ProjectileScript : MonoBehaviour, IPoolObject
+public class ProjectileScript : MonoBehaviour, IPoolObject, IAttackable
 {
     [SerializeField] private int penetration;   //穿透几个对象
     [SerializeField] private float lifeDuration;    //多久后自动消失
     [SerializeField] private float freezeTime;  //失效后过多久停止运动
     [SerializeField] private float vanishTime;  //失效后过多久后消失
     public GameObject prefab { set; get; }
-    private SpriteRenderer mSRenderer;
+    private Coroutine isHitFreezing;  //存放顿帧的协程
+    private Vector2 freezedVelocity;
+    private float freezedAngularVelocity;
+    private bool isDestroyed;
+    private int peneCount;  //能够穿刺的单位数量
+    private float lifeTimer;    //最长存在时间
+    private bool ignoreHit; //忽略下一次命中
+    private SpriteRenderer _spriteRenderer;
     private Rigidbody2D _rigidbody;
     private Collider2D[] _colliders = new Collider2D[] { };
     private TrailRenderer[] _trailRenderers;
-    private DamageScript mDscript;
-    private bool isDestroyed;
+    private DamageScript _dScript;
     private Transform _transform;
-    private int peneCount;
-    private float lifeTimer;
-    private bool ignoreHit;
     void Awake()
     {
         _transform = transform;
-        mSRenderer = GetComponent<SpriteRenderer>();
+        _spriteRenderer = GetComponent<SpriteRenderer>();
         _rigidbody = GetComponent<Rigidbody2D>();
-        mDscript = GetComponent<DamageScript>();
+        _dScript = GetComponent<DamageScript>();
         _rigidbody.GetAttachedColliders(_colliders);
         _trailRenderers = GetComponentsInChildren<TrailRenderer>();
         lifeTimer = lifeDuration;
         peneCount = penetration;
     }
-    //订阅命中事件
-    void OnEnable()
-    {
-        EventManager.instance.Subscribe<UnitHitEvent>(OnUnitHit, Global.P_E_Hit_ProjectileHit);
 
-    }
-
-    void OnDisable()
-    {
-        EventManager.instance.Unsubscribe<UnitHitEvent>(OnUnitHit, Global.P_E_Hit_ProjectileHit);
-    }
     void Update()
     {
-        if(Global.IsTriggered(ref lifeTimer) && !isDestroyed)
+        if (isHitFreezing != null)
+        {
+            //冻结状态下不会进行物理判定，但是会积攒这期间受到的动量
+            if (_rigidbody.velocity != Vector2.zero)
+            {
+                freezedVelocity += _rigidbody.velocity;
+                _rigidbody.velocity = Vector3.zero;
+            }
+            if (_rigidbody.angularVelocity != 0)
+            {
+                freezedAngularVelocity += _rigidbody.angularVelocity;
+                _rigidbody.angularVelocity = 0;
+            }
+        }
+        if (Global.IsTriggered(ref lifeTimer) && !isDestroyed)
             StartCoroutine(DestroySelf(freezeTime, vanishTime));
     }
 
@@ -64,19 +71,21 @@ public class ProjectileScript : MonoBehaviour, IPoolObject
         {
             collider.enabled = true;
         }
-        mSRenderer.enabled = true;
+        _spriteRenderer.enabled = true;
         _rigidbody.velocity = Vector2.zero;
         lifeTimer = lifeDuration;
         peneCount = penetration;
-        mDscript.ResetState();
+        _dScript.ResetState();
     }
 
     //设置下挂的DamageScript信息（一般由创建者调用）
-    public void SetDScriptData(IAttackable owner, string key)
+    //source: 攻击来源
+    //data: 攻击数据
+    public void SetDScriptData(IAttackable source, ActionData data)
     {
         if (isDestroyed) return;
-        mDscript.SetOwner(owner);
-        mDscript.SetAction(key);
+        _dScript.SetHeadAgent(source);
+        _dScript.SetAction(data);
     }
 
     //设置Transform
@@ -120,22 +129,46 @@ public class ProjectileScript : MonoBehaviour, IPoolObject
     }
 
     //命中敌人时触发
-    private void OnUnitHit(UnitHitEvent hit)
+    public void LandHit(UnitHitEvent hit)
     {
         if (ignoreHit) 
         {
             ignoreHit = false;
             return;
         }
-        if (hit.script == mDscript)
+        if (isDestroyed) return;
+        peneCount--;
+        //HitFreeze(hit.actionData.baseData.hitFreezeTime);
+        if (peneCount < 0)
         {
-            if (isDestroyed) return;
-            peneCount--;
-            if (peneCount < 0)
-            {
-                StartCoroutine(DestroySelf(freezeTime, vanishTime));
-            }
+            StartCoroutine(DestroySelf(freezeTime, vanishTime));
         }
+    }    
+    
+    //命中顿帧
+    //time: 顿帧时长
+    public void HitFreeze(float time)
+    {
+        if (time > 0)
+        {
+            if (isHitFreezing != null)
+            {
+                StopCoroutine(isHitFreezing);
+            }
+            isHitFreezing = StartCoroutine(HitFreezeDisable(time));
+        }
+    }
+
+    //命中顿帧结束
+    private IEnumerator HitFreezeDisable(float time)
+    {
+        yield return new WaitForSeconds(time);
+        isHitFreezing = null;
+        //恢复动能
+        _rigidbody.velocity = freezedVelocity;
+        _rigidbody.angularVelocity = freezedAngularVelocity;
+        freezedVelocity = Vector2.zero;
+        freezedAngularVelocity = 0;
     }
 
     //分阶段自毁
@@ -146,7 +179,7 @@ public class ProjectileScript : MonoBehaviour, IPoolObject
         {
             collider.enabled = false;
         }
-        mSRenderer.enabled = false;
+        _spriteRenderer.enabled = false;
         yield return new WaitForSeconds(freezeDelay);
         _rigidbody.velocity = Vector2.zero;
         foreach (TrailRenderer trail in _trailRenderers)
@@ -156,4 +189,5 @@ public class ProjectileScript : MonoBehaviour, IPoolObject
         yield return new WaitForSeconds(vanishDelay);
         ObjectPoolManager.instance.Release(this);
     }
+
 }
