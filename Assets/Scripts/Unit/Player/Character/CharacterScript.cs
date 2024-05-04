@@ -163,7 +163,7 @@ public class CharacterScript : SerializedMonoBehaviour, IHitable, IAttackable
         _trailRenderer.enabled = true;
         _rigidbody.AddForce(_ball.faceDirection * chData["moveSpeed"] * dodgeSpeed);
         activeRbody.AddForce(_ball.faceDirection * chData["moveSpeed"] * dodgeSpeed);
-        SetCollisionIgnore(true);
+        Global.instance.SetCollisionIgnore(_transform, true);
     }
 
     //闪避结束
@@ -175,57 +175,19 @@ public class CharacterScript : SerializedMonoBehaviour, IHitable, IAttackable
         _modifier.RemoveModifier("dodge", "dodge", true);
         isDodging = false;
         _trailRenderer.enabled = false;
-        SetCollisionIgnore(false);
-    }
-
-    //关闭/启用角色与其他战斗单位的物理交互
-    public void SetCollisionIgnore(bool ignore)
-    {
-        GameObject[] units = GameObject.FindGameObjectsWithTag("BattleUnit");
-        foreach (GameObject unit in units)
-        {
-            string key = Global.GetUniqueKey(gameObject.GetInstanceID(), unit.GetInstanceID());
-            if (ignore)
-            {
-                //忽略物理时，直接往栈里push
-                if(!Global.physicsStack.TryAdd(key, 1))
-                {
-                    Global.physicsStack[key]++;
-                }
-            }
-            else
-            {
-                //启用物理时，根据栈内元素执行操作
-                int stack;
-                if (Global.physicsStack.TryGetValue(key, out stack))
-                {
-                    if (stack > 1)
-                    {
-                        //栈大于1，说明关系的另一边也在忽略物理，把自己的栈出了后直接结束
-                        Global.physicsStack[key]--;
-                        return;
-                    }
-                    else
-                    {
-                        //栈小于等于1，直接关了栈释放内存，正常运行忽略物理
-                        Global.physicsStack.Remove(key);
-                    }
-                }
-            }
-            Collider2D[] colliders = unit.GetComponents<Collider2D>();
-            foreach (Collider2D collider in colliders)
-            {
-                if (!collider.isTrigger)
-                    Physics2D.IgnoreCollision(_collider, collider, ignore);
-                    
-            }
-        }
+        Global.instance.SetCollisionIgnore(_transform, false);
     }
 
     //写入伤害判定类型（传递给伤害脚本）
     public void AttackSet(string action, int index)
     {
         dScripts[index].SetAction(chActionData[action]);
+    }
+
+    //获取朝向
+    public Vector2 GetFaceDir()
+    {
+        return _ball.faceDirection.normalized;
     }
 
     //角色受伤

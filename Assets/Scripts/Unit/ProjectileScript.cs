@@ -122,6 +122,11 @@ public class ProjectileScript : MonoBehaviour, IPoolObject, IAttackable
     }
     #endregion
 
+    //获取朝向
+    public Vector2 GetFaceDir()
+    {
+        return _rigidbody.velocity.normalized;
+    }
     //忽略下一次命中
     public void IgnoreNextHit()
     {

@@ -15,13 +15,18 @@ using UnityEngine.UIElements;
  */
 
 #region 接口
-public interface IHitable
+public interface IHitable : IDirectable
 {
     void GetHit(ref UnitHitEvent hit);
 }//可被DamageScript攻击
-public interface IAttackable {
+public interface IAttackable : IDirectable 
+{
     void LandHit(UnitHitEvent hit);
 }//可使用DamageScript进行攻击
+public interface IDirectable
+{
+    Vector2 GetFaceDir();
+}
 public interface IPoolObject
 {
     //记录自身的prefab
@@ -207,6 +212,57 @@ public class Global : SerializedMonoBehaviour
     public static Ternary ToTernary(float f)
     {
         return (Ternary)Mathf.Sign(f);
+    }
+
+
+    //关闭/启用角色与其他战斗单位的物理交互
+    public void SetCollisionIgnore(Transform target, bool ignore)
+    {
+        GameObject[] units = GameObject.FindGameObjectsWithTag("BattleUnit");
+        foreach (GameObject unit in units)
+        {
+            string key = GetUniqueKey(target.gameObject.GetInstanceID(), unit.GetInstanceID());
+            if (ignore)
+            {
+                //忽略物理时，直接往栈里push
+                if (!physicsStack.TryAdd(key, 1))
+                {
+                    physicsStack[key]++;
+                }
+            }
+            else
+            {
+                //启用物理时，根据栈内元素执行操作
+                int stack;
+                if (physicsStack.TryGetValue(key, out stack))
+                {
+                    if (stack > 1)
+                    {
+                        //栈大于1，说明关系的另一边也在忽略物理，把自己的栈出了后直接结束
+                        physicsStack[key]--;
+                        return;
+                    }
+                    else
+                    {
+                        //栈小于等于1，直接关了栈释放内存，正常运行忽略物理
+                        physicsStack.Remove(key);
+                    }
+                }
+            }
+            Collider2D[] colliders = unit.GetComponents<Collider2D>();
+            Collider2D[] colliders2 = target.GetComponents<Collider2D>();
+            foreach (Collider2D collider in colliders)
+            {
+                if (!collider.isTrigger)
+                {
+                    foreach (Collider2D collider2 in colliders2)
+                    {
+                        if (!collider2.isTrigger)
+                            Physics2D.IgnoreCollision(collider2, collider, ignore);
+                    }
+                }
+            }
+        }
     }
     #endregion
 }

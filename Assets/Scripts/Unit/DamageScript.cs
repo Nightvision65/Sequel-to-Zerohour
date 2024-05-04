@@ -75,16 +75,6 @@ public class DamageScript : SerializedMonoBehaviour
         damageData = data;
     }
 
-    //类似这种需要耦合的方法后面要全部改掉
-    //获取单位朝向
-    private Vector2 GetFaceDirection(MonoBehaviour unit)
-    {
-        if (unit is CharacterScript)
-            return (unit as CharacterScript)._ball.faceDirection.normalized;
-        if (unit is EnemyScript)
-            return (unit as EnemyScript).faceDirection.normalized;
-        return Vector2.zero;
-    }
 
     //判断敌人在本次判定中是否已经被击中过
     private bool unitIsHit(TeamScript unit)
@@ -108,13 +98,13 @@ public class DamageScript : SerializedMonoBehaviour
             switch (damageData.baseData.knocktype)
             {
                 case KnockType.aim:
-                    knockDirection = GetFaceDirection(agents[0] as MonoBehaviour);
+                    knockDirection = agents[0].GetFaceDir();
                     break;
                 case KnockType.velocity:
-                    knockDirection = damageRbody.velocity.normalized;
+                    knockDirection = agents.Last().GetFaceDir();
                     break;
                 case KnockType.recoil:
-                    knockDirection = -GetFaceDirection(hitTarget as MonoBehaviour);
+                    knockDirection = -hitTarget.GetFaceDir();
                     break;
             }
             float damage = damageData.baseData.damage;

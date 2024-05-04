@@ -163,6 +163,12 @@ public class EnemyScript : SerializedMonoBehaviour, IHitable, IAttackable
     protected virtual void OnAnimTagChange(int exitTag, int enterTag) { }
     #endregion
 
+    //获取朝向
+    public Vector2 GetFaceDir()
+    {
+        return faceDirection.normalized;
+    }
+
     //敌人死亡后处理
     public void AfterDeath()
     {
