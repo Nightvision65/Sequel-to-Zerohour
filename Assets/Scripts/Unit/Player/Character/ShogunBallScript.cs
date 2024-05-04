@@ -110,6 +110,7 @@ public class ShogunBallScript : CharacterScript
         }
         if (_stateMachine.Equals("Skill3", enterTag))
         {
+            skill3timer = skill3CD;
             faceState = FaceState.targetDir;
             _modifier.SetModifier("move", "action", 0.5f, true);
             FaceTarget(false);
@@ -228,7 +229,14 @@ public class ShogunBallScript : CharacterScript
             faceState = FaceState.lockedDir;
             _ball.CharacterFace(-hit.hitData.knockback, true);
             _animator.SetTrigger("Guarded");
-            _modifier.SetModifier("defense", "skill1", 0f, true);
+            if (_animator.GetBool("Deflect"))
+            {
+                _modifier.SetModifier("defense", "skill1", 0f, true);
+            }
+            else
+            {
+                _modifier.SetModifier("defense", "skill1", 0.2f, true);
+            }
         }
     }
     public override void OnHitExit(UnitHitEvent hit)

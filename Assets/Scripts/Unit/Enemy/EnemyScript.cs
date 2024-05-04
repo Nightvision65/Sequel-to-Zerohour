@@ -177,6 +177,7 @@ public class EnemyScript : SerializedMonoBehaviour, IHitable, IAttackable
         if(alpha < 0.01f)
         {
             Destroy(gameObject);
+            UIManager.instance.UpdateScore(12);
             return;
         }
         foreach (SpriteRenderer sprite in _sprites)

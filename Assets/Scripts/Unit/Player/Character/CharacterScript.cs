@@ -3,13 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Sirenix.OdinInspector;
-using UnityEngine.Rendering.PostProcessing;
-using UnityEditor.PackageManager;
-using System.Linq;
-using Unity.VisualScripting;
-using UnityEngine.InputSystem.LowLevel;
-using static UnityEngine.Rendering.DebugUI;
-using UnityEngine.Rendering;
 /*
  * CharacterScript
  * 角色脚本
@@ -48,6 +41,8 @@ public class CharacterScript : SerializedMonoBehaviour, IHitable, IAttackable
     protected ModifierManager _modifier;
     protected TeamScript _team;
     public float tempAttackSpeed;
+    public float skill3CD;
+    protected float skill3timer;
     protected void Start()
     {
         _transform = transform;
@@ -72,6 +67,7 @@ public class CharacterScript : SerializedMonoBehaviour, IHitable, IAttackable
             chEyes.Add(eye.transform);
         }
         */
+        nowHealth = 500;
     }
 
     protected void Update()
@@ -86,6 +82,7 @@ public class CharacterScript : SerializedMonoBehaviour, IHitable, IAttackable
                 break;
         }
         if (dodgeTimer > 0) dodgeTimer -= Time.deltaTime;
+        if (skill3timer > 0) skill3timer -= Time.deltaTime;
         _animator.SetFloat("AttackSpeed", tempAttackSpeed);
     }
 
@@ -222,6 +219,7 @@ public class CharacterScript : SerializedMonoBehaviour, IHitable, IAttackable
             _rigidbody.AddForce(hit.hitData.knockback);
             if (nowHealth <= 0)
             {
+                PlayerController.instance.gameObject.SetActive(false);
                     //死亡
             }
         }
@@ -234,6 +232,7 @@ public class CharacterScript : SerializedMonoBehaviour, IHitable, IAttackable
         OnHitExit(hit);
         //调整HitData的伤害为最终实际伤害
         hit.hitData.damage = finalDamage;
+        UIManager.instance.UpdateHP(nowHealth);
     }
 
     public void LandHit(UnitHitEvent hit)
@@ -291,6 +290,10 @@ public class CharacterScript : SerializedMonoBehaviour, IHitable, IAttackable
             {
                 case "Dodge":
                     if (dodgeTimer <= 0)
+                        _animator.SetBool(actionName, true);
+                    break;
+                case "Skill3":
+                    if (skill3timer <= 0)
                         _animator.SetBool(actionName, true);
                     break;
                 default:

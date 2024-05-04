@@ -18,7 +18,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float preInputTime;    //预输入时间，规定单次按键的按下会持续生效多久
     Dictionary<string, KeyState> inputState = new Dictionary<string, KeyState>();   //输入状态，记录每个按键输入目前处于的状态
     Dictionary<string, Coroutine> inputCoroutine = new Dictionary<string, Coroutine>(); //输入协程，用于记录每个按键的输入留存
-    CharacterScript mScript;    //绑定的角色脚本，向角色脚本传输数据。
+    CharacterScript _script;    //绑定的角色脚本，向角色脚本传输数据。
     void Awake()
     {
         instance = this;
@@ -31,13 +31,13 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         TranferTargetInfo();
-        mScript.SetTargetFromInput(device);
+        _script.SetTargetFromInput(device);
     }
 
     //初始化，获得角色的组件
     void Init()
     {
-        mScript = character.GetComponent<CharacterScript>();
+        _script = character.GetComponent<CharacterScript>();
     }
 
     //目标输入
@@ -47,7 +47,7 @@ public class PlayerController : MonoBehaviour
         {
             //键鼠的情况，传输鼠标位置
             Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            mScript.deviceLockInput = mousePosition;
+            _script.deviceLockInput = mousePosition;
         }//手柄的情况，传输右摇杆指向方向（OnInputAim方法中）
     }
 
@@ -58,13 +58,13 @@ public class PlayerController : MonoBehaviour
         {
             Vector2 dir = content.ReadValue<Vector2>();
             //Debug.Log(dir);
-            mScript.MoveStart(dir);
+            _script.MoveStart(dir);
         }
         else
         {
             if (content.canceled)
             {
-                mScript.MoveEnd();
+                _script.MoveEnd();
             }
         }
     }
@@ -76,13 +76,13 @@ public class PlayerController : MonoBehaviour
         {
             Vector2 dir = content.ReadValue<Vector2>();
             //Debug.Log(dir);
-            mScript.deviceLockInput = dir;
+            _script.deviceLockInput = dir;
         }
         else
         {
             if (content.canceled)
             {
-                mScript.deviceLockInput = Vector2.zero;
+                _script.deviceLockInput = Vector2.zero;
             }
         }
     }
@@ -104,7 +104,7 @@ public class PlayerController : MonoBehaviour
             }
             //按键按下后，开启时钟进行输入留存
             inputState[input] = KeyState.pressed;
-            mScript.SetAction(input, KeyState.pressed);
+            _script.SetAction(input, KeyState.pressed);
             inputCoroutine[input] = StartCoroutine(KeySave(input, preInputTime));
         }
         else
@@ -118,7 +118,7 @@ public class PlayerController : MonoBehaviour
                     //通过了按键留存的时间后，再向角色逻辑发送松开信号
                     if (t == KeyState.held)
                     {
-                        mScript.SetAction(input, KeyState.released);
+                        _script.SetAction(input, KeyState.released);
                     }
                     //但是输入逻辑上是直接松开(和实际情况同步)，留存结束后检查该变量判断是否松开
                     inputState[input] = KeyState.released;
@@ -140,13 +140,13 @@ public class PlayerController : MonoBehaviour
             {
                 //按键仍然被按着，转入held状态
                 inputState[key] = KeyState.held;
-                mScript.SetAction(key, KeyState.held);
+                _script.SetAction(key, KeyState.held);
             }
             else
             {
                 //按键已经松开，转入released状态
                 inputState[key] = KeyState.released;
-                mScript.SetAction(key, KeyState.released);
+                _script.SetAction(key, KeyState.released);
             }
         }
     }
@@ -154,8 +154,8 @@ public class PlayerController : MonoBehaviour
     //检测设备更换
     public void OnControlsChange(PlayerInput mInput)
     {
-        if(mScript)
-            mScript.deviceLockInput = Vector2.zero;
+        if(_script)
+            _script.deviceLockInput = Vector2.zero;
         if (mInput.currentControlScheme == "Controller")
         {
             device = Device.controller;

@@ -764,7 +764,7 @@ MonoBehaviour:
       Data: 
   maxHealth: 200
   maxPoise: 200
-  speed: 220
+  speed: 230
   dScripts:
   - {fileID: 4961576602236092262}
   target: {fileID: 0}

@@ -35,7 +35,7 @@ MonoBehaviour:
       Data: 
   tags: 000000000100000003000000
   damage: 60
-  impact: 200
+  impact: 180
   knockback: 4500
   knocktype: 0
   moveForce: 3000
