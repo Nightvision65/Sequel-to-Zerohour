@@ -269,13 +269,49 @@ PrefabInstance:
       propertyPath: serializationData.Prefab
       value: 
       objectReference: {fileID: 4961576601547929403, guid: f3190f8d16a480c4eae07f285d1037d4, type: 3}
+    - target: {fileID: 4961576601547929403, guid: f3190f8d16a480c4eae07f285d1037d4, type: 3}
+      propertyPath: serializationData.PrefabModifications.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4961576601547929403, guid: f3190f8d16a480c4eae07f285d1037d4, type: 3}
+      propertyPath: serializationData.PrefabModifications.Array.data[0]
+      value: '"path":"chWeapon.[0]","value":{"$id":0,"$type":"WeaponSpriteData, Assembly-CSharp","main":$eref:0,"sub":$eref:1,"sort":$eref:2,"offsetDis":0.36,"offsetDir":0}'
+      objectReference: {fileID: 0}
+    - target: {fileID: 4961576601547929403, guid: f3190f8d16a480c4eae07f285d1037d4, type: 3}
+      propertyPath: serializationData.PrefabModifications.Array.data[1]
+      value: '"path":"chWeapon.[0].main","value":$eref:0'
+      objectReference: {fileID: 0}
+    - target: {fileID: 4961576601547929403, guid: f3190f8d16a480c4eae07f285d1037d4, type: 3}
+      propertyPath: serializationData.PrefabModifications.Array.data[2]
+      value: '"path":"chWeapon.[0].sort","value":$eref:2'
+      objectReference: {fileID: 0}
+    - target: {fileID: 4961576601547929403, guid: f3190f8d16a480c4eae07f285d1037d4, type: 3}
+      propertyPath: serializationData.PrefabModifications.Array.data[3]
+      value: '"path":"chWeapon.[0].sub","value":$eref:1'
+      objectReference: {fileID: 0}
+    - target: {fileID: 4961576601547929403, guid: f3190f8d16a480c4eae07f285d1037d4, type: 3}
+      propertyPath: serializationData.PrefabModificationsReferencedUnityObjects.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4961576601547929403, guid: f3190f8d16a480c4eae07f285d1037d4, type: 3}
+      propertyPath: serializationData.PrefabModificationsReferencedUnityObjects.Array.data[0]
+      value: 
+      objectReference: {fileID: 288427607}
+    - target: {fileID: 4961576601547929403, guid: f3190f8d16a480c4eae07f285d1037d4, type: 3}
+      propertyPath: serializationData.PrefabModificationsReferencedUnityObjects.Array.data[1]
+      value: 
+      objectReference: {fileID: 686572235}
+    - target: {fileID: 4961576601547929403, guid: f3190f8d16a480c4eae07f285d1037d4, type: 3}
+      propertyPath: serializationData.PrefabModificationsReferencedUnityObjects.Array.data[2]
+      value: 
+      objectReference: {fileID: 2092563155}
     - target: {fileID: 4961576601547929411, guid: f3190f8d16a480c4eae07f285d1037d4, type: 3}
       propertyPath: m_Name
       value: SwordBall (2)
       objectReference: {fileID: 0}
     - target: {fileID: 4961576601547929411, guid: f3190f8d16a480c4eae07f285d1037d4, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4961576602236092262, guid: f3190f8d16a480c4eae07f285d1037d4, type: 3}
       propertyPath: serializationData.Prefab
@@ -541,6 +577,11 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 1
+--- !u!4 &288427607 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4961576601288332909, guid: f3190f8d16a480c4eae07f285d1037d4, type: 3}
+  m_PrefabInstance: {fileID: 80166279}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &291483089
 GameObject:
   m_ObjectHideFlags: 0
@@ -722,6 +763,11 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!210 &368150832 stripped
+SortingGroup:
+  m_CorrespondingSourceObject: {fileID: 8049834062000447148, guid: f3190f8d16a480c4eae07f285d1037d4, type: 3}
+  m_PrefabInstance: {fileID: 4961576601673850233}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &404124164
 GameObject:
   m_ObjectHideFlags: 0
@@ -1002,7 +1048,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   character: {fileID: 848804664}
   device: 0
-  preInputTime: 0.1
+  preInputTime: 0.2
 --- !u!114 &646494755
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1240,6 +1286,11 @@ PolygonCollider2D:
       - {x: 0.5172108, y: -1.50553}
       - {x: 1.1863694, y: -0.7705903}
   m_UseDelaunayMesh: 0
+--- !u!4 &686572235 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4961576602280656563, guid: f3190f8d16a480c4eae07f285d1037d4, type: 3}
+  m_PrefabInstance: {fileID: 80166279}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &763637538
 GameObject:
   m_ObjectHideFlags: 0
@@ -1923,7 +1974,7 @@ MonoBehaviour:
       Data: moveSpeed
     - Name: $v
       Entry: 4
-      Data: 350
+      Data: 375
     - Name: 
       Entry: 8
       Data: 
@@ -3061,6 +3112,11 @@ PolygonCollider2D:
       - {x: -0.3616287, y: 0}
       - {x: -0.36080337, y: -1.7815571}
   m_UseDelaunayMesh: 0
+--- !u!4 &1160574398 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4961576601288332909, guid: f3190f8d16a480c4eae07f285d1037d4, type: 3}
+  m_PrefabInstance: {fileID: 4961576601673850233}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1165635857
 GameObject:
   m_ObjectHideFlags: 0
@@ -3204,7 +3260,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5370459506623036903, guid: 1707630fc006b704ea0ddce2e0de5bce, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5670656595729896007, guid: 1707630fc006b704ea0ddce2e0de5bce, type: 3}
       propertyPath: serializationData.Prefab
@@ -3419,7 +3475,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5370459506623036903, guid: 1707630fc006b704ea0ddce2e0de5bce, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5670656595729896007, guid: 1707630fc006b704ea0ddce2e0de5bce, type: 3}
       propertyPath: serializationData.Prefab
@@ -4593,7 +4649,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4961576601547929411, guid: f3190f8d16a480c4eae07f285d1037d4, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4961576602236092262, guid: f3190f8d16a480c4eae07f285d1037d4, type: 3}
       propertyPath: serializationData.Prefab
@@ -4650,6 +4706,11 @@ SortingGroup:
   m_SortingLayer: -1
   m_SortingOrder: 0
   m_SortAtRoot: 0
+--- !u!4 &2062122819 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4961576602280656563, guid: f3190f8d16a480c4eae07f285d1037d4, type: 3}
+  m_PrefabInstance: {fileID: 4961576601673850233}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2078749632
 GameObject:
   m_ObjectHideFlags: 0
@@ -4736,6 +4797,11 @@ PolygonCollider2D:
       - {x: 0.22404474, y: -1.5641632}
       - {x: 1.2031218, y: -0.82084733}
   m_UseDelaunayMesh: 0
+--- !u!210 &2092563155 stripped
+SortingGroup:
+  m_CorrespondingSourceObject: {fileID: 8049834062000447148, guid: f3190f8d16a480c4eae07f285d1037d4, type: 3}
+  m_PrefabInstance: {fileID: 80166279}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &4961576601325049564 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4157060157459365497, guid: 1707630fc006b704ea0ddce2e0de5bce, type: 3}
@@ -4797,9 +4863,49 @@ PrefabInstance:
       propertyPath: serializationData.Prefab
       value: 
       objectReference: {fileID: 4961576601547929403, guid: f3190f8d16a480c4eae07f285d1037d4, type: 3}
+    - target: {fileID: 4961576601547929403, guid: f3190f8d16a480c4eae07f285d1037d4, type: 3}
+      propertyPath: serializationData.PrefabModifications.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4961576601547929403, guid: f3190f8d16a480c4eae07f285d1037d4, type: 3}
+      propertyPath: serializationData.PrefabModifications.Array.data[0]
+      value: '"path":"chWeapon.[0]","value":{"$id":0,"$type":"WeaponSpriteData, Assembly-CSharp","main":$eref:0,"sub":$eref:1,"sort":$eref:2,"offsetDis":0.36,"offsetDir":0}'
+      objectReference: {fileID: 0}
+    - target: {fileID: 4961576601547929403, guid: f3190f8d16a480c4eae07f285d1037d4, type: 3}
+      propertyPath: serializationData.PrefabModifications.Array.data[1]
+      value: '"path":"chWeapon.[0].main","value":$eref:0'
+      objectReference: {fileID: 0}
+    - target: {fileID: 4961576601547929403, guid: f3190f8d16a480c4eae07f285d1037d4, type: 3}
+      propertyPath: serializationData.PrefabModifications.Array.data[2]
+      value: '"path":"chWeapon.[0].sort","value":$eref:2'
+      objectReference: {fileID: 0}
+    - target: {fileID: 4961576601547929403, guid: f3190f8d16a480c4eae07f285d1037d4, type: 3}
+      propertyPath: serializationData.PrefabModifications.Array.data[3]
+      value: '"path":"chWeapon.[0].sub","value":$eref:1'
+      objectReference: {fileID: 0}
+    - target: {fileID: 4961576601547929403, guid: f3190f8d16a480c4eae07f285d1037d4, type: 3}
+      propertyPath: serializationData.PrefabModificationsReferencedUnityObjects.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4961576601547929403, guid: f3190f8d16a480c4eae07f285d1037d4, type: 3}
+      propertyPath: serializationData.PrefabModificationsReferencedUnityObjects.Array.data[0]
+      value: 
+      objectReference: {fileID: 1160574398}
+    - target: {fileID: 4961576601547929403, guid: f3190f8d16a480c4eae07f285d1037d4, type: 3}
+      propertyPath: serializationData.PrefabModificationsReferencedUnityObjects.Array.data[1]
+      value: 
+      objectReference: {fileID: 2062122819}
+    - target: {fileID: 4961576601547929403, guid: f3190f8d16a480c4eae07f285d1037d4, type: 3}
+      propertyPath: serializationData.PrefabModificationsReferencedUnityObjects.Array.data[2]
+      value: 
+      objectReference: {fileID: 368150832}
     - target: {fileID: 4961576601547929411, guid: f3190f8d16a480c4eae07f285d1037d4, type: 3}
       propertyPath: m_Name
       value: SwordBall
+      objectReference: {fileID: 0}
+    - target: {fileID: 4961576601547929411, guid: f3190f8d16a480c4eae07f285d1037d4, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4961576602236092262, guid: f3190f8d16a480c4eae07f285d1037d4, type: 3}
       propertyPath: serializationData.Prefab
@@ -4870,6 +4976,10 @@ PrefabInstance:
     - target: {fileID: 5370459506623036903, guid: 1707630fc006b704ea0ddce2e0de5bce, type: 3}
       propertyPath: m_Name
       value: BowBall
+      objectReference: {fileID: 0}
+    - target: {fileID: 5370459506623036903, guid: 1707630fc006b704ea0ddce2e0de5bce, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5670656595729896007, guid: 1707630fc006b704ea0ddce2e0de5bce, type: 3}
       propertyPath: serializationData.Prefab

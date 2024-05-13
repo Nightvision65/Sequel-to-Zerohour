@@ -34,8 +34,8 @@ MonoBehaviour:
       Entry: 8
       Data: 
   tags: 000000000200000004000000
-  damage: 1
-  impact: 200
+  damage: 30
+  impact: 100
   knockback: 4000
   knocktype: 2
   moveForce: 0

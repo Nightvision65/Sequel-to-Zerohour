@@ -3,13 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Sirenix.OdinInspector;
-using UnityEngine.Rendering.PostProcessing;
-using UnityEditor.PackageManager;
-using System.Linq;
-using Unity.VisualScripting;
-using UnityEngine.InputSystem.LowLevel;
-using static UnityEngine.Rendering.DebugUI;
-using UnityEngine.Rendering;
 /*
  * CharacterScript
  * 角色脚本
@@ -103,11 +96,6 @@ public class CharacterScript : SerializedMonoBehaviour, IHitable, IAttackable
     //重置状态，用于被强制打断动作后正常结束目前状态
     protected virtual void ResetStatus() { }
 
-    //数值改变后，重设数据
-    protected void SetData()
-    {
-
-    }
     //通过输入设置目标位置
     public void SetTargetFromInput(Device mode)
     {
