@@ -12,7 +12,9 @@ public class DebugScript : MonoBehaviour
 {
     public static DebugScript instance;
     public bool pauseGame;
-    public bool aimBot;
+    public bool lowfps;
+    public int theLowfps;
+    //public bool aimBot;
     private void Awake()
     {
         instance = this;
@@ -20,14 +22,8 @@ public class DebugScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (pauseGame)
-        {
-            Time.timeScale = 0.0f;
-        }
-        else
-        {
-            Time.timeScale = 1.0f;
-        }
-        Global.options.aimBot = aimBot;
+        Time.timeScale = pauseGame ? 0.0f : 1.0f;
+        Application.targetFrameRate = lowfps ? theLowfps : 0;
+        //Global.options.aimBot = aimBot;
     }
 }

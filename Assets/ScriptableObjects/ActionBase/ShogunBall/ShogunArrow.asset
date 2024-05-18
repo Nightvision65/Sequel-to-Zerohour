@@ -38,5 +38,5 @@ MonoBehaviour:
   impact: 100
   knockback: 4000
   knocktype: 2
-  moveForce: 0
+  moveForce: 8000
   hitFreezeTime: 0.06

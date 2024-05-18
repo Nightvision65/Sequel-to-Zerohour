@@ -13,7 +13,6 @@ using Sirenix.OdinInspector;
 
 public class CharacterScript : SerializedMonoBehaviour, IHitable, IAttackable
 {
-    [SerializeField] protected Rigidbody2D activeRbody; //用于记录主动位移产生动量的Rigidbody，以此将主动和被动位移产生的动量区分开
     TrailRenderer _trailRenderer;
     protected FaceState faceState = FaceState.moveDir;    //朝向状态
     public Vector2 moveDirection; //角色移动方向
@@ -121,7 +120,6 @@ public class CharacterScript : SerializedMonoBehaviour, IHitable, IAttackable
     public virtual void Move(Vector2 dir)
     {
         _rigidbody.AddForce(dir * chData["moveSpeed"] * _modifier.GetModifier("move"));
-        activeRbody.AddForce(dir * chData["moveSpeed"] * _modifier.GetModifier("move"));
     }
 
     //移动开始
@@ -150,7 +148,6 @@ public class CharacterScript : SerializedMonoBehaviour, IHitable, IAttackable
         isDodging = true;
         _trailRenderer.enabled = true;
         _rigidbody.AddForce(_ball.faceDirection * chData["moveSpeed"] * dodgeSpeed);
-        activeRbody.AddForce(_ball.faceDirection * chData["moveSpeed"] * dodgeSpeed);
         Global.instance.SetCollisionIgnore(_transform, true);
     }
 
@@ -171,6 +168,7 @@ public class CharacterScript : SerializedMonoBehaviour, IHitable, IAttackable
     {
         dScripts[index].SetAction(chActionData[action]);
     }
+
 
     //获取朝向
     public Vector2 GetFaceDir()
@@ -226,15 +224,19 @@ public class CharacterScript : SerializedMonoBehaviour, IHitable, IAttackable
 
     public void LandHit(UnitHitEvent hit)
     {
-        //命中自己顿帧
-        if (hit.actionData.baseData.hitFreezeTime > 0 && hit.actionData.hasTag(ActionTag.melee))
+        if (hit.script.GetHitCount() == 1)
         {
-            HitFreeze(hit.actionData.baseData.hitFreezeTime);
-        }
-        //命中相机震动
-        if (hit.actionData.baseData.hitCameraShake.intensity > 0)
-        {
-            CameraManager.instance.CameraShake(hit.actionData.baseData.hitCameraShake, Global.P_CS_DealHit);
+            Debug.Log("effect");
+            //命中自己顿帧
+            if (hit.actionData.baseData.hitFreezeTime > 0 && hit.actionData.hasTag(ActionTag.melee))
+            {
+                HitFreeze(hit.actionData.baseData.hitFreezeTime);
+            }
+            //命中相机震动
+            if (hit.actionData.baseData.hitCameraShake.intensity > 0)
+            {
+                CameraManager.instance.CameraShake(hit.actionData.baseData.hitCameraShake, Global.P_CS_DealHit);
+            }
         }
     }
 

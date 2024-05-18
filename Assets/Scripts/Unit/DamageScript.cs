@@ -13,7 +13,7 @@ public class DamageScript : SerializedMonoBehaviour
 {
     [SerializeField] private TeamScript agentTeam;    //伤害来源队伍
     [SerializeField] private List<IAttackable> agents;     //伤害施加相关者
-    private List<TeamScript> hitUnits = new List<TeamScript>();   //已经被本次攻击命中过的单位
+    private List<IHitable> hitUnits = new List<IHitable>();   //已经被本次攻击命中过的单位
     private ActionData damageData;  //伤害来源数据
     private Vector2 knockDirection;  //击退方向
     private bool isActive = false;  //有判定区域被激活
@@ -75,11 +75,17 @@ public class DamageScript : SerializedMonoBehaviour
         damageData = data;
     }
 
+    //获取本次开启判定的命中数
+    public int GetHitCount()
+    {
+        return hitUnits.Count;
+    }
+
 
     //判断敌人在本次判定中是否已经被击中过
-    private bool unitIsHit(TeamScript unit)
+    private bool UnitIsHit(IHitable unit)
     {
-        foreach (TeamScript hitUnit in hitUnits)
+        foreach (IHitable hitUnit in hitUnits)
         {
             if (hitUnit == unit)
                 return true;
@@ -150,9 +156,9 @@ public class DamageScript : SerializedMonoBehaviour
         if (hit != null)
         {
             TeamScript teamScript = collision.GetComponentInParent<TeamScript>();
-            if (!agentTeam.IsSameTeam(teamScript) && !unitIsHit(teamScript))
+            if (!agentTeam.IsSameTeam(teamScript) && !UnitIsHit(hit))
             {
-                hitUnits.Add(teamScript);
+                hitUnits.Add(hit);
                 HitTargetUnit(hit);
             }
         }

@@ -140,17 +140,14 @@ public class EnemyScript : SerializedMonoBehaviour, IHitable, IAttackable
         float closestDistance = Mathf.Infinity;
         foreach (Collider2D collider in colliders)
         {
-            if (collider.attachedRigidbody.tag == "BattleUnit")
+            TeamScript colliderTeam = collider.GetComponentInParent<TeamScript>();
+            if (colliderTeam != null && _team.IsEnemy(colliderTeam))
             {
-                TeamScript colliderTeam = collider.GetComponentInParent<TeamScript>();
-                if (_team.IsEnemy(colliderTeam))
+                float distance = Vector2.Distance(_transform.position, collider.transform.position);
+                if (distance < closestDistance)
                 {
-                    float distance = Vector2.Distance(_transform.position, collider.transform.position);
-                    if (distance < closestDistance)
-                    {
-                        closestTarget = collider.transform;
-                        closestDistance = distance;
-                    }
+                    closestTarget = collider.transform;
+                    closestDistance = distance;
                 }
             }
         }

@@ -56,6 +56,10 @@ public class ShogunBallScript : CharacterScript
                 deflectRunning = false;
             }
         }
+        if (_stateMachine.Equals("Attack1", enterState) || _stateMachine.Equals("Attack2", enterState) || _stateMachine.Equals("Attack3", enterState))
+        {
+            _animator.SetBool("Attack", false);
+        }
     }
     protected override void OnAnimTagChange(int exitTag, int enterTag)
     {
@@ -85,6 +89,7 @@ public class ShogunBallScript : CharacterScript
         //再触发进入事件
         if (_stateMachine.Equals("Dodge", enterTag))
         {
+            _animator.SetBool("Dodge", false);
             DodgeStart();
         }
         if (_stateMachine.Equals("Idle", enterTag))
@@ -105,15 +110,18 @@ public class ShogunBallScript : CharacterScript
         }
         if (_stateMachine.Equals("Skill2", enterTag))
         {
+            _animator.SetBool("Skill2", false);
             faceState = FaceState.targetDir;
             _modifier.SetModifier("move", "action", 0.5f, true);
         }
         if (_stateMachine.Equals("Skill3", enterTag))
         {
+            _animator.SetBool("Skill3", false);
             faceState = FaceState.targetDir;
             _modifier.SetModifier("move", "action", 0.5f, true);
             FaceTarget(false);
             _animator.SetInteger("Arrow", arrowNum);
+            _rigidbody.AddForce(-attackDirection * chActionData["Arrow"].baseData.moveForce);
         }
         //最后触发混合事件
     }
@@ -139,7 +147,6 @@ public class ShogunBallScript : CharacterScript
         _ball.BallSpriteProcess(true);
         _modifier.SetModifier("move", "action", 0f, true);
         _rigidbody.AddForce(attackDirection * chActionData[key].baseData.moveForce);
-        activeRbody.AddForce(attackDirection * chActionData[key].baseData.moveForce);
         AttackSet(key, 0);
         TrailFix();
         weaponTrail.emit = true;
