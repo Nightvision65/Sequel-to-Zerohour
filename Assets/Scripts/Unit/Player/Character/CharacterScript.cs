@@ -19,7 +19,8 @@ public class CharacterScript : SerializedMonoBehaviour, IHitable, IAttackable
     [SerializeField] protected Vector2 targetPosition;  //锁定的目标位置
     public Vector2 deviceLockInput;  //输入设备的指针所锁定的Vector2数据，由PlayerController不断更新
     public Dictionary<Attribute, int> chAttribute;    //保存角色的属性
-    public Dictionary<string, ActionData> chActionData;    //保存关于角色的动作数据(比如技能动作值、削韧等)
+    public Dictionary<string, ActionData> chActionData;    //保存关于角色的动作数据(比如技能动作值、削韧等
+    public Dictionary<string, ShiftDataSO> chShiftData;    //保存关于角色的基础位移数据
     public Dictionary<string, float> chData;//保存关于角色的顶层数据(每次基础数据被修改时更新)
     public List<DamageScript> dScripts; //保存直接相关的DamageScript
     protected float nowHealth;    //现在生命值
@@ -147,7 +148,7 @@ public class CharacterScript : SerializedMonoBehaviour, IHitable, IAttackable
             _ball.CharacterFace(moveDirection, true);
         isDodging = true;
         _trailRenderer.enabled = true;
-        _rigidbody.AddForce(_ball.faceDirection * chData["moveSpeed"] * dodgeSpeed);
+        _rigidbody.AddForce(GetFaceDir() * chData["moveSpeed"] * dodgeSpeed);
         Global.instance.SetCollisionIgnore(_transform, true);
     }
 
@@ -164,16 +165,39 @@ public class CharacterScript : SerializedMonoBehaviour, IHitable, IAttackable
     }
 
     //写入伤害判定类型（传递给伤害脚本）
-    public void AttackSet(string action, int index)
+    public void SetAttack(string action, int index)
     {
         dScripts[index].SetAction(chActionData[action]);
     }
 
+    //开启位移动作
+    public Coroutine SetShift(string key)
+    {
+        ShiftDataSO data = chShiftData[key];
+        return StartCoroutine(Shift(data.force, data.duration, data.angle, data.followDir));
+    }
+
+    //位移协程
+    public IEnumerator Shift(float force, float duration, float angle, bool followDir)
+    {
+        Vector2 dir = Quaternion.Euler(0, 0, angle) * GetFaceDir();
+        int time = Mathf.Max(1, Mathf.RoundToInt(duration / Time.fixedDeltaTime));
+        while (time > 0)
+        {
+            time--;
+            if (followDir)
+            {
+                dir = Quaternion.Euler(0, 0, angle) * GetFaceDir();
+            }
+            _rigidbody.AddForce(force * dir);
+            yield return new WaitForFixedUpdate();
+        }
+    }
 
     //获取朝向
     public Vector2 GetFaceDir()
     {
-        return _ball.faceDirection.normalized;
+        return _ball.GetFaceDir();
     }
 
     //角色受伤

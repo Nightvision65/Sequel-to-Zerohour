@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8f1132d79bf82a04da439f196a629300, type: 3}
-  m_Name: ShogunSlash3
+  m_Name: ShogunballSlash2
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
@@ -26,17 +26,17 @@ MonoBehaviour:
       Data: CameraShakeData, Assembly-CSharp
     - Name: intensity
       Entry: 4
-      Data: 1.2
+      Data: 0.8
     - Name: duration
       Entry: 4
-      Data: 0.2
+      Data: 0.15
     - Name: 
       Entry: 8
       Data: 
   tags: 000000000100000003000000
-  damage: 60
-  impact: 200
-  knockback: 4000
+  damage: 40
+  impact: 120
+  knockback: 3000
   knocktype: 0
-  moveForce: 3500
-  hitFreezeTime: 0.09
+  moveForce: 2500
+  hitFreezeTime: 0.06

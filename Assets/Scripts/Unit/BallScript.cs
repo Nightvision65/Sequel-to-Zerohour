@@ -9,11 +9,11 @@ using UnityEngine.EventSystems;
  * 玉脚本
  * 玉的父类，负责所有玉形单位能做的事情
  */
-public class BallScript : SerializedMonoBehaviour
+public class BallScript : SerializedMonoBehaviour, IDirectable
 {
     [SerializeField] private Transform chBody;
     public List<WeaponSpriteData> chWeapon;
-    public Vector2 faceDirection; //朝向
+    private Vector2 faceDirection; //朝向
     [SerializeField] private float discipline;    //纪律性，影响转向时实际转向的速度
     [SerializeField] private bool weaponCorrect;  //是否开启旋转时的武器位置修正（就是绕着椭圆还是圆）
     [SerializeField] private Ternary weaponFixedSort; //武器强制排序（强制在角色下或角色上）
@@ -33,7 +33,10 @@ public class BallScript : SerializedMonoBehaviour
     {
         BallSpriteProcess(false);
     }
-
+    public Vector2 GetFaceDir()
+    {
+        return faceDirection.normalized;
+    }
     //角色朝向指定位置(now表示是否立刻转向指定位置)
     //dir: 朝向的方向
     //now: 是否立刻朝向（为False的话武器会根据discipline慢慢转过去）

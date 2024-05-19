@@ -117,11 +117,4 @@ public class SwordBallScript : EnemyBallScript
         }
         */
     }
-
-    //攻击前冲
-    void MeleeForward()
-    {
-        _rigidbody.AddForce(faceDirection * actionData["Slash"].baseData.moveForce);
-    }
-
 }

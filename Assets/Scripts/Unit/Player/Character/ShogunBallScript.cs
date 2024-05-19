@@ -121,7 +121,6 @@ public class ShogunBallScript : CharacterScript
             _modifier.SetModifier("move", "action", 0.5f, true);
             FaceTarget(false);
             _animator.SetInteger("Arrow", arrowNum);
-            _rigidbody.AddForce(-attackDirection * chActionData["Arrow"].baseData.moveForce);
         }
         //最后触发混合事件
     }
@@ -146,8 +145,7 @@ public class ShogunBallScript : CharacterScript
     {
         _ball.BallSpriteProcess(true);
         _modifier.SetModifier("move", "action", 0f, true);
-        _rigidbody.AddForce(attackDirection * chActionData[key].baseData.moveForce);
-        AttackSet(key, 0);
+        SetAttack(key, 0);
         TrailFix();
         weaponTrail.emit = true;
         animSpeed = _animator.speed;
@@ -258,7 +256,7 @@ public class ShogunBallScript : CharacterScript
                 //对近战削韧并上暴击标记
                 if (hit.actionData.hasTag(ActionTag.melee))
                 {
-                    AttackSet("Deflect", 0);
+                    SetAttack("Deflect", 0);
                     meleeDScript.HitTargetUnit((IHitable)hit.agent);
                 }
             }

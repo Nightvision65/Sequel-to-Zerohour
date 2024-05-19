@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8f1132d79bf82a04da439f196a629300, type: 3}
-  m_Name: ShogunSlash1
+  m_Name: ShogunballArrow
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
@@ -33,10 +33,10 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-  tags: 000000000100000003000000
-  damage: 40
-  impact: 120
-  knockback: 3000
-  knocktype: 0
-  moveForce: 2500
+  tags: 000000000200000004000000
+  damage: 30
+  impact: 100
+  knockback: 4000
+  knocktype: 2
+  moveForce: 8000
   hitFreezeTime: 0.06

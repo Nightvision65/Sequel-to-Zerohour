@@ -15,7 +15,6 @@ public class ActionBaseSO : SerializedScriptableObject
     public float impact;    //削韧值
     public float knockback; //击退值
     public KnockType knocktype; //击退类型
-    public float moveForce; //动作导致角色位移的力
     public float hitFreezeTime; //命中后顿帧时间
     public CameraShakeData hitCameraShake;  //相机震动数据
 }
