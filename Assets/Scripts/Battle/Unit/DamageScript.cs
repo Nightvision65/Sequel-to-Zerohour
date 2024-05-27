@@ -140,6 +140,7 @@ public class DamageScript : SerializedMonoBehaviour
             HitData hit = new HitData(damage, damageData.baseData.impact, damageData.baseData.knockback * knockDirection);
             hitEvent.SetArgs(agents[0], hitTarget, this, damageData, hit);
             hitTarget.GetHit(ref hitEvent);
+            Debug.Log(hitEvent.hitData.damage);
             //触发命中事件
             foreach (IAttackable agent in agents)
             {

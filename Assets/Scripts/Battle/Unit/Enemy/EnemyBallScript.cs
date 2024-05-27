@@ -21,7 +21,7 @@ public class EnemyBallScript : EnemyScript
     protected new void Update()
     {
         base.Update();
-        faceDirection = GetFaceDir();
+        faceDirection = _ball.GetFaceDir();
         switch (faceState)
         {
             case FaceState.moveDir:

@@ -6,6 +6,7 @@ using System.Reflection;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using static Unity.Collections.AllocatorManager;
 using static UnityEngine.Rendering.DebugUI.Table;
 /*
  * ShogunBallScript
@@ -80,6 +81,7 @@ public class ShogunBallScript : CharacterScript
         if (_stateMachine.Equals("Skill2", exitTag))
         {
             _modifier.RemoveModifier("move", "action", true);
+            _modifier.RemoveModifier("defense", "skill2", true);
             WeaponSetIn(0);
         }
         if (_stateMachine.Equals("Skill3", exitTag))
@@ -105,7 +107,7 @@ public class ShogunBallScript : CharacterScript
         if (_stateMachine.Equals("Skill1", enterTag))
         {
             faceState = FaceState.targetDir;
-            _modifier.SetModifier("move", "action", 0.3f, true);
+            _modifier.SetModifier("move", "action", 0.5f, true);
             FaceTarget(false);
         }
         if (_stateMachine.Equals("Skill2", enterTag))
@@ -113,6 +115,7 @@ public class ShogunBallScript : CharacterScript
             _animator.SetBool("Skill2", false);
             faceState = FaceState.targetDir;
             _modifier.SetModifier("move", "action", 0.5f, true);
+            _modifier.SetModifier("defense", "skill2", 0f, true);
         }
         if (_stateMachine.Equals("Skill3", enterTag))
         {
@@ -132,6 +135,7 @@ public class ShogunBallScript : CharacterScript
         faceState = FaceState.moveDir;
         _modifier.RemoveModifier("move", "action", true);
         _modifier.RemoveModifier("defense", "skill1", true);
+        _modifier.RemoveModifier("defense", "skill2", true);
         WeaponSetIn(0);
     }
     private void FaceTarget(bool now)
@@ -147,7 +151,6 @@ public class ShogunBallScript : CharacterScript
         _modifier.SetModifier("move", "action", 0f, true);
         SetAttack(key, 0);
         TrailFix();
-        weaponTrail.emit = true;
         animSpeed = _animator.speed;
         _animator.speed = 1f;
     }
@@ -155,7 +158,6 @@ public class ShogunBallScript : CharacterScript
     //攻击判定结束
     public void MeleeAttackDealEnd()
     {
-        weaponTrail.emit = false;
         _animator.speed = animSpeed;
     }
 
@@ -183,16 +185,30 @@ public class ShogunBallScript : CharacterScript
         }
     }
 
+    //[Skill2]居合闪避/取消闪避
+    public void SetIaidoBlock(int block)
+    {
+        if (Convert.ToBoolean(block)) 
+        {
+            _modifier.SetModifier("defense", "skill2", 0f, true);
+        }
+        else
+        {
+            _modifier.RemoveModifier("defense", "skill2", true);
+        }
+    }
+
     //[Skill3]弓箭射击
     public void ArrowShot()
     {
         FaceTarget(true);
         _animator.SetInteger("Arrow", _animator.GetInteger("Arrow") - 1);
-        GameObject arrow = ObjectPoolManager.instance.Get(arrowPrefab);
-        ProjectileScript arrowScript = arrow.GetComponent<ProjectileScript>();
-        arrowScript.SetTransform(arrowTransform);
-        arrowScript.SetDScriptData(this, chActionData["Arrow"]);
-        arrowScript.LaunchForward(arrowForce);
+        new ProjectileBuilder()
+            .WithSource(this)
+            .WithPrefab(arrowPrefab)
+            .WithActionData(chActionData["Arrow"])
+            .WithLaunchForce(arrowForce)
+            .Build(arrowTransform);
     }
 
     //修复武器拖尾绘制
@@ -223,7 +239,7 @@ public class ShogunBallScript : CharacterScript
         }
     }
 
-    public override void OnHitEnter(UnitHitEvent hit)
+    public override void OnHitEnter(ref UnitHitEvent hit)
     {
         //[Skill1]格挡判定
         //在格挡状态且同时按下了格挡按键才算在格挡
@@ -233,10 +249,17 @@ public class ShogunBallScript : CharacterScript
             faceState = FaceState.lockedDir;
             _ball.CharacterFace(-hit.hitData.knockback, true);
             _animator.SetTrigger("Guarded");
-            _modifier.SetModifier("defense", "skill1", 0f, true);
+            if (_animator.GetBool("Deflect"))
+            {
+                _modifier.SetModifier("defense", "skill1", 0f, true);
+            }
+            else
+            {
+                _modifier.SetModifier("defense", "skill1", 0.3f, true);
+            }
         }
     }
-    public override void OnHitExit(UnitHitEvent hit)
+    public override void OnHitExit(ref UnitHitEvent hit)
     {
         if (_modifier.GetModifier("defense", "skill1", true) != float.MinValue)
         {
@@ -249,7 +272,6 @@ public class ShogunBallScript : CharacterScript
                 {
                     ProjectileScript pScript = hit.script.GetComponentInParent<ProjectileScript>();
                     pScript.ReverseDir();
-                    pScript.IgnoreNextHit();
                     hit.script.SetHeadAgent(this);
                     hit.script.transform.rotation *= Quaternion.Euler(0, 0, 180);
                 }

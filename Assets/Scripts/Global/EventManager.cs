@@ -31,9 +31,8 @@ public class UnitHitEvent : EventArgs
 }
 public class EventManager : MonoBehaviour
 {
-    private static Dictionary<Type, SortedDictionary<int, Delegate>> listeners = new Dictionary<Type, SortedDictionary<int, Delegate>>();
+    private static Dictionary<Type, Delegate> listeners = new Dictionary<Type, Delegate>();
     //Type: 事件类型（EventArgs）
-    //int：委托优先级
     //Delegate: 该事件类型和优先级下的所有订阅委托（Action<EventArgs>）
     public static EventManager instance;
     private void Awake()
@@ -42,46 +41,36 @@ public class EventManager : MonoBehaviour
     }
 
     //订阅事件
-    public void Subscribe<T>(Action<T> listener, int priority) where T : EventArgs
+    public void Subscribe<T>(Action<T> listener) where T : EventArgs
     {
         Type eventType = typeof(T);
         //该事件下没有委托的话先进行初始化
-        if (!listeners.TryGetValue(eventType, out SortedDictionary<int, Delegate> priorityListeners))
+        if (!listeners.TryGetValue(eventType, out Delegate del))
         {
-            priorityListeners = new SortedDictionary<int, Delegate>();
-            listeners[eventType] = priorityListeners;
-        }
-        //该优先级下有委托的话进行合并
-        if (priorityListeners.TryGetValue(priority, out Delegate del))
-        {
-            priorityListeners[priority] = Delegate.Combine(del, listener);
+            listeners[eventType] = listener;
         }
         else
         {
-            priorityListeners[priority] = listener;
+            listeners[eventType] = Delegate.Combine(del, listener);
         }
     }
 
     //取消订阅事件
-    public void Unsubscribe<T>(Action<T> listener, int priority) where T : EventArgs
+    public void Unsubscribe<T>(Action<T> listener) where T : EventArgs
     {
         Type eventType = typeof(T);
-        //先检测该事件有没有相应优先级下的委托
-        if (listeners.TryGetValue(eventType, out SortedDictionary<int, Delegate> priorityListeners) && priorityListeners.TryGetValue(priority, out Delegate del))
+        //先检测该事件有没有委托
+        if (listeners.TryGetValue(eventType, out Delegate del))
         {
             Delegate currentDel = Delegate.Remove(del, listener);
             //没有委托的时候移除
             if (currentDel == null)
             {
-                priorityListeners.Remove(priority);
-                if (priorityListeners.Count == 0)
-                {
-                    listeners.Remove(eventType);
-                }
+                listeners.Remove(eventType);
             }
             else
             {
-                priorityListeners[priority] = currentDel;
+                listeners[eventType] = currentDel;
             }
         }
     }
@@ -91,19 +80,15 @@ public class EventManager : MonoBehaviour
     {
         Type eventType = typeof(T);
         //没有委托就不广播
-        if (listeners.TryGetValue(eventType, out SortedDictionary<int, Delegate> priorityListeners))
+        if (listeners.TryGetValue(eventType, out Delegate del))
         {
-            // 按照优先级顺序执行每个委托
-            foreach (var pair in priorityListeners.OrderBy(p => p.Key))
+            if (del is Action<T> action)
             {
-                if (pair.Value is Action<T> action)
-                {
-                    action.Invoke(args);
-                }
-                else
-                {
-                    throw new InvalidCastException("EventManager: 委托类型错误");
-                }
+                action.Invoke(args);
+            }
+            else
+            {
+                throw new InvalidCastException("EventManager: 委托类型错误");
             }
         }
     }

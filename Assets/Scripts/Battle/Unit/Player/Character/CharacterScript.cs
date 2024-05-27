@@ -203,7 +203,7 @@ public class CharacterScript : SerializedMonoBehaviour, IHitable, IAttackable
     //角色受伤
     public void GetHit(ref UnitHitEvent hit)
     {
-        OnHitEnter(hit);
+        OnHitEnter(ref hit);
         float damage = hit.hitData.damage;
         float finalDamage = damage;
         string hitMessage;
@@ -240,10 +240,10 @@ public class CharacterScript : SerializedMonoBehaviour, IHitable, IAttackable
             finalDamage = -1;
             hitMessage = "miss";
         }
-        //Debug.Log("角色伤害信息：" + hitMessage);
-        OnHitExit(hit);
         //调整HitData的伤害为最终实际伤害
         hit.hitData.damage = finalDamage;
+        //Debug.Log("角色伤害信息：" + hitMessage);
+        OnHitExit(ref hit);
     }
 
     public void LandHit(UnitHitEvent hit)
@@ -323,8 +323,8 @@ public class CharacterScript : SerializedMonoBehaviour, IHitable, IAttackable
     //设置特殊的用户动作输入情况（如长按响应动作）
     public virtual void SetActionSpecial(string actionName, KeyState inputState){}
     //被命中时，命中脚本开始运行前调用
-    public virtual void OnHitEnter(UnitHitEvent hitArgs) { }
+    public virtual void OnHitEnter(ref UnitHitEvent hitArgs) { }
     //被命中时，命中脚本完成运行后调用
-    public virtual void OnHitExit(UnitHitEvent hitArgs) { }
+    public virtual void OnHitExit(ref UnitHitEvent hitArgs) { }
     #endregion
 }

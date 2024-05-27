@@ -36,7 +36,6 @@ MonoBehaviour:
   tags: 000000000200000003000000
   damage: 70
   impact: 250
-  knockback: 4000
+  knockback: 5000
   knocktype: 0
-  moveForce: 12000
   hitFreezeTime: 0.04

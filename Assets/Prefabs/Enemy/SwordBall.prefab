@@ -578,6 +578,7 @@ GameObject:
   - component: {fileID: 4961576601547929400}
   - component: {fileID: 3454222941768112929}
   - component: {fileID: 7504443440155002424}
+  - component: {fileID: 2487558548347894646}
   - component: {fileID: 4961576601547929415}
   - component: {fileID: 4961576601547929412}
   - component: {fileID: 4961576601547929413}
@@ -678,7 +679,6 @@ MonoBehaviour:
       Entry: 8
       Data: 
   chBody: {fileID: 4961576601457167494}
-  faceDirection: {x: 0, y: 0}
   discipline: 12
   weaponCorrect: 1
   weaponFixedSort: 0
@@ -699,6 +699,7 @@ MonoBehaviour:
     SerializedBytes: 
     ReferencedUnityObjects:
     - {fileID: 11400000, guid: 24d97282409f7454e88470d24145efc5, type: 2}
+    - {fileID: 11400000, guid: 6180b3719495a8a45ac725fa1becb094, type: 2}
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
@@ -762,6 +763,38 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
+    - Name: shiftData
+      Entry: 7
+      Data: 5|System.Collections.Generic.Dictionary`2[[System.String, mscorlib],[ShiftDataSO,
+        Assembly-CSharp]], mscorlib
+    - Name: comparer
+      Entry: 7
+      Data: 6|System.Collections.Generic.GenericEqualityComparer`1[[System.String,
+        mscorlib]], mscorlib
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 12
+      Data: 1
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 1
+      Data: Slash
+    - Name: $v
+      Entry: 10
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
   maxHealth: 200
   maxPoise: 200
   speed: 220
@@ -799,6 +832,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 522b89b3085020f44be3c6a28ddd14e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &2487558548347894646
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4961576601547929411}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 35bea90444d48b64bbee413095c0767b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  colliders:
+  - {fileID: 4961576600965423588}
 --- !u!95 &4961576601547929415
 Animator:
   serializedVersion: 5

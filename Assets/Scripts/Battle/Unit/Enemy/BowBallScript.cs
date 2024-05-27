@@ -106,10 +106,11 @@ public class BowBallScript : EnemyBallScript
     }
     void ArrowShot()
     {
-        GameObject arrow = ObjectPoolManager.instance.Get(arrowPrefab);
-        ProjectileScript arrowScript = arrow.GetComponent<ProjectileScript>();
-        arrowScript.SetTransform(arrowTransform);
-        arrowScript.SetDScriptData(this, actionData["Arrow"]);
-        arrowScript.LaunchForward(arrowForce);
+        new ProjectileBuilder()
+            .WithSource(this)
+            .WithPrefab(arrowPrefab)
+            .WithActionData(actionData["Arrow"])
+            .WithLaunchForce(arrowForce)
+            .Build(arrowTransform);
     }
 }

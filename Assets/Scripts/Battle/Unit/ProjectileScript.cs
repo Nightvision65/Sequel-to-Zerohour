@@ -23,7 +23,6 @@ public class ProjectileScript : MonoBehaviour, IPoolObject, IAttackable
     private bool isDestroyed;
     private int peneCount;  //能够穿刺的单位数量
     private float lifeTimer;    //最长存在时间
-    private bool ignoreHit; //忽略下一次命中
     private SpriteRenderer _spriteRenderer;
     private Rigidbody2D _rigidbody;
     private Collider2D[] _colliders = new Collider2D[] { };
@@ -127,21 +126,12 @@ public class ProjectileScript : MonoBehaviour, IPoolObject, IAttackable
     {
         return _rigidbody.velocity.normalized;
     }
-    //忽略下一次命中
-    public void IgnoreNextHit()
-    {
-        ignoreHit = true;
-    }
 
     //命中敌人时触发
     public void LandHit(UnitHitEvent hit)
     {
-        if (ignoreHit) 
-        {
-            ignoreHit = false;
-            return;
-        }
-        if (isDestroyed) return;
+        //被闪避时不执行
+        if (isDestroyed || hit.hitData.damage < 0) return;
         peneCount--;
         //HitFreeze(hit.actionData.baseData.hitFreezeTime);
         if (peneCount < 0)
@@ -195,4 +185,65 @@ public class ProjectileScript : MonoBehaviour, IPoolObject, IAttackable
         ObjectPoolManager.instance.Release(this);
     }
 
+}
+
+/*
+* ProjectileBuilder
+* 飞行物建造者
+* 用于构建飞行道具
+* 实现建造者模式（Builder Pattern）
+*/
+public class ProjectileBuilder
+{
+    GameObject prefab;
+    IAttackable source;
+    ActionData data;
+    int penetration;
+    float lifeDuration;
+    float launchForce;
+    public ProjectileBuilder WithPrefab(GameObject prefab)
+    {
+        this.prefab = prefab;
+        return this;
+    }
+
+    public ProjectileBuilder WithSource(IAttackable source)
+    {
+        this.source = source;
+        return this;
+    }
+
+    public ProjectileBuilder WithActionData(ActionData data)
+    {
+        this.data = data;
+        return this;
+    }
+
+    public ProjectileBuilder WithPenetration(int penetration)
+    {
+        this.penetration = penetration;
+        return this;
+    }
+
+    public ProjectileBuilder WithLifeDuration(float lifeDuration)
+    {
+        this.lifeDuration = lifeDuration;
+        return this;
+    }
+
+    public ProjectileBuilder WithLaunchForce(float launchForce)
+    {
+        this.launchForce = launchForce;
+        return this;
+    }
+    public GameObject Build(Transform parent)
+    {
+
+        GameObject projectile = ObjectPoolManager.instance.Get(prefab);
+        ProjectileScript script = projectile.GetComponent<ProjectileScript>();
+        script.SetTransform(parent);
+        script.SetDScriptData(source, data);
+        script.LaunchForward(launchForce);
+        return projectile;
+    }
 }

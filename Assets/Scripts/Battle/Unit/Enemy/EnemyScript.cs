@@ -20,6 +20,7 @@ public class EnemyScript : SerializedMonoBehaviour, IHitable, IAttackable
     protected float nowPoise;
     [SerializeField] protected float speed;
     public Dictionary<string, ActionData> actionData;    //保存关于角色的动作数据(比如攻击动作值、削韧等)
+    public Dictionary<string, ShiftDataSO> shiftData;    //保存关于角色的动作数据(比如攻击动作值、削韧等)
     public List<DamageScript> dScripts; //保存直接相关的DamageScript
     public Transform target;  //敌人目标
     public Vector2 faceDirection;    //朝向
@@ -160,10 +161,29 @@ public class EnemyScript : SerializedMonoBehaviour, IHitable, IAttackable
     protected virtual void OnAnimTagChange(int exitTag, int enterTag) { }
     #endregion
 
-    //获取朝向
-    public Vector2 GetFaceDir()
+
+    //开启位移动作
+    public Coroutine SetShift(string key)
     {
-        return faceDirection.normalized;
+        ShiftDataSO data = shiftData[key];
+        return StartCoroutine(Shift(data.force, data.duration, data.angle, data.followDir));
+    }
+
+    //位移协程
+    public IEnumerator Shift(float force, float duration, float angle, bool followDir)
+    {
+        Vector2 dir = Quaternion.Euler(0, 0, angle) * GetFaceDir();
+        int time = Mathf.Max(1, Mathf.RoundToInt(duration / Time.fixedDeltaTime));
+        while (time > 0)
+        {
+            time--;
+            if (followDir)
+            {
+                dir = Quaternion.Euler(0, 0, angle) * GetFaceDir();
+            }
+            _rigidbody.AddForce(force * dir);
+            yield return new WaitForFixedUpdate();
+        }
     }
 
     //敌人死亡后处理
@@ -180,6 +200,12 @@ public class EnemyScript : SerializedMonoBehaviour, IHitable, IAttackable
         {
             sprite.color = new Color(sprite.color.r, sprite.color.g, sprite.color.b, alpha);
         }
+    }
+
+    //获取朝向
+    public Vector2 GetFaceDir()
+    {
+        return faceDirection.normalized;
     }
 
     //敌人受击
