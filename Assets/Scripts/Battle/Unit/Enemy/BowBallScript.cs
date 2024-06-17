@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Unity.IO.LowLevel.Unsafe;
 using UnityEngine;
 /*
- * SwordBallScript
+ * BowBallScript
  * 弓玉脚本
  * 敌人脚本的子类
  * 负责弓玉敌人的相关实现

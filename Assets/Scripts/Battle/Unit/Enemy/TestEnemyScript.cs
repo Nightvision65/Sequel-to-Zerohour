@@ -9,7 +9,6 @@ using UnityEngine;
 
 public class TestEnemyScript : EnemyScript
 {
-    
     void FixedUpdate()
     {
         if (enableAI)

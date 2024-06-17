@@ -203,10 +203,7 @@ public class EnemyScript : SerializedMonoBehaviour, IHitable, IAttackable
     }
 
     //获取朝向
-    public Vector2 GetFaceDir()
-    {
-        return faceDirection.normalized;
-    }
+    public Vector2 GetFaceDir() => faceDirection.normalized;
 
     //敌人受击
     public void GetHit(ref UnitHitEvent hit)
@@ -259,7 +256,7 @@ public class EnemyScript : SerializedMonoBehaviour, IHitable, IAttackable
 
 
         //敌人击退
-        protected void Knockback(Vector2 knockback)
+    protected void Knockback(Vector2 knockback)
     {
         _rigidbody.AddForce(knockback);
         knockDir = knockback.normalized;

@@ -24,6 +24,7 @@ public class CharacterScript : SerializedMonoBehaviour, IHitable, IAttackable
     public Dictionary<string, float> chData;//保存关于角色的顶层数据(每次基础数据被修改时更新)
     public List<DamageScript> dScripts; //保存直接相关的DamageScript
     protected float nowHealth;    //现在生命值
+    protected float nowPoise;   //现在韧性
     protected bool isMoving;    //角色正在移动
     [SerializeField] protected float dodgeSpeed;    //闪避速度(乘数)
     [SerializeField] protected float dodgeCD; //闪避冷却时间
@@ -195,10 +196,7 @@ public class CharacterScript : SerializedMonoBehaviour, IHitable, IAttackable
     }
 
     //获取朝向
-    public Vector2 GetFaceDir()
-    {
-        return _ball.GetFaceDir();
-    }
+    public Vector2 GetFaceDir() => _ball.GetFaceDir();
 
     //角色受伤
     public void GetHit(ref UnitHitEvent hit)
@@ -206,10 +204,12 @@ public class CharacterScript : SerializedMonoBehaviour, IHitable, IAttackable
         OnHitEnter(ref hit);
         float damage = hit.hitData.damage;
         float finalDamage = damage;
+        float poiseDamage = hit.hitData.impact;
         string hitMessage;
         float hitchance = (1 - chData["dodge"]) * _modifier.GetModifier("dodge");
         if (hitchance > UnityEngine.Random.value)
         {
+            nowPoise -= poiseDamage;
             finalDamage = Mathf.Ceil(damage * (1 - chData["defense"]) * _modifier.GetModifier("defense"));
             if (finalDamage <= 0)
             {
@@ -244,6 +244,13 @@ public class CharacterScript : SerializedMonoBehaviour, IHitable, IAttackable
         hit.hitData.damage = finalDamage;
         //Debug.Log("角色伤害信息：" + hitMessage);
         OnHitExit(ref hit);
+        //韧性归零
+        if (nowPoise <= 0)
+        {
+            _animator.Play("Stagger", 0, 0f);
+            //enableAI = false;
+            nowPoise = chData["maxPoise"];
+        }
     }
 
     public void LandHit(UnitHitEvent hit)

@@ -146,7 +146,11 @@ public class DamageScript : SerializedMonoBehaviour
             {
                 agent.LandHit(hitEvent);
             }
-            EventManager.instance.Publish(hitEvent);
+            //广播伤害事件
+            if (!damageData.hasTag(ActionTag.dot))
+            {
+                EventManager.instance.Publish(hitEvent);
+            }
         }
     }
 

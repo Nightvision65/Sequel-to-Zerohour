@@ -33,7 +33,7 @@ public interface IPoolObject
     GameObject prefab { get; set; }
     //返回到对象池时重置自身状态
     void OnRelease();
-}//进入到对象池中
+}//脚本附着的物体使用对象池
 
 #endregion
 #region 枚举

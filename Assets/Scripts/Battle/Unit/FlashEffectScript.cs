@@ -20,7 +20,7 @@ public class FlashEffectScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        _spriteRenderers = GetComponentsInChildren<SpriteRenderer>().ToList();
+        _spriteRenderers = GetComponentsInChildren<SpriteRenderer>(true).ToList();
         mMaterials = new List<Material>();
         foreach (SpriteRenderer renderer in _spriteRenderers)
         {
