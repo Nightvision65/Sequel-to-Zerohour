@@ -1,18 +1,20 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 /*
  * StateMachineManager
  * 状态机管理器
  * 负责追踪动画状态机
- * 获取状态机当前状态（Tag或Name），并为状态转换提供事件
- * 取代Unity的垃圾StateMachineBehaviour
+ * 获取状态机当前状态（Tag或Name），并为状态转换及动画事件提供事件
+ * 取代Unity的垃圾StateMachineBehaviour以及AnimationEvent
  */
 
 public class StateMachineManager : MonoBehaviour
 {
     public event Action<int, int> StateTransition, TagTransition;   //转换事件，参数为退出状态和进入状态
+    public event Action<string[]> AnimatedEvent; //动画事件，参数为事件名称
     private Animator animator;
     private int previousState;  //记录之前的状态
     private int currentState;   //记录现在的状态
@@ -59,6 +61,15 @@ public class StateMachineManager : MonoBehaviour
             // 更新上一个Tag的Hash
             previousTag = currentTag;
         }
+    }
+
+    //AnimationEvent触发的通用事件，每个事件拥有唯一名称
+    //parameters: 动画事件调用的事件和参数，以字符串形式传输，用分号隔开
+    public void TriggerEvent(string parameters)
+    {
+
+        string[] para = parameters.Split(';');
+        AnimatedEvent?.Invoke(para);
     }
     public bool IsState(string name)
     {

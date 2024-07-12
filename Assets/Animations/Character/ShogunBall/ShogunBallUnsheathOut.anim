@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: ShogunBallIaidoOut
+  m_Name: ShogunBallUnsheathOut
   serializedVersion: 7
   m_Legacy: 0
   m_Compressed: 0
@@ -2587,71 +2587,71 @@ AnimationClip:
   m_HasMotionFloatCurves: 0
   m_Events:
   - time: 0
-    functionName: WeaponSetIn
-    data: 
+    functionName: TriggerEvent
+    data: SetWeaponIn;True
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 1
     messageOptions: 0
   - time: 0.16666667
-    functionName: SetShift
-    data: Iaido
+    functionName: TriggerEvent
+    data: SetShift;Unsheath
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
   - time: 0.16666667
-    functionName: MeleeAttackDeal
-    data: Iaido 1
+    functionName: TriggerEvent
+    data: AttackStart;Unsheath 1
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
   - time: 0.18333334
-    functionName: WeaponSetIn
-    data: 
+    functionName: TriggerEvent
+    data: SetWeaponIn;False
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
-    intParameter: 0
+    intParameter: 1
     messageOptions: 0
   - time: 0.2
-    functionName: SetIaidoBlock
-    data: 
+    functionName: TriggerEvent
+    data: UnsheathBlock
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
   - time: 0.23333333
-    functionName: ActivateCollider
-    data: 3;0.05
+    functionName: TriggerEvent
+    data: ActivateCollider;3;0.05
     objectReferenceParameter: {fileID: 0}
-    floatParameter: 1
+    floatParameter: 0
     intParameter: 0
     messageOptions: 0
   - time: 0.26666668
-    functionName: MeleeAttackDealEnd
-    data: 
+    functionName: TriggerEvent
+    data: AttackEnd
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
   - time: 0.31666666
-    functionName: MeleeAttackDeal
-    data: Iaido 2
+    functionName: TriggerEvent
+    data: AttackStart;Unsheath 2
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
   - time: 0.36666667
-    functionName: ActivateCollider
-    data: 3;0.05
+    functionName: TriggerEvent
+    data: ActivateCollider;3;0.05
     objectReferenceParameter: {fileID: 0}
-    floatParameter: 1
+    floatParameter: 0
     intParameter: 0
     messageOptions: 0
   - time: 0.41666666
-    functionName: MeleeAttackDealEnd
-    data: 
+    functionName: TriggerEvent
+    data: AttackEnd
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0

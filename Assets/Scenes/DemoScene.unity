@@ -1838,7 +1838,7 @@ MonoBehaviour:
       Data: 
     - Name: $k
       Entry: 1
-      Data: Iaido 1
+      Data: Unsheath 1
     - Name: $v
       Entry: 7
       Data: 11|ActionData, Assembly-CSharp
@@ -1872,7 +1872,7 @@ MonoBehaviour:
       Data: 
     - Name: $k
       Entry: 1
-      Data: Iaido 2
+      Data: Unsheath 2
     - Name: $v
       Entry: 7
       Data: 13|ActionData, Assembly-CSharp
@@ -2030,7 +2030,7 @@ MonoBehaviour:
       Data: 
     - Name: $k
       Entry: 1
-      Data: Iaido
+      Data: Unsheath
     - Name: $v
       Entry: 10
       Data: 10
@@ -2198,6 +2198,7 @@ MonoBehaviour:
   arrowTransform: {fileID: 995809743}
   arrowPrefab: {fileID: 2876545375656109472, guid: b4522be599ccd7a4f95e169a9da0e393, type: 3}
   deflectTime: 0.2
+  unsheathBlockTime: 0
 --- !u!50 &848804666
 Rigidbody2D:
   serializedVersion: 4
@@ -4475,7 +4476,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pauseGame: 0
   lowfps: 0
-  theLowfps: 10
+  theLowfps: 5
 --- !u!114 &1851930841
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -8,6 +8,11 @@ using UnityEngine;
  * 处理相机相关的一切功能（如相机震动）
  */
 
+public struct CameraShakeData
+{
+    public float intensity;    //镜头抖动程度
+    public float duration;    //镜头抖动时间
+}
 public class CameraManager : MonoBehaviour
 {
     public static CameraManager instance;

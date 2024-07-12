@@ -10,6 +10,17 @@ using UnityEngine.InputSystem;
  * 不包括判断用户输入的合法性。
  */
 
+public enum Device
+{
+    keyboard,   //键盘&鼠标
+    controller  //控制器手柄
+};//设备类型
+public enum KeyState
+{
+    released,
+    held,
+    pressed,
+};//按键状态
 public class PlayerController : MonoBehaviour
 {
     public static PlayerController instance;

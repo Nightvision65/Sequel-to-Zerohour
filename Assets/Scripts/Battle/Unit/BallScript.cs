@@ -4,11 +4,23 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.Rendering;
 /*
  * BallScript
  * 玉脚本
  * 玉的父类，负责所有玉形单位能做的事情
  */
+
+//武器精灵数据（存放角色武器相关的Transform和偏移数据等）
+public struct WeaponSpriteData
+{
+    public Transform main;  //主对象（负责旋转）
+    public Transform sub;   //副对象（负责旋转时调整距离）
+    public SortingGroup sort;   //武器排序（负责控制深度）
+    public float offsetDis; //默认偏移距离
+    public float offsetDir; //默认偏移角度
+};
+
 public class BallScript : SerializedMonoBehaviour, IDirectable
 {
     [SerializeField] private Transform chBody;

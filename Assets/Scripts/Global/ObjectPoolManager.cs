@@ -10,6 +10,14 @@ using Sirenix.OdinInspector;
  * 用于管理全局对象池，控制同一Prefab只建立一个对象池
  * 经常创建/销毁的内容都进入对象池提升效率
  */
+public interface IPoolObject
+{
+    //记录自身的prefab
+    GameObject prefab { get; set; }
+    //返回到对象池时重置自身状态
+    void OnRelease();
+}//脚本附着的物体使用对象池
+
 public class ObjectPoolManager : SerializedMonoBehaviour
 {
     public static ObjectPoolManager instance;

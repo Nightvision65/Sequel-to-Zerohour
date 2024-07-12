@@ -9,6 +9,42 @@ using UnityEngine;
  * 负责将所有来源的ActionData转化为Hitdata
  */
 
+public interface IHitable : IDirectable
+{
+    void GetHit(ref UnitHitEvent hit);
+}//可被DamageScript攻击
+
+public interface IAttackable : IDirectable
+{
+    void LandHit(UnitHitEvent hit);
+}//可使用DamageScript进行攻击
+
+public enum KnockType
+{
+    aim,        //向伤害来源的朝向方向击退
+    spread,     //向伤害来源的反方向击退
+    velocity,   //向飞行道具的动能方向击退
+    recoil      //按照原来方向击退
+};//击退方式
+
+//命中数据（只存放必要的数据，想要更多数据去订阅命中事件）
+public class HitData
+{
+    public float damage;    //伤害
+    public float impact;    //削韧
+    public Vector2 knockback;   //击退
+    public List<StatusData> statusData;   //状态数据
+    #region 构造函数
+    public HitData(float damage = 0, float impact = 0, Vector2 knockback = new Vector2(), List<StatusData> statusData = null)
+    {
+        this.damage = damage;
+        this.impact = impact;
+        this.knockback = knockback;
+        this.statusData = statusData ?? new List<StatusData>();
+    }
+    #endregion
+};
+
 public class DamageScript : SerializedMonoBehaviour
 {
     [SerializeField] private TeamScript agentTeam;    //伤害来源队伍

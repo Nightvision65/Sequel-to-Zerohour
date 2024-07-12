@@ -3,11 +3,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "FlashData", menuName = "ScriptableObject/FlashData", order = 0)]
 /*
  * FlashDataSO
  * 精灵闪烁数据
  */
+[CreateAssetMenu(fileName = "FlashData", menuName = "ScriptableObject/FlashData", order = 0)]
 public class FlashDataSO : ScriptableObject
 {
     public Color flashColor;    //闪烁颜色

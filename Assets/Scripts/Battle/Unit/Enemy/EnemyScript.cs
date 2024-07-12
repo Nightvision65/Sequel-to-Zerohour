@@ -12,6 +12,12 @@ using static UnityEngine.ParticleSystem;
  * 设定敌人的基础AI动作，敌人AI的作用和角色一样是给动画器提供信号（除了移动部分）
  */
 
+public enum AIState
+{
+    patrol, //巡逻
+    chase,  //追逐
+    attack  //攻击
+};//敌人的AI状态机
 public class EnemyScript : SerializedMonoBehaviour, IHitable, IAttackable
 {
     [SerializeField] protected float maxHealth; //生命值

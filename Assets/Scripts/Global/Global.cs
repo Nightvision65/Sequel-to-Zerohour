@@ -15,25 +15,10 @@ using UnityEngine.UIElements;
  */
 
 #region 接口
-public interface IHitable : IDirectable
-{
-    void GetHit(ref UnitHitEvent hit);
-}//可被DamageScript攻击
-public interface IAttackable : IDirectable 
-{
-    void LandHit(UnitHitEvent hit);
-}//可使用DamageScript进行攻击
 public interface IDirectable
 {
     Vector2 GetFaceDir();
-}
-public interface IPoolObject
-{
-    //记录自身的prefab
-    GameObject prefab { get; set; }
-    //返回到对象池时重置自身状态
-    void OnRelease();
-}//脚本附着的物体使用对象池
+};//拥有朝向的单位
 
 #endregion
 #region 枚举
@@ -43,12 +28,6 @@ public enum Ternary
     positive,
     negative = -1
 };//通用的可选三值的数据类型
-public enum Status
-{
-    none,
-    burning,
-    freezing,
-};//状态
 public enum Attribute
 {
     strength,       //力量：影响玩家的整体攻击力
@@ -61,100 +40,15 @@ public enum Attribute
     perception,     //感知：影响玩家的闪避率
     speed          //速度：影响玩家的移动速度
 };//角色属性
-public enum ActionTag
-{
-    direct, //直接来源于单位
-    basic, 
-    skill,
-    melee,
-    projectile,
-    dot
-};//动作标签
-public enum KnockType
-{
-    aim,        //向伤害来源的朝向方向击退
-    spread,     //向伤害来源的反方向击退
-    velocity,   //向飞行道具的动能方向击退
-    recoil      //按照原来方向击退
-};//击退方式
 public enum FaceState
 {
     lockedDir,  //锁定朝向（无法改变）
     moveDir,    //朝向移动方向
     targetDir   //朝向目标所在方向
 };//角色的朝向状态
-public enum AIState
-{
-    patrol, //巡逻
-    chase,  //追逐
-    attack  //攻击
-};//敌人的AI状态机
 
-public enum Device
-{
-    keyboard,   //键盘&鼠标
-    controller  //控制器手柄
-};//设备类型
-public enum KeyState
-{
-    released,
-    held,
-    pressed,
-};//按键状态
 #endregion
 #region 类与结构体
-//角色某个动作携带的数据（包括临时的额外数据）
-public class ActionData
-{
-    public ActionBaseSO baseData;   //基础动作数据
-    public Dictionary<string, ActionExtra> extraData;  //额外动作附件
-    public bool hasTag(ActionTag tag)
-    {
-        return baseData.tags.Contains(tag);
-    }
-};
-
-//状态数据
-public struct StatusData
-{
-    public Status status;   //状态类型
-    public float duration;  //状态持续时间
-    public float chance;    //状态触发几率
-};
-
-//命中数据（只存放必要的数据，想要更多数据去订阅命中事件）
-public class HitData
-{
-    public float damage;    //伤害
-    public float impact;    //削韧
-    public Vector2 knockback;   //击退
-    public List<StatusData> statusData;   //状态数据
-    #region 构造函数
-    public HitData(float damage = 0, float impact = 0, Vector2 knockback = new Vector2(), List<StatusData> statusData = null)
-    {
-        this.damage = damage;
-        this.impact = impact;
-        this.knockback = knockback;
-        this.statusData = statusData ?? new List<StatusData>();
-    }
-    #endregion
-};
-
-//武器精灵数据（存放角色武器相关的Transform和偏移数据等）
-public struct WeaponSpriteData
-{
-    public Transform main;  //主对象（负责旋转）
-    public Transform sub;   //副对象（负责旋转时调整距离）
-    public SortingGroup sort;   //武器排序（负责控制深度）
-    public float offsetDis; //默认偏移距离
-    public float offsetDir; //默认偏移角度
-};
-
-public struct CameraShakeData
-{
-    public float intensity;    //镜头抖动程度
-    public float duration;    //镜头抖动时间
-}
 public struct Options
 {
     public bool aimBot;

@@ -3,11 +3,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "ShiftData", menuName = "ScriptableObject/ShiftData", order = 0)]
 /*
  * ShiftDataSO
  * 位移数据
  */
+[CreateAssetMenu(fileName = "ShiftData", menuName = "ScriptableObject/ShiftData", order = 0)]
 public class ShiftDataSO : ScriptableObject
 {
     public float force; //位移施力

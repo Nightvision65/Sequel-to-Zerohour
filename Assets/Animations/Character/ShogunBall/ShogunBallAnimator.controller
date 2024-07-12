@@ -445,7 +445,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Iaido Stay
+  m_Name: Unsheath Stay
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
@@ -587,7 +587,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Iaido In
+  m_Name: Unsheath In
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
@@ -1327,7 +1327,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Iaido Out
+  m_Name: Unsheath Out
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
@@ -1401,7 +1401,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Iaido Delay
+  m_Name: Unsheath Delay
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
@@ -1697,7 +1697,7 @@ AnimatorStateMachine:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Iaido
+  m_Name: Unsheath
   m_ChildStates:
   - serializedVersion: 1
     m_State: {fileID: -2614653013062154869}

@@ -26,6 +26,7 @@ public class ShogunBallScript : CharacterScript
     [SerializeField] private GameObject arrowPrefab;
     [SerializeField] private ActionExtra DemonExtra;
     [SerializeField] private float deflectTime;
+    [SerializeField] private float unsheathBlockTime;
     private Vector2 attackDirection;
     private float animSpeed;    //记录攻击动作影响的动画速度
     private bool weaponWithin;  //是否收刀入鞘(用于控制刀的图层顺序)
@@ -38,11 +39,11 @@ public class ShogunBallScript : CharacterScript
 
     protected override void OnAnimStateChange(int exitState, int enterState)
     {
-        if (_stateMachine.Equals("Iaido Out", enterState))
+        if (_stateMachine.Equals("Unsheath Out", enterState))
         {
             faceState = FaceState.lockedDir;
             FaceTarget(true);
-            _modifier.RemoveModifier("move", "action", true);
+            _modifier.RemoveModifier("move", "action", ModifierType.MultiIndie);
         }
         if (_stateMachine.Equals("Guarding", enterState))
         {
@@ -72,21 +73,21 @@ public class ShogunBallScript : CharacterScript
         }
         if (_stateMachine.Equals("Attack", exitTag))
         {
-            _modifier.RemoveModifier("move", "action", true);
+            _modifier.RemoveModifier("move", "action", ModifierType.MultiIndie);
         }
         if (_stateMachine.Equals("Skill1", exitTag))
         {
-            _modifier.RemoveModifier("move", "action", true);
+            _modifier.RemoveModifier("move", "action", ModifierType.MultiIndie);
         }
         if (_stateMachine.Equals("Skill2", exitTag))
         {
-            _modifier.RemoveModifier("move", "action", true);
-            _modifier.RemoveModifier("defense", "skill2", true);
-            WeaponSetIn(0);
+            _modifier.RemoveModifier("move", "action", ModifierType.MultiIndie);
+            _modifier.RemoveModifier("defense", "skill2", ModifierType.MultiIndie);
+            WeaponSetIn(false);
         }
         if (_stateMachine.Equals("Skill3", exitTag))
         {
-            _modifier.RemoveModifier("move", "action", true);
+            _modifier.RemoveModifier("move", "action", ModifierType.MultiIndie);
         }
         //再触发进入事件
         if (_stateMachine.Equals("Dodge", enterTag))
@@ -101,42 +102,77 @@ public class ShogunBallScript : CharacterScript
         if (_stateMachine.Equals("Attack", enterTag))
         {
             faceState = FaceState.lockedDir;
-            _modifier.SetModifier("move", "action", 0.5f, true);
+            _modifier.SetModifier("move", "action", 0.5f, ModifierType.MultiIndie);
             FaceTarget(false);
         }
         if (_stateMachine.Equals("Skill1", enterTag))
         {
             faceState = FaceState.targetDir;
-            _modifier.SetModifier("move", "action", 0.5f, true);
+            _modifier.SetModifier("move", "action", 0.5f, ModifierType.MultiIndie);
             FaceTarget(false);
         }
         if (_stateMachine.Equals("Skill2", enterTag))
         {
             _animator.SetBool("Skill2", false);
             faceState = FaceState.targetDir;
-            _modifier.SetModifier("move", "action", 0.5f, true);
-            _modifier.SetModifier("defense", "skill2", 0f, true);
+            _modifier.SetModifier("move", "action", 0.5f, ModifierType.MultiIndie);
+            _modifier.SetModifier("defense", "skill2", 0f, ModifierType.MultiIndie);
         }
         if (_stateMachine.Equals("Skill3", enterTag))
         {
             _animator.SetBool("Skill3", false);
             faceState = FaceState.targetDir;
-            _modifier.SetModifier("move", "action", 0.5f, true);
+            _modifier.SetModifier("move", "action", 0.5f, ModifierType.MultiIndie);
             FaceTarget(false);
             _animator.SetInteger("Arrow", arrowNum);
         }
         //最后触发混合事件
     }
+    protected override void OnAnimEvent(string[] paras)
+    {
+        switch (paras[0])
+        {
+            //进行位移
+            case "SetShift":
+                SetShift(paras[1]);
+                break;
+            //设置攻击
+            case "AttackStart":
+                MeleeAttackDeal(paras[1]);
+                break;
+            //激活攻击判定
+            case "ActivateCollider":
+                _colliderAnim.ActivateCollider(int.Parse(paras[1]), float.Parse(paras[2]));
+                break;
+            //攻击结束
+            case "AttackEnd":
+                MeleeAttackDealEnd();
+                break;
+            //武器收出鞘
+            case "SetWeaponIn":
+                WeaponSetIn(bool.Parse(paras[1]));
+                break;
+            //居合格挡
+            case "UnsheathBlock":
+                UnsheathBlock();
+                break;
+            //射箭
+            case "ShotArrow":
+                ArrowShot();
+                break;
+        }
+    }
+
     //重置状态
     protected override void ResetStatus()
     {
         weaponTrail.emit = false;
         _animator.speed = 1f;
         faceState = FaceState.moveDir;
-        _modifier.RemoveModifier("move", "action", true);
-        _modifier.RemoveModifier("defense", "skill1", true);
-        _modifier.RemoveModifier("defense", "skill2", true);
-        WeaponSetIn(0);
+        _modifier.RemoveModifier("move", "action", ModifierType.MultiIndie);
+        _modifier.RemoveModifier("defense", "skill1", ModifierType.MultiIndie);
+        _modifier.RemoveModifier("defense", "skill2", ModifierType.MultiIndie);
+        WeaponSetIn(false);
     }
     private void FaceTarget(bool now)
     {
@@ -144,18 +180,18 @@ public class ShogunBallScript : CharacterScript
         _ball.CharacterFace(attackDirection, now);
     }
 
-    //攻击判定开始
+    //近战攻击开始
     public void MeleeAttackDeal(string key)
     {
         _ball.BallSpriteProcess(true);
-        _modifier.SetModifier("move", "action", 0f, true);
+        _modifier.SetModifier("move", "action", 0f, ModifierType.MultiIndie);
         SetAttack(key, 0);
         TrailFix();
         animSpeed = _animator.speed;
         _animator.speed = 1f;
     }
 
-    //攻击判定结束
+    //近战攻击结束
     public void MeleeAttackDealEnd()
     {
         _animator.speed = animSpeed;
@@ -172,10 +208,9 @@ public class ShogunBallScript : CharacterScript
     }
 
     //[Skill2]改变收刀/出刀的刀图层
-    public void WeaponSetIn(int within)
+    public void WeaponSetIn(bool within)
     {
-        weaponWithin = Convert.ToBoolean(within);
-        if (weaponWithin)
+        if (within)
         {
             _ball.SetWeaponSort(Ternary.negative);
         }
@@ -185,17 +220,18 @@ public class ShogunBallScript : CharacterScript
         }
     }
 
-    //[Skill2]居合闪避/取消闪避
-    public void SetIaidoBlock(int block)
+    //[Skill2]居合格挡
+    public void UnsheathBlock()
     {
-        if (Convert.ToBoolean(block)) 
-        {
-            _modifier.SetModifier("defense", "skill2", 0f, true);
-        }
-        else
-        {
-            _modifier.RemoveModifier("defense", "skill2", true);
-        }
+        _modifier.SetModifier("defense", "skill2", 0f, ModifierType.MultiIndie);
+        StartCoroutine(UnsheathBlockEnd(unsheathBlockTime));
+    }
+
+    //[Skill1]居合格挡协程
+    public IEnumerator UnsheathBlockEnd(float time)
+    {
+        yield return new WaitForSeconds(time);
+        _modifier.RemoveModifier("defense", "skill2", ModifierType.MultiIndie);
     }
 
     //[Skill3]弓箭射击
@@ -251,19 +287,19 @@ public class ShogunBallScript : CharacterScript
             _animator.SetTrigger("Guarded");
             if (_animator.GetBool("Deflect"))
             {
-                _modifier.SetModifier("defense", "skill1", 0f, true);
+                _modifier.SetModifier("defense", "skill1", 0f, ModifierType.MultiIndie);
             }
             else
             {
-                _modifier.SetModifier("defense", "skill1", 0.3f, true);
+                _modifier.SetModifier("defense", "skill1", 0.3f, ModifierType.MultiIndie);
             }
         }
     }
     public override void OnHitExit(ref UnitHitEvent hit)
     {
-        if (_modifier.GetModifier("defense", "skill1", true) != float.MinValue)
+        if (_modifier.GetModifier("defense", "skill1", ModifierType.MultiIndie) != float.MinValue)
         {
-            _modifier.RemoveModifier("defense", "skill1", true);
+            _modifier.RemoveModifier("defense", "skill1", ModifierType.MultiIndie);
             //弹反时，施加额外效果
             if (_animator.GetBool("Deflect"))
             {

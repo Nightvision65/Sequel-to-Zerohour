@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
+using UnityEditor;
 using UnityEngine;
 
 /*
@@ -10,15 +11,29 @@ using UnityEngine;
  * 用于存放和管理数据的修正乘数
  * 功能包括增删改查等
  */
+
+//修正值类型
+public enum ModifierType
+{
+    Direct,     //直接加值
+    MultiCommon,//百分比乘数（同一乘区）
+    MultiIndie  //百分比乘数（不同乘区）
+}
+public interface IHasModifier
+{
+    public ModifierManager _modifier { get; set; }
+}
 public class ModifierManager
 {
-    //保存数据修正（双重字典，记录修正的来源使其便于更改）
-    private Dictionary<string, Dictionary<string, float>>[] modifiers = new Dictionary<string, Dictionary<string, float>>[2];   
+    //保存数据修正（三重字典，记录修正的来源使其便于更改）
+    private Dictionary<ModifierType, Dictionary<string, Dictionary<string, float>>> modifiers = new Dictionary<ModifierType, Dictionary<string, Dictionary<string, float>>>();   
     private Dictionary<string, float> finalModifier = new Dictionary<string, float>();   //计算出来的最终修正(乘数)，只有修正被更改时才会更新
     public ModifierManager()
     {
-        modifiers[0] = new Dictionary<string, Dictionary<string, float>>();   //加法计算的数据修正
-        modifiers[1] = new Dictionary<string, Dictionary<string, float>>();   //独立乘区的数据修正
+        foreach (ModifierType type in Enum.GetValues(typeof(ModifierType)))
+        {
+            modifiers[type] = new Dictionary<string, Dictionary<string, float>>();
+        }
     }
     public ModifierManager(string[] names) : this()
     {
@@ -32,8 +47,10 @@ public class ModifierManager
     //name: 修正值名称
     public void InitModifier(string name)
     {
-        modifiers[0].Add(name, new Dictionary<string, float>());
-        modifiers[1].Add(name, new Dictionary<string, float>());
+        foreach (ModifierType type in Enum.GetValues(typeof(ModifierType)))
+        {
+            modifiers[type].Add(name, new Dictionary<string, float>());
+        }
         finalModifier[name] = 1;
     }
 
@@ -41,33 +58,32 @@ public class ModifierManager
     //name: 修正值名称
     //key: 修正值来源
     //value: 修正值数据
-    //isIndie: 是否是独立乘区
-    public void SetModifier(string name, string key, float value, bool isIndie = false)
+    //type: 修正值类型
+    public void SetModifier(string name, string key, float value, ModifierType type)
     {
-        modifiers[isIndie? 1 : 0][name][key] = value;
+        modifiers[type][name][key] = value;
         UpdateModifier(name);
     }
 
     //移除修正
     //name: 修正值名称
     //key: 修正值来源
-    //isIndie: 是否是独立乘区
-
-    public void RemoveModifier(string name, string key, bool isIndie = false)
+    //type: 修正值类型
+    public void RemoveModifier(string name, string key, ModifierType type)
     {
-        modifiers[isIndie ? 1 : 0][name].Remove(key);
+        modifiers[type][name].Remove(key);
         UpdateModifier(name);
     }
 
     //查询修正（特定）
     //name: 修正值名称
     //key: 修正值来源
-    //isIndie: 是否是独立乘区
-    public float GetModifier(string name, string key, bool isIndie = false)
+    //type: 修正值类型
+    public float GetModifier(string name, string key, ModifierType type)
     {
-        if (modifiers[isIndie ? 1 : 0][name].ContainsKey(key))
+        if (modifiers[type][name].ContainsKey(key))
         {
-            return modifiers[isIndie ? 1 : 0][name][key];
+            return modifiers[type][name][key];
         }
         else
         {
@@ -87,11 +103,11 @@ public class ModifierManager
     private void UpdateModifier(string name)
     {
         float sum = 1;
-        foreach (float v in modifiers[0][name].Values)
+        foreach (float v in modifiers[ModifierType.MultiCommon][name].Values)
         {
             sum += v;
         }
-        foreach (float v in modifiers[1][name].Values)
+        foreach (float v in modifiers[ModifierType.MultiIndie][name].Values)
         {
             sum *= v;
         }

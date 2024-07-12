@@ -11,7 +11,7 @@ using Sirenix.OdinInspector;
  * 能够对用户输入信息进行处理
  */
 
-public class CharacterScript : SerializedMonoBehaviour, IHitable, IAttackable
+public class CharacterScript : SerializedMonoBehaviour, IHitable, IAttackable, IHasModifier
 {
     TrailRenderer _trailRenderer;
     protected FaceState faceState = FaceState.moveDir;    //朝向状态
@@ -39,7 +39,8 @@ public class CharacterScript : SerializedMonoBehaviour, IHitable, IAttackable
     protected Animator _animator;
     protected FlashEffectScript _flashEffect;
     protected StateMachineManager _stateMachine;
-    protected ModifierManager _modifier;
+    protected ColliderAnimator _colliderAnim;
+    public ModifierManager _modifier { get; set; }
     protected TeamScript _team;
     public float tempAttackSpeed;
     protected void Start()
@@ -51,9 +52,11 @@ public class CharacterScript : SerializedMonoBehaviour, IHitable, IAttackable
         _animator = GetComponent<Animator>();
         _trailRenderer = GetComponent<TrailRenderer>();
         _flashEffect = GetComponent<FlashEffectScript>();
+        _colliderAnim = GetComponent<ColliderAnimator>();
         _stateMachine = GetComponent<StateMachineManager>();
         _stateMachine.StateTransition += OnAnimStateChange;
         _stateMachine.TagTransition += OnAnimTagChange;
+        _stateMachine.AnimatedEvent += OnAnimEvent;
         string[] modifiers = new string[] { "move", "defense", "dodge" ,"animSpeed"};
         _modifier = new ModifierManager(modifiers);
         _team = GetComponent<TeamScript>();
@@ -92,6 +95,7 @@ public class CharacterScript : SerializedMonoBehaviour, IHitable, IAttackable
     #region [函数组]动画器事件
     protected virtual void OnAnimStateChange(int exitState, int enterState) { }
     protected virtual void OnAnimTagChange(int exitTag, int enterTag) { }
+    protected virtual void OnAnimEvent(string[] paras) { }
     #endregion
 
     //重置状态，用于被强制打断动作后正常结束目前状态
@@ -142,8 +146,8 @@ public class CharacterScript : SerializedMonoBehaviour, IHitable, IAttackable
     {
         ResetStatus();
         faceState = FaceState.lockedDir;
-        _modifier.SetModifier("move", "dodge", 0f, true);
-        _modifier.SetModifier("dodge", "dodge", 0f, true);
+        _modifier.SetModifier("move", "dodge", 0f, ModifierType.MultiIndie);
+        _modifier.SetModifier("dodge", "dodge", 0f, ModifierType.MultiIndie);
         dodgeTimer = dodgeCD;
         if (isMoving)
             _ball.CharacterFace(moveDirection, true);
@@ -158,8 +162,8 @@ public class CharacterScript : SerializedMonoBehaviour, IHitable, IAttackable
     {
         _animator.SetBool("Dodge", false);
         faceState = FaceState.moveDir;
-        _modifier.RemoveModifier("move", "dodge", true);
-        _modifier.RemoveModifier("dodge", "dodge", true);
+        _modifier.RemoveModifier("move", "dodge", ModifierType.MultiIndie);
+        _modifier.RemoveModifier("dodge", "dodge", ModifierType.MultiIndie);
         isDodging = false;
         _trailRenderer.enabled = false;
         Global.instance.SetCollisionIgnore(_transform, false);
